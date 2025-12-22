@@ -11,7 +11,9 @@ State.typingEnabled = false
 
 State.optionIndex = 0
 State.currentOption = 1
+State.currentOption = 1
 State.maxVisible = 0
+State.optionCount = 0
 
 State.upPressed = false
 State.downPressed = false

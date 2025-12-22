@@ -4,18 +4,18 @@ local ResetUI = {}
 
 function ResetUI.ResetLayout()
     UI.Layout.Padding = 14.0
-    UI.Layout.FrameRounding = 6.0
+    UI.Layout.FrameRounding = 6.40
     UI.Layout.FrameHeight = 22.0
-    UI.Layout.OptionHeight = 28.0
-    UI.Layout.OptionPaddingX = 3.0
-    UI.Layout.OptionPaddingY = 5.0
+    UI.Layout.OptionHeight = 30.0
+    UI.Layout.OptionPaddingX = 0.0
+    UI.Layout.OptionPaddingY = 0.0
     UI.Layout.LabelOffsetX = 8.0
     UI.Layout.ItemSpacing = { x = 8.0, y = 2.0 }
     UI.Layout.FramePadding = { x = 4.0, y = 0.5 }
-    UI.Colors.Background = UI.ColPalette.NearBlackGray
+    UI.Colors.Background = UI.ColPalette.TransparentBlack
 
-    UI.OptionRow.HoverBg = UI.Colors.HoverBg
-    UI.OptionRow.HighlightBg = UI.Colors.Highlight
+    UI.OptionRow.HoverBg = UI.ColPalette.CustomBlueHighlight
+    UI.OptionRow.HighlightBg = UI.ColPalette.CustomBlueHighlight
     UI.OptionRow.Text = UI.Colors.Text
     UI.OptionRow.MutedText = UI.Colors.MutedText
     UI.OptionRow.Rounding = UI.Layout.FrameRounding
@@ -25,16 +25,22 @@ function ResetUI.ResetLayout()
 end
 
 function ResetUI.ResetFrame()
-    UI.Header.Height = 40.0
-    UI.Header.BackgroundColor = UI.Colors.Background
-    UI.Header.TextColor = UI.Colors.Text
-    UI.Header.FontSize = 18.0
+    UI.Header.Height = 65.0
+    UI.Header.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
+    UI.Header.TextColor = UI.ColPalette.SolidBlueHighlight
+    UI.Header.FontSize = 25.0
     UI.Header.FontSizeSub = 16.0
 
-    UI.Footer.Height = 25.0
-    UI.Footer.BackgroundColor = UI.Colors.Background
-    UI.Footer.TextColor = UI.ColPalette.MediumGray
-    UI.Footer.FontSize = 12.0
+    UI.SecondHeader.Height = 30.0
+    UI.SecondHeader.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
+    UI.SecondHeader.TextColor = UI.ColPalette.SolidBlueHighlight
+    UI.SecondHeader.FontSize = 18.0
+
+    UI.Footer.Height = 35.0
+    UI.Footer.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
+    UI.Footer.TextColor = UI.ColPalette.SolidBlueHighlight
+    UI.Footer.FontSize = 18.0
+    UI.Footer.Text = "https://goodfeelings.cc"
 end
 
 function ResetUI.ResetNotification()
@@ -44,8 +50,8 @@ function ResetUI.ResetNotification()
     UI.Notification.Rounding = 6.0
     UI.Notification.SlideDistance = 40.0
     UI.Notification.AnimDuration = 0.2
-    UI.Notification.BackgroundColor = UI.ColPalette.DarkCharcoal
-    UI.Notification.BorderColor = UI.ColPalette.SteelBorderGray
+    UI.Notification.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
+    UI.Notification.BorderColor = UI.Colors.Transparent
     UI.Notification.ProgressHeight = 4.0
     UI.Notification.ProgressOffsetY = -2.0
     UI.Notification.ProgressColors = {
@@ -65,11 +71,11 @@ end
 
 function ResetUI.ResetInfoBox()
     UI.InfoBox.Padding = 14.0
-    UI.InfoBox.Rounding = UI.Layout.FrameRounding
+    UI.InfoBox.Rounding = 10.0
     UI.InfoBox.Spacing = 15.0
     UI.InfoBox.TextColor = UI.Colors.Text
-    UI.InfoBox.BackgroundColor = UI.ColPalette.DarkCharcoal
-    UI.InfoBox.BorderColor = UI.ColPalette.SteelBorderGray
+    UI.InfoBox.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
+    UI.InfoBox.BorderColor = UI.Colors.Transparent
     UI.InfoBox.CharsPerSecond = 175.0
     UI.InfoBox.FallbackRotateSeconds = 10.0
 end

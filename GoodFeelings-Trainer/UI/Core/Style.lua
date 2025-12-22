@@ -25,27 +25,32 @@ UI.ColPalette = {
     SoftWhite = 0xFFC8C8C8,
     SoftYellow = 0xFF80D0D0,
 
+    GoodFeelingsHeader = 0xFF080808,
+    CustomRed = 0xFF4850F5,
+    CustomBlueHighlight = 0x60E67505,
+    TransparentBlack = 0xCC000000, -- 80% alpha black
+    SolidBlueHighlight = 0xFFE67505, -- Solid version of CustomBlueHighlight (ABGR)
 }
 
 UI.Colors = {
     Text = UI.ColPalette.PureWhite,
     MutedText = UI.ColPalette.DesaturatedSlateBlue,
-    Background = UI.ColPalette.NearBlackGray,
+    Background = UI.ColPalette.TransparentBlack,
     FrameBg = UI.ColPalette.DarkCharcoal,
     Border = UI.ColPalette.SteelBorderGray,
-    Highlight = UI.ColPalette.CoolSkyBlue,
-    HoverBg = UI.ColPalette.SoftCyanHighlight,
+    Highlight = UI.ColPalette.CustomBlueHighlight,
+    HoverBg = UI.ColPalette.CustomBlueHighlight,
     Active = UI.ColPalette.HotCyberPink,
     Transparent = UI.ColPalette.Transparent,
 }
 
 UI.Layout = {
     Padding = 14.0,
-    FrameRounding = 10.0,
+    FrameRounding = 6.40,
     FrameHeight = 22.0,
-    OptionHeight = 28.0,
-    OptionPaddingX = 3.0,
-    OptionPaddingY = 5.0,
+    OptionHeight = 30.0,
+    OptionPaddingX = 0.0,
+    OptionPaddingY = 0.0,
     LabelOffsetX = 8.0,
     ItemSpacing = { x = 8.0, y = 2.0 },
     FramePadding = { x = 4.0, y = 0.5 },
@@ -64,23 +69,29 @@ UI.OptionRow = {
 }
 
 UI.Header = {
-    Height = 40.0,
-    BackgroundColor = UI.Colors.Background,
-    TextColor = UI.Colors.Text,
+    Height = 65.0,
+    BackgroundColor = UI.ColPalette.GoodFeelingsHeader,
+    TextColor = UI.ColPalette.SolidBlueHighlight,
     BorderColor = UI.Colors.Border,
-
-    FontSize = 18.0,
+    FontSize = 25.0,
     FontSizeSub = 16.0,
     Text = "GoodFeelings"
 }
 
-UI.Footer = {
-    Height = 25.0,
-    BackgroundColor = UI.Colors.Background,
-    TextColor = UI.ColPalette.MediumGray,
+UI.SecondHeader = {
+    Height = 30.0,
+    BackgroundColor = UI.ColPalette.GoodFeelingsHeader,
+    TextColor = UI.ColPalette.SolidBlueHighlight,
     BorderColor = UI.Colors.Border,
-    FontSize = 12.0,
-    Text = "Beta 1.3.1 | By Avi"
+    FontSize = 18.0,
+}
+
+UI.Footer = {
+    Height = 35.0,
+    BackgroundColor = UI.ColPalette.GoodFeelingsHeader,
+    TextColor = UI.ColPalette.SolidBlueHighlight,
+    FontSize = 18.0,
+    Text = "https://goodfeelings.cc"
 }
 
 
@@ -92,8 +103,8 @@ UI.Notification = {
     SlideDistance = 40.0,
     AnimDuration = 0.2,
 
-    BackgroundColor = UI.ColPalette.DarkCharcoal,
-    BorderColor = UI.ColPalette.SteelBorderGray,
+    BackgroundColor = UI.ColPalette.GoodFeelingsHeader,
+    BorderColor = UI.Colors.Transparent,
 
     ProgressHeight = 4.0,
     ProgressOffsetY = -2.0,
@@ -115,11 +126,11 @@ UI.Notification = {
 
 UI.InfoBox = {
     Padding = 14.0,      
-    Rounding = UI.Layout.FrameRounding,
+    Rounding = 10.0,
     Spacing = 15.0, -- distance from menu to infobox
     TextColor = UI.Colors.Text,
-    BackgroundColor = UI.ColPalette.DarkCharcoal,
-    BorderColor = UI.ColPalette.SteelBorderGray,
+    BackgroundColor = UI.ColPalette.GoodFeelingsHeader,
+    BorderColor = UI.Colors.Transparent,
 
     CharsPerSecond = 175.0,    
     FallbackRotateSeconds = 10.0, 

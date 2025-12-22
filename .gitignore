@@ -14,3 +14,4 @@ Config/JSON/ui.json
 Config/JSON/bindings.json
 Config/JSON/bindings.json
 deploy.py
+deploy_gui.py

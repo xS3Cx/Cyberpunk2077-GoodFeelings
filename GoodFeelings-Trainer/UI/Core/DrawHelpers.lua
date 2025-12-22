@@ -53,4 +53,42 @@ function DrawHelpers.TextWrapped(x, y, color, text, wrapWidth)
     local fontSize = ImGui.GetFontSize()
     ImGui.ImDrawListAddText(drawlist, fontSize, x, y, color, text, wrapWidth)
 end
+local textureCache = {}
+
+function DrawHelpers.Image(x, y, width, height, texturePath, uvMinX, uvMinY, uvMaxX, uvMaxY, tintColor, borderColor)
+    if not textureCache[texturePath] then
+        local texture = nil
+        if ImGui.LoadTexture then
+            texture = ImGui.LoadTexture(texturePath)
+        end
+        if not texture then
+            local normalizedPath = texturePath:gsub("\\", "/")
+            if ImGui.LoadTexture then
+                texture = ImGui.LoadTexture(normalizedPath)
+            end
+        end
+        if texture then
+            textureCache[texturePath] = texture
+        else
+            return false
+        end
+    end
+    local texture = textureCache[texturePath]
+    if not texture then
+        return false
+    end
+    local drawlist = ImGui.GetWindowDrawList()
+    uvMinX = uvMinX or 0.0
+    uvMinY = uvMinY or 0.0
+    uvMaxX = uvMaxX or 1.0
+    uvMaxY = uvMaxY or 1.0
+    tintColor = tintColor or 0xFFFFFFFF
+    borderColor = borderColor or 0x00000000
+    if ImGui.ImDrawListAddImage then
+        ImGui.ImDrawListAddImage(drawlist, texture, x, y, x + width, y + height, uvMinX, uvMinY, uvMaxX, uvMaxY, tintColor, borderColor)
+        return true
+    end
+    return false
+end
+
 return DrawHelpers

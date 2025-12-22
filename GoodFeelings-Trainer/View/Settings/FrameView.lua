@@ -35,7 +35,6 @@ local function FrameViewFunction()
     end
     Buttons.ColorHex(L("settings.frame.footer.background.label"), UI.Footer, "BackgroundColor", tip("settings.frame.footer.background.tip"))
     Buttons.ColorHex(L("settings.frame.footer.textcolor.label"), UI.Footer, "TextColor", tip("settings.frame.footer.textcolor.tip"))
-    Buttons.ColorHex(L("settings.frame.footer.border.label"), UI.Footer, "BorderColor", tip("settings.frame.footer.border.tip"))
 
 end
 

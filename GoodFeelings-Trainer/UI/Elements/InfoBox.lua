@@ -108,6 +108,8 @@ function InfoBox.Render(menuX, menuY, menuW, menuH)
     ImGui.SetNextWindowPos(finalX, finalY)
     ImGui.SetNextWindowSize(boxW, boxH)
     ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, N.Rounding or UI.Layout.FrameRounding)
+    ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0)
+    ImGui.PushStyleColor(ImGuiCol.Border, UI.Colors.Transparent)
 
     ImGui.Begin("##InfoBoxWindow", ImGuiWindowFlags.NoDecoration + ImGuiWindowFlags.NoInputs + ImGuiWindowFlags.NoSavedSettings)
 
@@ -117,7 +119,8 @@ function InfoBox.Render(menuX, menuY, menuW, menuH)
     DrawHelpers.TextWrapped(winX + pad, winY + pad, N.TextColor, InfoBox.animatedText, wrapWidth)
 
     ImGui.End()
-    ImGui.PopStyleVar()
+    ImGui.PopStyleColor()
+    ImGui.PopStyleVar(2)
 end
 
 return InfoBox

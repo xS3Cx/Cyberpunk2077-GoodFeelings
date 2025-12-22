@@ -112,6 +112,8 @@ local function drawNotificationWindow(i, x, y, dynamicHeight, msg, progress, nty
     ImGui.SetNextWindowPos(x, y)
     ImGui.SetNextWindowSize(width, dynamicHeight)
     ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, rounding)
+    ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0)
+    ImGui.PushStyleColor(ImGuiCol.Border, UI.Colors.Transparent)
 
     ImGui.Begin("##Notification_" .. i,
         ImGuiWindowFlags.NoDecoration + ImGuiWindowFlags.NoInputs + ImGuiWindowFlags.NoSavedSettings)
@@ -131,7 +133,8 @@ local function drawNotificationWindow(i, x, y, dynamicHeight, msg, progress, nty
     ImGui.PopStyleColor()
 
     ImGui.End()
-    ImGui.PopStyleVar()
+    ImGui.PopStyleColor()
+    ImGui.PopStyleVar(2)
 end
 
 function Notification.Render()

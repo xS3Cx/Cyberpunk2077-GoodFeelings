@@ -8,7 +8,7 @@ UIConfig.filePath = "config/JSON/ui.json"
 local function collectData()
     local dropdownData = {}
     for k, v in pairs(UI.Dropdown) do
-        if k ~= "ArrowRight" and k ~= "ArrowDown" then -- These are special characters json no like 
+        if k ~= "ArrowRight" and k ~= "ArrowDown" then
             dropdownData[k] = v
         end
     end
@@ -18,6 +18,7 @@ local function collectData()
         Colors = UI.Colors,
         OptionRow = UI.OptionRow,
         Header = UI.Header,
+        SecondHeader = UI.SecondHeader,
         Footer = UI.Footer,
         Notification = UI.Notification,
         InfoBox = UI.InfoBox,

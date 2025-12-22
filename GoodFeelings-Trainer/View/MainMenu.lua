@@ -6,6 +6,7 @@ local DrawHelpers = require("UI/Core/DrawHelpers")
 local OptionRow = require("UI/Elements/OptionRow")
 
 local Header = require("UI/Frame/Header")
+local SecondHeader = require("UI/Frame/SecondHeader")
 local Footer = require("UI/Frame/Footer")
 local SnowBackground = require("UI/Frame/SnowBackground")
 
@@ -118,6 +119,7 @@ function MainMenu.Render(x, y, w, h)
     SnowBackground.Render(x, y, w, h)
     
     Header.Draw(x, y, w)
+    SecondHeader.Draw(x, y, w, UI.Style.Header.Height)
     
     local view = UI.SubmenuManager.GetCurrentView()
     if view then view() end

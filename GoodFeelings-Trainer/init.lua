@@ -217,12 +217,16 @@ Event.RegisterDraw(function()
     local menuX, menuY, menuW, menuH
     ImGui.SetNextWindowSize(300, 500, ImGuiCond.FirstUseEver)
 
-    if ImGui.Begin("GoodFeelings", ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse + ImGuiWindowFlags.NoTitleBar) then
+    ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0)
+    ImGui.PushStyleColor(ImGuiCol.Border, 0)
+    if ImGui.Begin("GoodFeelings", ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse + ImGuiWindowFlags.NoTitleBar + ImGuiWindowFlags.NoResize) then
         menuX, menuY = ImGui.GetWindowPos()
         menuW, menuH = ImGui.GetWindowSize()
         MainMenu.Render(menuX, menuY, menuW, menuH)
         ImGui.End()
     end
+    ImGui.PopStyleColor()
+    ImGui.PopStyleVar()
 
     InfoBox.Render(menuX, menuY, menuW, menuH)
 end)

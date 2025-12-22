@@ -11,7 +11,8 @@ end
 
 local function UpdateScroll(menuH)
     local L = UI.Layout
-    local avail = (menuH or 0) - L.OptionPaddingY * 2 - (UI.Header.Height or 0) - (UI.Footer.Height or 0)
+    local headerHeight = (UI.Header.Height or 0) + (UI.SecondHeader.Height or 0)
+    local avail = (menuH or 0) - L.OptionPaddingY * 2 - headerHeight - (UI.Footer.Height or 0)
 
     State.maxVisible = math.max(1, math.floor(avail / (L.OptionHeight + L.ItemSpacing.y)))
 
@@ -34,9 +35,10 @@ function OptionRow.calcPosition(menuX, menuY, menuW, menuH)
 
     local L = UI.Layout
     local rel = State.optionIndex - State.startOpt
+    local headerHeight = (UI.Header.Height or 0) + (UI.SecondHeader.Height or 0)
 
     local x = menuX + L.OptionPaddingX
-    local y = menuY + L.OptionPaddingY + (UI.Header.Height or 0) + rel * (L.OptionHeight + L.ItemSpacing.y)
+    local y = menuY + L.OptionPaddingY + headerHeight + rel * (L.OptionHeight + L.ItemSpacing.y)
     local w = menuW - L.OptionPaddingX * 2
     local h = L.OptionHeight
     local fontY = y + (h - ImGui.GetFontSize()) * 0.5
