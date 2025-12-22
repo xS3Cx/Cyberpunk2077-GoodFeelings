@@ -8,7 +8,7 @@ function Header.Draw(menuX, menuY, menuW)
     local header = UI.Header
     local x, y, w, h = menuX, menuY, menuW, header.Height
 
-    DrawHelpers.RectFilled(x, y, w, h, header.BackgroundColor, 10.0, ImDrawFlags.RoundCornersTop)
+    DrawHelpers.RectFilled(x, y, w, h, header.BackgroundColor, header.Rounding, ImDrawFlags.RoundCornersTop)
 
     local titleText = header.Text or ""
     if titleText and titleText ~= "" then

@@ -1,6 +1,7 @@
 local UI = require("UI/Core/Style")
 local DrawHelpers = require("UI/Core/DrawHelpers")
 local State = require("Controls/State")
+local SubmenuManager = require("UI/Core/SubmenuManager")
 
 local Footer = {}
 
@@ -15,7 +16,7 @@ function Footer.Draw(menuX, menuY, menuW, menuH)
     local w = menuW
     local h = footer.Height
 
-    DrawHelpers.RectFilled(x, y, w, h, footer.BackgroundColor, 10.0, ImDrawFlags.RoundCornersBottom)
+    DrawHelpers.RectFilled(x, y, w, h, footer.BackgroundColor, footer.Rounding, ImDrawFlags.RoundCornersBottom)
 
     local text = footer.Text
     local currentFontSize = ImGui.GetFontSize()
@@ -31,6 +32,10 @@ function Footer.Draw(menuX, menuY, menuW, menuH)
     local drawlist = ImGui.GetWindowDrawList()
     ImGui.ImDrawListAddText(drawlist, footer.FontSize, textX, textY, footer.TextColor, text)
 
+    local title = SubmenuManager.GetBreadcrumbTitle()
+    if title and title ~= "" then
+        State.menuCounts[title] = State.optionIndex
+    end
     State.optionCount = State.optionIndex
 end
 

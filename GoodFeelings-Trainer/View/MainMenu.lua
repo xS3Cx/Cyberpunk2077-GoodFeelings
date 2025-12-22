@@ -114,8 +114,6 @@ function MainMenu.Render(x, y, w, h)
     OptionBOUND.SetMenuBounds(x, y, w, h)
     OptionRow.Begin()
     
-    DrawHelpers.RectFilled(x, y, w, h, UI.Style.Colors.Background, UI.Style.Layout.FrameRounding)
-    
     SnowBackground.Render(x, y, w, h)
     
     Header.Draw(x, y, w)

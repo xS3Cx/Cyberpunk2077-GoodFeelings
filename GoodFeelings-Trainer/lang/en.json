@@ -1588,6 +1588,35 @@
     }
   },
   "settings": {
+    "size": {
+      "title": "Size Menu",
+      "reset": {
+        "label": "Reset Size",
+        "tip": "Reset menu size and scale settings to defaults."
+      },
+      "dimensions": {
+        "label": "Dimensions",
+        "width": {
+          "label": "Menu Width",
+          "tip": "Adjust the overall width of the trainer window."
+        },
+        "height": {
+          "label": "Menu Height",
+          "tip": "Adjust the fixed height of the trainer window (requires Dynamic Height to be OFF)."
+        },
+        "dynamic": {
+          "label": "Dynamic Height",
+          "tip": "Automatically adjust menu height based on the number of visible options."
+        }
+      },
+      "scaling": {
+        "label": "Scaling",
+        "scale": {
+          "label": "Menu Scale",
+          "tip": "Adjust the global scale of the trainer UI (affects font size)."
+        }
+      }
+    },
     "snow": {
       "title": "Snow Background",
       "reset": {

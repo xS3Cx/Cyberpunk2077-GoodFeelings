@@ -213,20 +213,61 @@ Event.RegisterDraw(function()
     MainMenu.Initialize()
     Handler.Update()
     if not State.menuOpen then return end
+    
+    local UIStyle = require("UI/Core/Style")
+
+    
+    local targetH
+    local SubmenuManager = require("UI/Core/SubmenuManager")
+    local currentTitle = SubmenuManager.GetBreadcrumbTitle()
+    
+    if UIStyle.Layout.DynamicHeight then
+        local baseH = UIStyle.Header.Height + UIStyle.SecondHeader.Height + UIStyle.Footer.Height + (UIStyle.Layout.OptionPaddingY * 2)
+        local count = State.menuCounts[currentTitle] or State.optionCount or 1
+        local spacing = UIStyle.Layout.ItemSpacing.y
+        targetH = baseH + (count * UIStyle.Layout.OptionHeight) + ((count - 1) * spacing)
+    else
+        targetH = UIStyle.Layout.WindowHeight or 500.0
+    end
+    State.targetHeight = targetH
+
+    -- Handle menu change or initialization
+    if State.lastMenuTitle ~= currentTitle or (not State.currentHeight) or State.currentHeight == 0 then
+        State.currentHeight = targetH
+        State.lastMenuTitle = currentTitle
+    else
+        local speed = UIStyle.Layout.SmoothHeightSpeed or 0.15
+        State.currentHeight = State.currentHeight + (targetH - State.currentHeight) * speed
+        
+        -- Snap if very close
+        if math.abs(targetH - State.currentHeight) < 0.1 then
+            State.currentHeight = targetH
+        end
+    end
+
+    local width = UIStyle.Layout.WindowWidth or 500.0
 
     local menuX, menuY, menuW, menuH
-    ImGui.SetNextWindowSize(300, 500, ImGuiCond.FirstUseEver)
+    ImGui.SetNextWindowSize(width, State.currentHeight, ImGuiCond.Always)
 
     ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0)
+    ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, UIStyle.Header.Rounding or 15.0)
     ImGui.PushStyleColor(ImGuiCol.Border, 0)
+    ImGui.PushStyleColor(ImGuiCol.WindowBg, UIStyle.Colors.Background or 0)
     if ImGui.Begin("GoodFeelings", ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse + ImGuiWindowFlags.NoTitleBar + ImGuiWindowFlags.NoResize) then
+        if UIStyle.Layout.Scale and UIStyle.Layout.Scale ~= 1.0 then
+            ImGui.SetWindowFontScale(UIStyle.Layout.Scale)
+        else
+            ImGui.SetWindowFontScale(1.0)
+        end
+
         menuX, menuY = ImGui.GetWindowPos()
         menuW, menuH = ImGui.GetWindowSize()
         MainMenu.Render(menuX, menuY, menuW, menuH)
         ImGui.End()
     end
-    ImGui.PopStyleColor()
-    ImGui.PopStyleVar()
+    ImGui.PopStyleColor(2)
+    ImGui.PopStyleVar(2)
 
     InfoBox.Render(menuX, menuY, menuW, menuH)
 end)
