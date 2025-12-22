@@ -91,6 +91,7 @@ UI.Base = {
         Scale = 1.0,
         SmoothHeightSpeed = 0.15,
         MaxVisibleOptions = 16,
+        IconOffsetY = 2.0,
     },
     OptionRow = {
         Rounding = 6.40,

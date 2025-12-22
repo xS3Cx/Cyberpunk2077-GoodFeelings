@@ -140,7 +140,26 @@ function OptionRow.Draw(menuX, menuY, menuW, menuH, left, center, right, textCol
         end
     else
         if left and left ~= "" then
-            DrawHelpers.Text(pos.x + padding, pos.fontY, c, left)
+            -- Attempt to detect icon at the start (UTF-8 character > 127 usually start with 0xEF for icons in these fonts)
+            local firstByte = string.byte(left, 1) or 0
+            if firstByte >= 0xE0 then -- Heuristic for icon fonts (PUA range)
+                -- Find first space to separate icon from text
+                local spacePos = left:find(" ")
+                if spacePos then
+                    local icon = left:sub(1, spacePos - 1)
+                    local rest = left:sub(spacePos + 1)
+                    
+                    local iconW = ImGui.CalcTextSize(icon)
+                    local offset = UI.Layout.IconOffsetY or 1.0
+                    
+                    DrawHelpers.Text(pos.x + padding, pos.fontY + offset, c, icon)
+                    DrawHelpers.Text(pos.x + padding + iconW + 4, pos.fontY, c, rest)
+                else
+                    DrawHelpers.Text(pos.x + padding, pos.fontY, c, left)
+                end
+            else
+                DrawHelpers.Text(pos.x + padding, pos.fontY, c, left)
+            end
         end
         if center and center ~= "" then
             local tw = ImGui.CalcTextSize(center)
