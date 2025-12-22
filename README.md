@@ -5,9 +5,9 @@ This is a personal fork of [AviWind02/EasyTrainers](https://github.com/AviWind02
 Original EasyTrainer available on [Nexus Mods](https://www.nexusmods.com/cyberpunk2077/mods/23227).
 All credits to the original authors for the base functionality.
 
-### Built-in Cyberpunk-Style Font (Play-Bold.ttf)
+### Built-in Cyberpunk-Style Font (Rajdhani-Bold.ttf)
 
-This fork includes the bold and sharp **Play-Bold** font to give the trainer menu a true Night City aesthetic right out of the box.
+This fork includes the bold and sharp **Rajdhani-Bold** font to give the trainer menu a true Night City aesthetic right out of the box.
 
 #### Enable the custom font:
 1. After installation open the CET config file:  
@@ -21,5 +21,5 @@ This fork includes the bold and sharp **Play-Bold** font to give the trainer men
         "language": "Default",
         "oversample_horizontal": 3,
         "oversample_vertical": 1,
-        "path": "Play-Bold.ttf"
+        "path": "Rajdhani-Bold.ttf"
    }
