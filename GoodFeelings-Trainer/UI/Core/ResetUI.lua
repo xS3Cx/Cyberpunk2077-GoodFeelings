@@ -100,13 +100,14 @@ end
 
 function ResetUI.ResetSelectionControls()
     UI.Base.Toggle.Size = 18.0
+    UI.Base.Toggle.WidthFactor = 1.55
     UI.Base.Toggle.Rounding = 6.40
-    UI.Base.Toggle.Inset = 2.0
-    UI.Base.Toggle.StatePadding = 6.0
-    UI.Base.Toggle.StateSpacing = 8.0
-    UI.Base.Toggle.OnColor = UI.ColPalette.SoftWhite
-    UI.Base.Toggle.OffColor = UI.ColPalette.SoftYellow
-    UI.Base.Toggle.BorderColor = UI.Colors.Text
+    UI.Base.Toggle.Inset = 1.5
+    UI.Base.Toggle.OnColor = UI.ColPalette.ToggleOn
+    UI.Base.Toggle.OffColor = UI.ColPalette.ToggleOff
+    UI.Base.Toggle.OnThumbColor = UI.ColPalette.ToggleOnThumb
+    UI.Base.Toggle.OffThumbColor = UI.ColPalette.ToggleOffThumb
+    UI.Base.Toggle.BorderColor = UI.Colors.Transparent
     UI.Base.Toggle.FrameBg = UI.Colors.FrameBg
     UI.Base.Toggle.TextColor = UI.Colors.Text
 
@@ -124,8 +125,8 @@ function ResetUI.ResetInputControls()
     UI.Base.Numeric.ToggleSpacing = 10.0
     UI.Base.Numeric.BoxFramePadding = 6.0
     UI.Base.Numeric.BoxTextPadding = 3.0
-    UI.Base.Numeric.FrameBg = UI.Colors.FrameBg
-    UI.Base.Numeric.TextColor = UI.Colors.Text
+    UI.Base.Numeric.FrameBg = UI.ColPalette.ToggleOff
+    UI.Base.Numeric.TextColor = UI.ColPalette.SolidBlueHighlight
     UI.Base.Numeric.DisabledColor = UI.Colors.MutedText
     UI.Base.Numeric.Decimals = 2
     UI.Base.Numeric.DefaultIntStep = 1

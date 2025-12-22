@@ -5,6 +5,26 @@ local State = require("Controls/State")
 
 local Numeric = {}
 
+local animCache = {}
+
+local function split(c)
+    local a = math.floor(c / 16777216) % 256
+    local r = math.floor(c / 65536) % 256
+    local g = math.floor(c / 256) % 256
+    local b = c % 256
+    return a, r, g, b
+end
+
+local function LerpColor(c1, c2, t)
+    local a1, r1, g1, b1 = split(c1)
+    local a2, r2, g2, b2 = split(c2)
+    local a = math.floor(a1 + (a2 - a1) * t)
+    local r = math.floor(r1 + (r2 - r1) * t)
+    local g = math.floor(g1 + (g2 - g1) * t)
+    local b = math.floor(b1 + (b2 - b1) * t)
+    return a * 16777216 + r * 65536 + g * 256 + b
+end
+
 ---@param label string
 ---@param ref table { value:number, enabled:boolean|nil, min:number|nil, max:number|nil, step:number|nil }
 ---@param tip string|nil
@@ -33,9 +53,11 @@ function Numeric.Option(label, ref, tip, isFloat, onClick)
         elseif State.rightPressed then
             ref.value = ref.value+step
             if ref.value > maxVal then ref.value = minVal end
-        elseif ref.enabled ~= nil and State.selectPressed then
-            ref.enabled = not ref.enabled
         end
+    end
+
+    if clicked and ref.enabled ~= nil then
+        ref.enabled = not ref.enabled
     end
 
     if isFloat then
@@ -50,24 +72,58 @@ function Numeric.Option(label, ref, tip, isFloat, onClick)
         or string.format("%d / %d",ref.value,maxVal)
 
     local vw = ImGui.CalcTextSize(valueText)
-    local toggleX = pos.x+pos.w-UI.Layout.LabelOffsetX-(ref.enabled ~= nil and size or 0)
-    local valueX = toggleX-vw-(ref.enabled ~= nil and spacing or 0)
+    local pillHeight = UI.Toggle.Size or 18
+    local pillWidth = pillHeight * (UI.Toggle.WidthFactor or 1.55)
+    local spacing = UI.Numeric.ToggleSpacing or 10
+    
+    -- Positioning: [Value Box] [Spacing] [Pill Toggle] (from right to left)
+    local toggleX = pos.x + pos.w - UI.Layout.LabelOffsetX - (ref.enabled ~= nil and pillWidth or -spacing)
+    local valueX = toggleX - vw - (ref.enabled ~= nil and spacing or 0)
+    
+    local fpad = UI.Numeric.BoxFramePadding or 6
+    local tpad = UI.Numeric.BoxTextPadding or 3
+    
+    -- Draw Value Box
+    DrawHelpers.RectFilled(valueX - fpad, pos.y + tpad, vw + fpad*2, pos.h - tpad*2, UI.Numeric.FrameBg, UI.Layout.FrameRounding)
+    
+    local txtColor = UI.Numeric.TextColor or UI.ColPalette.SolidBlueHighlight
+    DrawHelpers.Text(valueX, pos.fontY, txtColor, valueText)
 
-    DrawHelpers.RectFilled(valueX-fpad,pos.y+tpad,
-        vw+(ref.enabled ~= nil and size+spacing or 0)+fpad*2,
-        pos.h-tpad*2,UI.Numeric.FrameBg,UI.Layout.FrameRounding)
-
-    local txtColor = (ref.enabled == false) and UI.Numeric.DisabledColor or UI.Numeric.TextColor
-    DrawHelpers.Text(valueX,pos.fontY,txtColor,valueText)
-
+    -- Draw Toggle (if applicable)
     if ref.enabled ~= nil then
-        local ty = pos.y+(pos.h-size)*0.5
-        DrawHelpers.Rect(toggleX,ty,size,size,UI.Numeric.TextColor,UI.Layout.FrameRounding)
-        if ref.enabled then
-            local inset = UI.Toggle.Inset
-            DrawHelpers.RectFilled(toggleX+inset,ty+inset,
-                size-inset*2,size-inset*2,UI.Toggle.OnColor,UI.Layout.FrameRounding-2)
-        end
+        -- Animation logic
+        local animKey = label.."_toggle"
+        animCache[animKey] = animCache[animKey] or (ref.enabled and 1.0 or 0.0)
+        local target = ref.enabled and 1.0 or 0.0
+        local speed = UI.Toggle.AnimSpeed or 0.2
+        
+        animCache[animKey] = animCache[animKey] + (target - animCache[animKey]) * speed
+        local t = animCache[animKey]
+        if math.abs(target - t) < 0.01 then t = target end
+
+        local radius = pillHeight * 0.5
+        local ty = pos.y + (pos.h - pillHeight) * 0.5
+        
+        local bgOff = UI.Toggle.OffColor or UI.ColPalette.ToggleOff
+        local bgOn = UI.Toggle.OnColor or UI.ColPalette.ToggleOn
+        local thumbOff = UI.Toggle.OffThumbColor or UI.ColPalette.ToggleOffThumb
+        local thumbOn = UI.Toggle.OnThumbColor or UI.ColPalette.ToggleOnThumb
+
+        local col_bg = LerpColor(bgOff, bgOn, t)
+        local col_thumb = LerpColor(thumbOff, thumbOn, t)
+
+        -- Draw Background Pill
+        DrawHelpers.RectFilled(toggleX, ty, pillWidth, pillHeight, col_bg, radius)
+
+        -- Draw Circular Dot (Thumb)
+        local dotStart = toggleX + radius
+        local dotEnd = toggleX + pillWidth - radius
+        local dotX = dotStart + (dotEnd - dotStart) * t
+        local dotY = ty + radius
+        local dotRadius = radius - (UI.Toggle.Inset or 1.5)
+        
+        local drawlist = ImGui.GetWindowDrawList()
+        ImGui.ImDrawListAddCircleFilled(drawlist, dotX, dotY, dotRadius, col_thumb)
     end
 
     if onClick then

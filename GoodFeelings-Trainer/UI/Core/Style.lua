@@ -55,6 +55,11 @@ UI.ColPalette = {
     CustomBlueHighlight = 0x60E67505,
     TransparentBlack = 0xF2000000, -- 95% alpha black
     SolidBlueHighlight = 0xFFE67505, -- Solid version of CustomBlueHighlight (ABGR)
+
+    ToggleOff = 0xFF151515,
+    ToggleOffThumb = 0xFF0C0C0C,
+    ToggleOn = 0xFFE67505,
+    ToggleOnThumb = 0xFFFFFFFF,
 }
 
 UI.Colors = {
@@ -130,10 +135,14 @@ UI.Base = {
     },
     Toggle = {
         Size = 18.0,
+        WidthFactor = 1.55,
         Rounding = 6.40,
-        Inset = 2.0,
-        StatePadding = 6.0,
-        StateSpacing = 8.0,
+        Inset = 1.5,
+        OnColor = 0xFFE67505,
+        OffColor = 0xFF151515,
+        OnThumbColor = 0xFFFFFFFF,
+        OffThumbColor = 0xFF0C0C0C,
+        AnimSpeed = 0.2,
     },
     Numeric = {
         ToggleSize = 18.0,
@@ -266,8 +275,8 @@ UI.Toggle.BorderColor = UI.Colors.Text
 UI.Toggle.FrameBg = UI.Colors.FrameBg
 UI.Toggle.TextColor = UI.Colors.Text
 
-UI.Numeric.FrameBg = UI.Colors.FrameBg
-UI.Numeric.TextColor = UI.Colors.Text
+UI.Numeric.FrameBg = UI.ColPalette.ToggleOff
+UI.Numeric.TextColor = UI.ColPalette.SolidBlueHighlight
 UI.Numeric.DisabledColor = UI.Colors.MutedText
 
 UI.Radio.SelectedColor = UI.Toggle.OnColor
