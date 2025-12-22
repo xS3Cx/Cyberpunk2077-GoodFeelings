@@ -8,7 +8,7 @@ local WantedLevel = {}
 WantedLevel.tickNeverWanted = { value = false }
 WantedLevel.tickClearWanted = { value = false }
 
-WantedLevel.heldWantedLevel = { enabled = false, value = 1, min = 1, max = 5 }
+WantedLevel.heldWantedLevel = { enabled = false, value = 1, min = 0, max = 5 }
 
 local wasSystemDisabled = false
 local wasHeldActive = false
@@ -35,7 +35,7 @@ function WantedLevel.Tick()
         end
     end
 
-if WantedLevel.heldWantedLevel.enabled and WantedLevel.heldWantedLevel.value >= 1 then
+if WantedLevel.heldWantedLevel.enabled then
     if not wasHeldActive then
         wasHeldActive = true
     end

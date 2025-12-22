@@ -15,11 +15,7 @@ local function SelfViewFunction()
 
     Buttons.Break(L("self.wanted.label"))
     Buttons.Toggle(L("self.neverwanted.label"), Self.WantedLevel.tickNeverWanted, tip("self.neverwanted.tip"))
-    Buttons.Int(L("self.wantedlevel.label"), Self.WantedLevel.heldWantedLevel, tip("self.wantedlevel.tip"), function()
-        if not Self.WantedLevel.heldWantedLevel.enabled then
-            Prevention.SetWantedLevel(Self.WantedLevel.heldWantedLevel.value or 0)
-        end
-    end)
+    Buttons.Int(L("self.wantedlevel.label"), Self.WantedLevel.heldWantedLevel, tip("self.wantedlevel.tip"))
     Buttons.Option(L("self.clearwanted.label"), tip("self.clearwanted.tip"), function()
         Self.WantedLevel.tickClearWanted.value = true
     end)
