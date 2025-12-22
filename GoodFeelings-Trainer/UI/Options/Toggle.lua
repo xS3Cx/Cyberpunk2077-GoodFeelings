@@ -1,6 +1,9 @@
 local UI = require("UI/Core/Style")
 local DrawHelpers = require("UI/Core/DrawHelpers")
 local Option = require("UI/Options/Option")
+local OptionRow = require("UI/Elements/OptionRow")
+local State = require("Controls/State")
+local BindManager = require("Features/BindManager")
 
 local Toggle = {}
 
@@ -33,7 +36,7 @@ end
 ---@param tip string|nil
 ---@return boolean clicked
 function Toggle.Option(label, ref, tip)
-    local clicked,pos = Option.Option(label,"","",tip)
+    local clicked, pos = Option.Option(label,"","",tip)
     if not pos then return false end
 
     -- Animation logic
@@ -75,6 +78,9 @@ function Toggle.Option(label, ref, tip)
     
     local drawlist = ImGui.GetWindowDrawList()
     ImGui.ImDrawListAddCircleFilled(drawlist, dotX, dotY, dotRadius, col_thumb)
+
+    BindManager.Register(label, ref)
+    BindManager.Recruit(label, ref, OptionRow.IsSelected())
 
     if clicked then ref.value = not ref.value end
     return clicked

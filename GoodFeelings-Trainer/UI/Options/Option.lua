@@ -13,11 +13,6 @@ function Option.SetMenuBounds(x, y, w, h)
     Option.menuX, Option.menuY, Option.menuW, Option.menuH = x, y, w, h
 end
 
----@param left string|nil
----@param center string|nil
----@param right string|nil
----@param tip string|nil
----@return boolean clicked
 function Option.Option(left, center, right, tip)
     local clicked, pos = OptionRow.Draw(Option.menuX, Option.menuY, Option.menuW, Option.menuH, left, center, right, nil, nil, false)
     if OptionRow.IsSelected() then
@@ -30,10 +25,10 @@ end
 ---@param left string|nil
 ---@param center string|nil
 ---@param right string|nil
----@return boolean always false (break rows don’t click)
+---@return boolean, table
 function Option.Break(left, center, right)
-    OptionRow.Draw(Option.menuX, Option.menuY, Option.menuW, Option.menuH, left, center, right, UI.BreakRow.Text, UI.BreakRow.HighlightBg, true)
-    return false
+    local _, pos = OptionRow.Draw(Option.menuX, Option.menuY, Option.menuW, Option.menuH, left, center, right, UI.BreakRow.Text, UI.BreakRow.HighlightBg, true)
+    return false, pos
 end
 
 

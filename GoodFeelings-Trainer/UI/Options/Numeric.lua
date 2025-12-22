@@ -1,7 +1,11 @@
 local UI = require("UI/Core/Style")
 local DrawHelpers = require("UI/Core/DrawHelpers")
 local Option = require("UI/Options/Option")
+local OptionRow = require("UI/Elements/OptionRow")
 local State = require("Controls/State")
+local BindManager = require("Features/BindManager")
+local Language = require("Core/Language")
+local function L(key) return Language.Get(key) end
 
 local Numeric = {}
 
@@ -104,6 +108,9 @@ function Numeric.Option(label, ref, tip, isFloat, onClick)
 
     -- Draw Toggle (if applicable)
     if ref.enabled ~= nil then
+        BindManager.Register(label, ref)
+        BindManager.Recruit(label, ref, OptionRow.IsSelected())
+
         -- Animation logic
         local animKey = label.."_toggle"
         animCache[animKey] = animCache[animKey] or (ref.enabled and 1.0 or 0.0)

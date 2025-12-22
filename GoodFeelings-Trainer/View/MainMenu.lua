@@ -9,6 +9,7 @@ local Header = require("UI/Frame/Header")
 local SecondHeader = require("UI/Frame/SecondHeader")
 local Footer = require("UI/Frame/Footer")
 local SnowBackground = require("UI/Frame/SnowBackground")
+local BindManager = require("Features/BindManager")
 
 local SelfConfig = require("Features/Self/SelfConfig")
 local WeaponsConfig = require("Features/Weapons/WeaponConfig")

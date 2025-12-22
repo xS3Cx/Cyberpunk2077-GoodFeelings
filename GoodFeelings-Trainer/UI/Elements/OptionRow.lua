@@ -1,6 +1,7 @@
 local UI = require("UI/Core/Style")
 local DrawHelpers = require("UI/Core/DrawHelpers")
 local State = require("Controls/State")
+local BindManager = require("Features/BindManager")
 
 local OptionRow = {}
 OptionRow.optionIndex = 0
@@ -161,7 +162,14 @@ function OptionRow.Draw(menuX, menuY, menuW, menuH, left, center, right, textCol
                 DrawHelpers.Text(pos.x + padding, pos.fontY, c, left)
             end
         end
-        if center and center ~= "" then
+        if (not center or center == "") and not isSeparator then
+            local statusText, statusCol = BindManager.GetStatus(left)
+            if statusText then
+                local tw = ImGui.CalcTextSize(statusText)
+                local cx = pos.x + (pos.w - tw) * 0.5
+                DrawHelpers.Text(cx, pos.fontY, statusCol, statusText)
+            end
+        elseif center and center ~= "" then
             local tw = ImGui.CalcTextSize(center)
             local cx = pos.x + (pos.w - tw) * 0.5
             DrawHelpers.Text(cx, pos.fontY, c, center)

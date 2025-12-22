@@ -4,6 +4,7 @@ local Bindings = require("Controls/Bindings")
 local Restrictions = require("Controls/Restrictions")
 local Navigation = require("Controls/Navigation")
 local Cursor = require("Controls/Cursor")
+local BindManager = require("Features/BindManager")
 
 local SubmenuManager = require("UI/Core/SubmenuManager")
 
@@ -44,8 +45,11 @@ function Handler.Update()
 
     if(not initialized ) then
         State.InitializeTracking()
+        BindManager.Initialize()
         initialized = true
     end
+
+    BindManager.Update()
 
     -- We don't need the menu closing or opening in case you're binding the main open key
     if State.bindingKey then
