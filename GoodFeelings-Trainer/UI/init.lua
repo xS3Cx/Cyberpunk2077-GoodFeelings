@@ -5,6 +5,7 @@ local UI = {}
 UI.Style = require("UI/Core/Style")
 UI.SubmenuManager = require("UI/Core/SubmenuManager")
 UI.Notification = require("UI/Elements/Notification")
+UI.Overlay = require("UI/Elements/Overlay")
 UI.Buttons = require("UI/Options/Buttons")
 
 

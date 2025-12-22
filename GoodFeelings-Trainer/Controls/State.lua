@@ -3,6 +3,12 @@ local ConfigManager = require("Config/OptionConfig")
 
 State.trackMenuOpen = { value = true }
 State.trackMouseOn = { value = false }
+State.showOverlay = { value = true }
+State.overlayShowWatermark = { value = true }
+State.overlayShowTop = { value = true }
+State.overlayShowTitle = { value = true }
+State.overlayShowTime = { value = true }
+State.overlayShowFPS = { value = true }
 
 State.menuOpen = true
 State.mouseEnabled = false
