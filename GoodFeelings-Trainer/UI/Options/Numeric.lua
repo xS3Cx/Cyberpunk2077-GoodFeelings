@@ -75,16 +75,29 @@ function Numeric.Option(label, ref, tip, isFloat, onClick)
     local pillHeight = UI.Toggle.Size or 18
     local pillWidth = pillHeight * (UI.Toggle.WidthFactor or 1.55)
     local spacing = UI.Numeric.ToggleSpacing or 10
-    
-    -- Positioning: [Value Box] [Spacing] [Pill Toggle] (from right to left)
-    local toggleX = pos.x + pos.w - UI.Layout.LabelOffsetX - (ref.enabled ~= nil and pillWidth or -spacing)
-    local valueX = toggleX - vw - (ref.enabled ~= nil and spacing or 0)
-    
     local fpad = UI.Numeric.BoxFramePadding or 6
     local tpad = UI.Numeric.BoxTextPadding or 3
     
+    local rightAnchor = pos.x + pos.w - UI.Layout.LabelOffsetX
+    local toggleX, valueX
+    
+    if ref.enabled ~= nil then
+        toggleX = rightAnchor - pillWidth
+        valueX = toggleX - spacing - vw
+    else
+        valueX = rightAnchor - vw - fpad
+    end
+    
+    -- Safety: Prevent value box from overlapping the label area (heuristic)
+    local labelReserve = pos.w * 0.4
+    if valueX - fpad < pos.x + labelReserve then
+        -- If too wide, we could truncate or just let it be, but fixed anchoring is usually enough.
+    end
+
+    local ty = pos.y + (pos.h - pillHeight) * 0.5
+    
     -- Draw Value Box
-    DrawHelpers.RectFilled(valueX - fpad, pos.y + tpad, vw + fpad*2, pos.h - tpad*2, UI.Numeric.FrameBg, UI.Layout.FrameRounding)
+    DrawHelpers.RectFilled(valueX - fpad, ty, vw + fpad*2, pillHeight, UI.Numeric.FrameBg, UI.Layout.FrameRounding)
     
     local txtColor = UI.Numeric.TextColor or UI.ColPalette.SolidBlueHighlight
     DrawHelpers.Text(valueX, pos.fontY, txtColor, valueText)
