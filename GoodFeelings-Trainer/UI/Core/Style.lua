@@ -216,11 +216,11 @@ UI.TextInput = {
 }
 
 UI.Background = {
-    MasterEnabled = true,
+    MasterEnabled = false,
 
-    SnowEnabled = true,
-    SnowPileEnabled = true,
-    SnowmanEnabled = true,
+    SnowEnabled = false,
+    SnowPileEnabled = false,
+    SnowmanEnabled = false,
 
     Gravity = 30,
     WindSway = 0.6,

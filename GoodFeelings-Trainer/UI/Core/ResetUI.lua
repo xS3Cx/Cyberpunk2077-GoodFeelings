@@ -144,10 +144,10 @@ function ResetUI.ResetTextInput()
 end
 
 function ResetUI.ResetSnowBackground()
-    UI.Background.Enabled = true
+    UI.Background.Enabled = false
     UI.Background.Reset = false
-    UI.Background.SnowPileEnabled = true
-    UI.Background.SnowEnabled = true
+    UI.Background.SnowPileEnabled = false
+    UI.Background.SnowEnabled = false
     UI.Background.Gravity = 30
     UI.Background.WindSway = 0.6
     UI.Background.SpawnRate = 0.025
@@ -161,7 +161,7 @@ function ResetUI.ResetSnowBackground()
     UI.Background.SnowTwinkle = true
     UI.Background.SnowflakeSizeMin = 1.2
     UI.Background.SnowflakeSize = 2.0
-    UI.Background.SnowmanEnabled = true
+    UI.Background.SnowmanEnabled = false
     UI.Background.YellowSnowChance = 0.000001
     UI.Background.PeeSnowEnabled = false
 
