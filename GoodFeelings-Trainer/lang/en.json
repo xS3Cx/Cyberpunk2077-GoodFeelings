@@ -1585,6 +1585,18 @@
     "saveall": {
       "label": "Save All Settings",
       "tip": "Save all UI and navigation settings to configuration files."
+    },
+    "scrolling": {
+      "label": "Scrolling Settings",
+      "tip": "Configure how many options are visible before scrolling begins.",
+      "maxvisible": {
+        "label": "Max Visible Options",
+        "tip": "Set the maximum number of options to show before the menu scrolls (5-30)."
+      },
+      "reset": {
+        "label": "Reset Scrolling Settings",
+        "tip": "Restore default scrolling values."
+      }
     }
   },
   "settings": {

@@ -13,7 +13,7 @@ function UI.ApplyScale()
                 -- Exclude: Colors (ARGB > 0x01000000), specific keys, and flags
                 local isColor = v > 0x01000000
                 local isRounding = k:find("Rounding")
-                local isExcluded = (k == "Scale" or k == "FramesPerOption" or k == "RevealFrameDelay" or k == "Decimals" or k == "MasterEnabled" or k:find("Enabled") or k:find("Chance") or k:find("Count") or k:find("Layers") or k:find("Columns") or k:find("Speed"))
+                local isExcluded = (k == "Scale" or k == "MaxVisibleOptions" or k == "FramesPerOption" or k == "RevealFrameDelay" or k == "Decimals" or k == "MasterEnabled" or k:find("Enabled") or k:find("Chance") or k:find("Count") or k:find("Layers") or k:find("Columns") or k:find("Speed"))
                 
                 if not isColor and (not isExcluded or isRounding) and type(v) == "number" then
                     active[k] = v * scale
@@ -85,6 +85,7 @@ UI.Base = {
         DynamicHeight = true,
         Scale = 1.0,
         SmoothHeightSpeed = 0.15,
+        MaxVisibleOptions = 16,
     },
     OptionRow = {
         Rounding = 6.40,

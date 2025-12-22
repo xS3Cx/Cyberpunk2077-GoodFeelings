@@ -15,7 +15,8 @@ local function UpdateScroll(menuH)
     local headerHeight = (UI.Header.Height or 0) + (UI.SecondHeader.Height or 0)
     local avail = h - L.OptionPaddingY * 2 - headerHeight - (UI.Footer.Height or 0)
 
-    State.maxVisible = math.max(1, math.floor((avail + L.ItemSpacing.y) / (L.OptionHeight + L.ItemSpacing.y)))
+    local maxLimit = L.MaxVisibleOptions or 16
+    State.maxVisible = math.min(maxLimit, math.max(1, math.floor((avail + L.ItemSpacing.y) / (L.OptionHeight + L.ItemSpacing.y))))
 
     local cur = (State.currentOption or 1) - 1
     State.startOpt = math.floor(cur / State.maxVisible) * State.maxVisible + 1

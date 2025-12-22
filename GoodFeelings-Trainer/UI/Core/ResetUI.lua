@@ -3,6 +3,7 @@ local UI = require("UI/Core/Style")
 local ResetUI = {}
 
 function ResetUI.ResetLayout()
+    UI.Base.Layout.MaxVisibleOptions = 16
     UI.Base.Layout.Padding = 14.0
     UI.Base.Layout.FrameRounding = 6.40
     UI.Base.Layout.FrameHeight = 22.0
