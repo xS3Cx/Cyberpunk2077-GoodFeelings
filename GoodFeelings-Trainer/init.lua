@@ -217,7 +217,7 @@ Event.RegisterDraw(function()
     local menuX, menuY, menuW, menuH
     ImGui.SetNextWindowSize(300, 500, ImGuiCond.FirstUseEver)
 
-    if ImGui.Begin("EasyTrainer", ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse + ImGuiWindowFlags.NoTitleBar) then
+    if ImGui.Begin("GoodFeelings", ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse + ImGuiWindowFlags.NoTitleBar) then
         menuX, menuY = ImGui.GetWindowPos()
         menuW, menuH = ImGui.GetWindowSize()
         MainMenu.Render(menuX, menuY, menuW, menuH)

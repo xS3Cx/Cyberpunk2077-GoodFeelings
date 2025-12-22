@@ -62,7 +62,7 @@ function Logger.Log(msg)
     local timestamped = GetTimestamp() .. " " .. msg
     table.insert(Logger.logWindow, timestamped)
     WriteToFile(timestamped)
-    print("[EasyTrainer] " .. msg)
+    print("[GoodFeelings] " .. msg)
 end
 
 function Logger.Initialize()
@@ -74,7 +74,7 @@ function Logger.Initialize()
     local clear = io.open(Logger.currentLogFile, "w")
     if clear then clear:close() end
 
-    Logger.Log("[EasyTrainer] Logger initialized. Writing to log_" .. index .. ".txt and log_current.txt")
+    Logger.Log("[GoodFeelings] Logger initialized. Writing to log_" .. index .. ".txt and log_current.txt")
 end
 
 -- Draws a log window that can stay open without CET overlay blocking controls

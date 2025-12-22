@@ -90,7 +90,7 @@ local function MainMenuView()
     UI.Buttons.Submenu(L("mainmenu.settingsmenu.label"), SettingsView, tip("mainmenu.settingsmenu.tip"))
 end
 
-local MainMenu = { title = "EasyTrainer", view = MainMenuView }
+local MainMenu = { title = "GoodFeelings", view = MainMenuView }
 local initialized = false
 
 function MainMenu.Initialize()
@@ -103,7 +103,7 @@ function MainMenu.Initialize()
         TelportConfig()
         WorldConfig()
         SnowBackground.Init()
-        UI.Notification.Info("EasyTrainer initialized!")
+        UI.Notification.Info("GoodFeelings initialized!")
         initialized = true
     end
 end

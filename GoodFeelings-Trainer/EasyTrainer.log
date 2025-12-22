@@ -1,11 +1,11 @@
-[2025-11-14 20:30:25 UTC-05:00] [4140] ...ber_engine_tweaks\mods\EasyTrainer\Controls\Bindings.lua:107: attempt to index upvalue 'BindingsConfig' (a nil value)
+[2025-11-14 20:30:25 UTC-05:00] [4140] ...ber_engine_tweaks\mods\GoodFeelings\Controls\Bindings.lua:107: attempt to index upvalue 'BindingsConfig' (a nil value)
 stack traceback:
-	...ber_engine_tweaks\mods\EasyTrainer\Controls\Bindings.lua:107: in function 'ResetAll'
-	...e_tweaks\mods\EasyTrainer\View\Settings\SettingsView.lua:38: in function 'view'
-	...s\cyber_engine_tweaks\mods\EasyTrainer\View\MainMenu.lua:123: in function 'Render'
+	...ber_engine_tweaks\mods\GoodFeelings\Controls\Bindings.lua:107: in function 'ResetAll'
+	...e_tweaks\mods\GoodFeelings\View\Settings\SettingsView.lua:38: in function 'view'
+	...s\cyber_engine_tweaks\mods\GoodFeelings\View\MainMenu.lua:123: in function 'Render'
 	init.lua:223: in function <init.lua:208>
-[2025-11-28 00:08:40 UTC-05:00] [25852] ...tweaks\mods\EasyTrainer\View\Vehicle\VehicleMenuView.lua:60: attempt to call field 'UnlockAllFactionVehicles' (a nil value)
+[2025-11-28 00:08:40 UTC-05:00] [25852] ...tweaks\mods\GoodFeelings\View\Vehicle\VehicleMenuView.lua:60: attempt to call field 'UnlockAllFactionVehicles' (a nil value)
 stack traceback:
-	...tweaks\mods\EasyTrainer\View\Vehicle\VehicleMenuView.lua:60: in function 'view'
-	...s\cyber_engine_tweaks\mods\EasyTrainer\View\MainMenu.lua:123: in function 'Render'
+	...tweaks\mods\GoodFeelings\View\Vehicle\VehicleMenuView.lua:60: in function 'view'
+	...s\cyber_engine_tweaks\mods\GoodFeelings\View\MainMenu.lua:123: in function 'Render'
 	init.lua:223: in function <init.lua:208>

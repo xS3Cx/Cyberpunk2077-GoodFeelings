@@ -1,4 +1,4 @@
--- Contributed by barhxr, refactored for EasyTrainer.
+-- Contributed by barhxr, refactored for GoodFeelings.
 -- Allows unlimited mid-air dashes if perk & stamina conditions are met.
 
 local InfiniteAirDash = {}

@@ -36,7 +36,7 @@ end
 function WorldWeather.SetWeather(state, transitionSeconds)
     if not weatherSystem() then return end
     transitionSeconds = transitionSeconds or 1
-    Logger.Log(string.format("[EasyTrainerWorldWeather] Setting weather: %s (%ds)", state, transitionSeconds))
+    Logger.Log(string.format("[GoodFeelingsWorldWeather] Setting weather: %s (%ds)", state, transitionSeconds))
     weatherSystem():SetWeather(state, transitionSeconds, 1)
 end
 
@@ -56,7 +56,7 @@ end
 
 function WorldWeather.ResetWeather()
     if not weatherSystem() then return end
-    Logger.Log("[EasyTrainerWorldWeather] Resetting weather")
+    Logger.Log("[GoodFeelingsWorldWeather] Resetting weather")
     weatherSystem():ResetWeather(true)
 end
 

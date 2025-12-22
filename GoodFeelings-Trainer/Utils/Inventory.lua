@@ -102,7 +102,7 @@ function Inventory.SpawnItemDropInFront(tweakDBIDStr, spawnDist)
     transform:SetPosition(transform, spawnPos)
 
     local itemID = ItemID.FromTDBID(tweakDBIDStr)
-    local tags = { CName.new("EasyTrainer") }
+    local tags = { CName.new("GoodFeelings") }
 
     local lootMgr = Game.GetLootManager()
     local success = lootMgr:SpawnItemDrop(player, itemID, spawnPos, Quaternion.new(0, 0, 0, 1))

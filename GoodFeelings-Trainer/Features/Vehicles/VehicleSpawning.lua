@@ -34,7 +34,7 @@ local function CreateDynamicSpec(tweakDBIDStr, spawnPos) -- Probably should go i
     spec.persistSpawn = false
     spec.spawnInView = true
     spec.active = true
-    spec.tags = { CName.new("EasyTrainer") }
+    spec.tags = { CName.new("GoodFeelings") }
     return spec
 end
 

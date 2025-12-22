@@ -38,7 +38,7 @@ function InfoBox.GetRandomFallbackTip()
         "Like walking Night City but it's too slow? Check the Self menu - you can boost your walk speed.",
         "Looking for iconic weapons? Use the Weapon Inventory filters to find wall stash and iconic gear.",
         "Some in-game actions get blocked while using arrow keys. Switch to controller input to avoid it.",
-        "You can hold D-Pad Right + A to open EasyTrainer on controller. (Not configurable right now.)"
+        "You can hold D-Pad Right + A to open GoodFeelings on controller. (Not configurable right now.)"
     }
     local newIndex
     repeat newIndex = math.random(1, #tips) until newIndex ~= lastTipIndex

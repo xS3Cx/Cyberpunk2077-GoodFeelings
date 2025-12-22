@@ -13,3 +13,4 @@ Config/JSON/navigation.json
 Config/JSON/ui.json
 Config/JSON/bindings.json
 Config/JSON/bindings.json
+deploy.py

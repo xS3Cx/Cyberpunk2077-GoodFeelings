@@ -71,7 +71,7 @@ UI.Header = {
 
     FontSize = 18.0,
     FontSizeSub = 16.0,
-    Text = "EasyTrainer"
+    Text = "GoodFeelings"
 }
 
 UI.Footer = {

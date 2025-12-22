@@ -33,7 +33,7 @@ function Prevention.SetPoliceDisabled(disabled)
     end
 
     local request = TogglePreventionSystem.new()
-    request.sourceName = CName.new("EasyTrainer")
+    request.sourceName = CName.new("GoodFeelings")
     request.isActive = not disabled
     ps:QueueRequest(request)
     ps:TogglePreventionSystem(not disabled)

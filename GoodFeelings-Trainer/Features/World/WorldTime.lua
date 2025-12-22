@@ -38,8 +38,8 @@ function WorldTime.GetTime()
 end
 
 function WorldTime.SetGameTime(hours, minutes, seconds)
-    timeSystem:SetGameTimeByHMS(hours, minutes, seconds, "EasyTrainerWorldTime")
-    -- Logger.Log(string.format("[EasyTrainerWorldTime] Set game time to %02d:%02d:%02d", hours, minutes, seconds))
+    timeSystem:SetGameTimeByHMS(hours, minutes, seconds, "GoodFeelingsWorldTime")
+    -- Logger.Log(string.format("[GoodFeelingsWorldTime] Set game time to %02d:%02d:%02d", hours, minutes, seconds))
 end
 
 
@@ -97,7 +97,7 @@ local function HandleFreezeTime()
                 s = current:Seconds()
             }
         end
-        timeSystem:SetGameTimeByHMS(WorldTime.frozenTime.h, WorldTime.frozenTime.m, WorldTime.frozenTime.s, "EasyTrainerFreezeTime"
+        timeSystem:SetGameTimeByHMS(WorldTime.frozenTime.h, WorldTime.frozenTime.m, WorldTime.frozenTime.s, "GoodFeelingsFreezeTime"
         )
         return true
     else
@@ -120,7 +120,7 @@ local function HandleTimeLapse()
     local m = math.floor((totalSeconds % 3600) / 60)
     local s = math.floor(totalSeconds % 60)
 
-    timeSystem:SetGameTimeByHMS(h, m, s, "EasyTrainerTimeLapse")
+    timeSystem:SetGameTimeByHMS(h, m, s, "GoodFeelingsTimeLapse")
 end
 
 
@@ -142,7 +142,7 @@ local function HandleSkipDays(delta)
         if skipState.totalStart >= skipState.totalTarget then
             skipState.enabled = false
             if not skipState.logged then
-                Logger.Log(string.format("[EasyTrainerWorldTime] Skipped %d day(s)", skipState.days))
+                Logger.Log(string.format("[GoodFeelingsWorldTime] Skipped %d day(s)", skipState.days))
                 Notification.Info(string.format("Skipped %d day(s)", skipState.days))
                 skipState.logged = true
             end
@@ -152,7 +152,7 @@ local function HandleSkipDays(delta)
         local h = math.floor((skipState.totalStart / 3600) % 24)
         local m = math.floor((skipState.totalStart % 3600) / 60)
         local s = math.floor(skipState.totalStart % 60)
-        timeSystem:SetGameTimeByHMS(h, m, s, "EasyTrainerWorldTime")
+        timeSystem:SetGameTimeByHMS(h, m, s, "GoodFeelingsWorldTime")
     end
 end
 
@@ -181,7 +181,7 @@ local function HandleFasterTime(delta)
             local m = math.floor((totalSeconds % 3600) / 60)
             local s = math.floor(totalSeconds % 60)
 
-            timeSystem:SetGameTimeByHMS(h, m, s, "EasyTrainerFasterTime")
+            timeSystem:SetGameTimeByHMS(h, m, s, "GoodFeelingsFasterTime")
         end
     end
 end

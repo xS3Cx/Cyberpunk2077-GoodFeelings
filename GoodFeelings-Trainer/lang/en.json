@@ -50,7 +50,7 @@
     },
     "settingsmenu": {
       "label": "Settings Menu",
-      "tip": "Configure EasyTrainer options, navigation, and user interface."
+      "tip": "Configure GoodFeelings options, navigation, and user interface."
     }
   },
   "self": {
@@ -561,7 +561,6 @@
     },
     "unknown": "Unknown",
     "none": "None",
-
     "categories": {
       "addon": "Add-On Vehicles (Modded)",
       "hypercars": "Hypercars",
@@ -645,7 +644,6 @@
       "label": "Disable Player Vehicles",
       "tip": "Disable all vehicles assigned to the Player faction."
     },
-
     "unlockmodded": {
       "label": "Unlock Modded Vehicles",
       "tip": "Unlock all add-on vehicles installed through mods."
@@ -654,21 +652,18 @@
       "label": "Disable Modded Vehicles",
       "tip": "Disable all add-on vehicles installed through mods."
     },
-
     "unlockfaction": {
       "label": "Unlock Faction Vehicles",
       "tip": "Unlock all vehicles belonging to the selected faction."
     },
-        "lockfaction": {
+    "lockfaction": {
       "label": "Disable Faction Vehicles",
       "tip": "Disable all vehicles belonging to the selected faction."
     },
-
     "nitrous": {
       "label": "Nitrous Boost",
       "tip": "Hold Left Shift (keyboard) or X (controller) while driving to activate a forward force boost. Adjust the force multiplier to control how strong the boost feels."
     },
-
     "freezequesttimer": {
       "label": "Freeze Quest Timer",
       "tip": "Disables vehicle quest countdown timers so they no longer track time."
@@ -1619,8 +1614,9 @@
         "label": "Show Snow Pile",
         "tip": "Toggles the accumulation of snow at the bottom."
       },
-
-      "physics": { "label": "Physics" },
+      "physics": {
+        "label": "Physics"
+      },
       "gravity": {
         "label": "Gravity",
         "tip": "Controls how fast the snowflakes fall."
@@ -1645,8 +1641,9 @@
         "label": "Snow Density",
         "tip": "Number of flakes spawned per tick."
       },
-
-      "appearance": { "label": "Appearance" },
+      "appearance": {
+        "label": "Appearance"
+      },
       "brightness": {
         "label": "Snow Brightness",
         "tip": "Adjusts the overall snow glow."
@@ -1679,7 +1676,6 @@
         "label": "Flake Size Variation",
         "tip": "Variance in snowflake size."
       },
-
       "lights": {
         "enabled": {
           "label": "Enable Lights",
@@ -1689,7 +1685,10 @@
           "label": "Spacing",
           "tip": "Pixel distance between each light bulb."
         },
-        "radius": { "label": "Bulb Radius", "tip": "Size of each light bulb." },
+        "radius": {
+          "label": "Bulb Radius",
+          "tip": "Size of each light bulb."
+        },
         "speed": {
           "label": "Light Speed",
           "tip": "Controls the animation speed of light twinkle."
@@ -1704,7 +1703,10 @@
         },
         "colors": {
           "label": "Light Colors",
-          "index": { "label": "Color", "tip": "Adjust each bulb color." }
+          "index": {
+            "label": "Color",
+            "tip": "Adjust each bulb color."
+          }
         }
       }
     },
