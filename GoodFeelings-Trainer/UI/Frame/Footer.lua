@@ -34,9 +34,9 @@ function Footer.Draw(menuX, menuY, menuW, menuH)
 
     local title = SubmenuManager.GetBreadcrumbTitle()
     if title and title ~= "" then
-        State.menuCounts[title] = State.optionIndex
+        State.menuCounts[title] = State.visualIndex
     end
-    State.optionCount = State.optionIndex
+    State.optionCount = State.visualIndex
 end
 
 return Footer

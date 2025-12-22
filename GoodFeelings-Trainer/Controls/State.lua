@@ -14,6 +14,7 @@ State.currentOption = 1
 State.currentOption = 1
 State.maxVisible = 0
 State.optionCount = 0
+State.visualIndex = 0
 State.currentHeight = 0
 State.targetHeight = 0
 State.menuCounts = {}

@@ -203,7 +203,7 @@ UI.Footer = {}
 UI.Notification = {}
 UI.InfoBox = {}
 UI.BreakRow = {
-    Text = UI.Colors.MutedText, 
+    Text = UI.ColPalette.SolidBlueHighlight, 
     HighlightBg = UI.ColPalette.Transparent,
 }
 UI.Dropdown = {

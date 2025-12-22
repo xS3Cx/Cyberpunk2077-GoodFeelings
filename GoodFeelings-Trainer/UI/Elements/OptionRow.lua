@@ -7,6 +7,7 @@ OptionRow.optionIndex = 0
 
 function OptionRow.Begin()
     State.optionIndex = 0
+    State.visualIndex = 0
 end
 
 local function UpdateScroll(menuH)
@@ -28,15 +29,15 @@ end
 ---@param menuW number
 ---@return table pos {x:number, y:number, w:number, h:number, fontY:number, isActive:boolean}
 function OptionRow.calcPosition(menuX, menuY, menuW, menuH)
-    if State.optionIndex == 1 then
+    if State.visualIndex == 1 then
         UpdateScroll(menuH)
     end
-    if State.optionIndex < (State.startOpt or 1) or State.optionIndex > (State.endOpt or 1) then
+    if State.visualIndex < (State.startOpt or 1) or State.visualIndex > (State.endOpt or 1) then
         return nil
     end
 
     local L = UI.Layout
-    local rel = State.optionIndex - State.startOpt
+    local rel = State.visualIndex - State.startOpt
     local headerHeight = (UI.Header.Height or 0) + (UI.SecondHeader.Height or 0)
 
     local x = menuX + L.OptionPaddingX
@@ -88,18 +89,25 @@ end
 ---@param textColor integer|nil Override text color
 ---@param highlightColor integer|nil Override highlight color
 ---@return boolean clicked
-function OptionRow.Draw(menuX, menuY, menuW, menuH, left, center, right, textColor, highlightColor)
-    State.optionIndex = State.optionIndex + 1
+function OptionRow.Draw(menuX, menuY, menuW, menuH, left, center, right, textColor, highlightColor, isSeparator)
+    State.visualIndex = State.visualIndex + 1
+    if not isSeparator then
+        State.optionIndex = State.optionIndex + 1
+    end
+
     local pos = OptionRow.calcPosition(menuX, menuY, menuW, menuH) 
     if not pos then return false, nil end
 
-    local hovered, clicked = mouseInteraction(pos)
-    if clicked then State.currentOption = State.optionIndex end
+    local hovered, clicked = false, false
+    if not isSeparator then
+        hovered, clicked = mouseInteraction(pos)
+        if clicked then State.currentOption = State.optionIndex end
+    end
 
-    if hovered then
+    if hovered and not isSeparator then
         DrawHelpers.RectFilled(pos.x, pos.y, pos.w, pos.h, UI.OptionRow.HoverBg, UI.OptionRow.Rounding)
     end
-    if pos.isActive then
+    if pos.isActive and not isSeparator then
         UI.OptionRow.SmoothY = UI.OptionRow.SmoothY + (pos.y - UI.OptionRow.SmoothY) * UI.OptionRow.SmoothSpeed
         DrawHelpers.RectFilled(pos.x, UI.OptionRow.SmoothY, pos.w, pos.h,
             highlightColor or UI.OptionRow.HighlightBg, UI.OptionRow.Rounding)
@@ -108,24 +116,48 @@ function OptionRow.Draw(menuX, menuY, menuW, menuH, left, center, right, textCol
     local c = textColor or UI.OptionRow.Text
     local padding = UI.OptionRow.LabelOffsetX
 
-    if left and left ~= "" then
-        DrawHelpers.Text(pos.x + padding, pos.fontY, c, left)
-    end
-    if center and center ~= "" then
-        local tw = ImGui.CalcTextSize(center)
+    if isSeparator and left and left ~= "" then
+        local tw = ImGui.CalcTextSize(left)
         local cx = pos.x + (pos.w - tw) * 0.5
-        DrawHelpers.Text(cx, pos.fontY, c, center)
-    end
-    if right and right ~= "" then
-        local gap = UI.Layout.ItemSpacing.x or 6
-        local avail = pos.w - padding * 2 - ImGui.CalcTextSize(left or "")
-        local truncated = TruncateTextToFit(right, avail - gap)
-        local rw = ImGui.CalcTextSize(truncated)
-        local rx = pos.x + pos.w - padding - rw
-        DrawHelpers.Text(rx, pos.fontY, c, truncated)
+        local cy = pos.y + pos.h * 0.5
+        local lineGap = 10
+        local lineY = cy -- Align line with vertical center of row
+        
+        -- Draw text centered
+        DrawHelpers.Text(cx, pos.fontY, c, left)
+        
+        -- Draw lines on both sides
+        local lineX1_start = pos.x + padding
+        local lineX1_end = cx - lineGap
+        if lineX1_end > lineX1_start then
+            DrawHelpers.Line(lineX1_start, lineY, lineX1_end, lineY, c, 1.0)
+        end
+        
+        local lineX2_start = cx + tw + lineGap
+        local lineX2_end = pos.x + pos.w - padding
+        if lineX2_end > lineX2_start then
+            DrawHelpers.Line(lineX2_start, lineY, lineX2_end, lineY, c, 1.0)
+        end
+    else
+        if left and left ~= "" then
+            DrawHelpers.Text(pos.x + padding, pos.fontY, c, left)
+        end
+        if center and center ~= "" then
+            local tw = ImGui.CalcTextSize(center)
+            local cx = pos.x + (pos.w - tw) * 0.5
+            DrawHelpers.Text(cx, pos.fontY, c, center)
+        end
+        if right and right ~= "" then
+            local gap = UI.Layout.ItemSpacing.x or 6
+            local avail = pos.w - padding * 2 - ImGui.CalcTextSize(left or "")
+            local truncated = TruncateTextToFit(right, avail - gap)
+            local rw = ImGui.CalcTextSize(truncated)
+            local rx = pos.x + pos.w - padding - rw
+            DrawHelpers.Text(rx, pos.fontY, c, truncated)
+        end
     end
 
-    return pos.isActive and (State.selectPressed or clicked), pos
+    return not isSeparator and pos.isActive and (State.selectPressed or clicked), pos
 end
 
 
