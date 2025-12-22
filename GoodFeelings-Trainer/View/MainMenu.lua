@@ -75,20 +75,26 @@ local function SecondaryView()
 end
 local testMenu = { title = "Test Menu", view = SecondaryView }
 
+local function getIcon(id, alt)
+    return (IconGlyphs and IconGlyphs[id]) or alt or ""
+end
+
 local function MainMenuView()
-    UI.Buttons.Submenu(L("mainmenu.self.label"), SelfView, tip("mainmenu.self.tip"))
-    if UI.Buttons.Submenu(L("mainmenu.development.label"), SelfDevelopmentView, tip("mainmenu.development.tip")) then UI
-            .Notification.Warning(L("mainmenu.development.warning")) end
-    UI.Buttons.Submenu(L("mainmenu.modifiers.label"), SelfModifiersView, tip("mainmenu.modifiers.tip"))
-    UI.Buttons.Submenu(L("mainmenu.teleport.label"), TeleportView, tip("mainmenu.teleport.tip"))
-    UI.Buttons.Submenu(L("mainmenu.weapon.label"), WeaponView, tip("mainmenu.weapon.tip"))
-    UI.Buttons.Submenu(L("mainmenu.vehicle.label"), VehicleMenuView, tip("mainmenu.vehicle.tip"))
-    if UI.Buttons.Submenu(L("mainmenu.facts.label"), GameFactsView, tip("mainmenu.facts.tip")) then UI.Notification
-            .Warning(L("mainmenu.facts.warning")) end
-    UI.Buttons.Submenu(L("mainmenu.time.label"), TimeView, tip("mainmenu.time.tip"))
-    UI.Buttons.Submenu(L("mainmenu.weather.label"), WeatherView, tip("mainmenu.weather.tip"))
-    UI.Buttons.Submenu(L("mainmenu.items.label"), ItemBrowserView, tip("mainmenu.items.tip"))
-    UI.Buttons.Submenu(L("mainmenu.settingsmenu.label"), SettingsView, tip("mainmenu.settingsmenu.tip"))
+    UI.Buttons.Submenu(getIcon("AccountCircle", "[P]") .. " " .. L("mainmenu.self.label"), SelfView, tip("mainmenu.self.tip"))
+    if UI.Buttons.Submenu(getIcon("Hammer", "[D]") .. " " .. L("mainmenu.development.label"), SelfDevelopmentView, tip("mainmenu.development.tip")) then
+        UI.Notification.Warning(L("mainmenu.development.warning"))
+    end
+    UI.Buttons.Submenu(getIcon("Flash", "[M]") .. " " .. L("mainmenu.modifiers.label"), SelfModifiersView, tip("mainmenu.modifiers.tip"))
+    UI.Buttons.Submenu(getIcon("MapMarker", "[T]") .. " " .. L("mainmenu.teleport.label"), TeleportView, tip("mainmenu.teleport.tip"))
+    UI.Buttons.Submenu(getIcon("Pistol", "[W]") .. " " .. L("mainmenu.weapon.label"), WeaponView, tip("mainmenu.weapon.tip"))
+    UI.Buttons.Submenu(getIcon("Car", "[V]") .. " " .. L("mainmenu.vehicle.label"), VehicleMenuView, tip("mainmenu.vehicle.tip"))
+    if UI.Buttons.Submenu(getIcon("HelpCircle", "[F]") .. " " .. L("mainmenu.facts.label"), GameFactsView, tip("mainmenu.facts.tip")) then
+        UI.Notification.Warning(L("mainmenu.facts.warning"))
+    end
+    UI.Buttons.Submenu(getIcon("Clock", "[T]") .. " " .. L("mainmenu.time.label"), TimeView, tip("mainmenu.time.tip"))
+    UI.Buttons.Submenu(getIcon("WeatherCloudy", "[W]") .. " " .. L("mainmenu.weather.label"), WeatherView, tip("mainmenu.weather.tip"))
+    UI.Buttons.Submenu(getIcon("Database", "[I]") .. " " .. L("mainmenu.items.label"), ItemBrowserView, tip("mainmenu.items.tip"))
+    UI.Buttons.Submenu(getIcon("Cog", "[S]") .. " " .. L("mainmenu.settingsmenu.label"), SettingsView, tip("mainmenu.settingsmenu.tip"))
 end
 
 local MainMenu = { title = "GoodFeelings", view = MainMenuView }
@@ -117,7 +123,7 @@ function MainMenu.Render(x, y, w, h)
     SnowBackground.Render(x, y, w, h)
     
     Header.Draw(x, y, w)
-    SecondHeader.Draw(x, y, w, UI.Style.Header.Height)
+    SecondHeader.Draw(x, y, w, UI.Style.Header.Height or 65)
     
     local view = UI.SubmenuManager.GetCurrentView()
     if view then view() end

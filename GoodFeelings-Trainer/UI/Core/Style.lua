@@ -97,23 +97,39 @@ UI.Base = {
         LabelOffsetX = 8.0,
         SmoothY = 0,
         SmoothSpeed = 0.25,
+        HoverBg = 0x60E67505,
+        HighlightBg = 0x60E67505,
+        Text = 0xFFFFFFFF,
+        MutedText = 0xFF788CA0,
     },
     Header = {
         Height = 65.0,
-        FontSize = 25.0,
+        FontSize = 8.0,
         FontSizeSub = 16.0,
         Rounding = 15.0,
-        Text = "GoodFeelings"
+        BackgroundColor = 0xFF080808,
+        TextColor = 0xFFE67505,
+        BorderColor = 0xFF505A6E,
+        Text = [[    .aMMMMP      .aMMMb      .aMMMb      dMMMMb      dMMMMMP  dMMMMMP   dMMMMMP  dMP               dMP    dMMMMb     aMMMMP   .dMMMb
+  dMP"              dMP"  dMP  dMP"  dMP   dMP     VMP   dMP               dMP                dMP                dMP               amr     dMP   dMP  dMP"             dMP"    VP
+ dMP    MMP" dMP  dMP  dMP    dMP    dMP     dMP   dMMMP        dMMMP          dMMMP        dMP               dMP    dMP   dMP   dMP   MMP"   VMMMb
+dMP.  dMP    dMP  .aMP   dMP  .aMP   dMP     .aMP    dMP              dMP                dMP               dMP               dMP    dMP   dMP   dMP.  dMP   dP      .dMP
+VMMMP"       VMMMP"     VMMMP"     dMMMMP"     dMP              dMMMMMP  dMMMMMP  dMMMMMP  dMP   dMP   dMP     VMMMP"       VMMMP"]]
     },
     SecondHeader = {
         Height = 30.0,
         FontSize = 18.0,
         Rounding = 15.0,
+        BackgroundColor = 0xFF080808,
+        TextColor = 0xFFE67505,
+        BorderColor = 0xFF505A6E,
     },
     Footer = {
         Height = 35.0,
         FontSize = 18.0,
         Rounding = 15.0,
+        BackgroundColor = 0xFF080808,
+        TextColor = 0xFFE67505,
         Text = "https://goodfeelings.cc"
     },
     Notification = {
@@ -125,6 +141,21 @@ UI.Base = {
         AnimDuration = 0.2,
         ProgressHeight = 4.0,
         ProgressOffsetY = -2.0,
+        BackgroundColor = 0xFF080808,
+        BorderColor = 0x00000000,
+        ProgressColors = {
+            Default = 0xFF3A6EA5,
+            info = 0xFFFFFFFF,
+            success = 0xFF88FF00,
+            warning = 0xFF88FFFF,
+            error = 0xFF8080F0,
+        },
+        TypeColors = {
+            info = 0xFFFFFFFF,
+            success = 0xFF88FF00,
+            warning = 0xFF88FFFF,
+            error = 0xFF8080F0,
+        },
     },
     InfoBox = {
         Padding = 14.0,      
@@ -132,6 +163,9 @@ UI.Base = {
         Spacing = 15.0, 
         CharsPerSecond = 175.0,    
         FallbackRotateSeconds = 10.0, 
+        TextColor = 0xFFFFFFFF,
+        BackgroundColor = 0xFF080808,
+        BorderColor = 0x00000000,
     },
     Toggle = {
         Size = 18.0,
@@ -152,16 +186,23 @@ UI.Base = {
         Decimals = 2,
         DefaultIntStep = 1,
         DefaultFloatStep = 0.1,
+        FrameBg = 0xFF151515,
+        TextColor = 0xFFE67505,
+        DisabledColor = 0xFF788CA0,
     },
     Radio = {
         Radius = 6.0,
         LineThickness = 1.5,
         Segments = 20,
+        SelectedColor = 0xFFFFFFFF,
+        UnselectedColor = 0xFFFFFFFF,
     },
     StringCycler = {
         FramePadding = 6.0,
         TextPadding = 3.0,
         BoxRounding = 6.40,
+        FrameBg = 0xFF202020,
+        ValueColor = 0xFF3A6EA5,
     },
     ColorPicker = {
         ChannelBoxSize = 24.0, 
@@ -169,6 +210,9 @@ UI.Base = {
         PreviewBoxSize = 18.0, 
         RowSpacing = 2.0, 
         Rounding = 6.40,
+        FrameBg = 0xFF202020,
+        TextColor = 0xFFFFFFFF,
+        BorderColor = 0xFF505A6E,
     },
     TextInput = {
         Width = 400.0,
@@ -176,6 +220,9 @@ UI.Base = {
         Padding = 14.0,
         Rounding = 6.40,
         ButtonSpacing = 10.0,
+        BackgroundColor = 0xFF202020,
+        BorderColor = 0xFF505A6E,
+        TextColor = 0xFFFFFFFF,
     },
     Background = {
         MasterEnabled = false,
@@ -200,106 +247,30 @@ UI.Base = {
         LightSpeed = 2.5,
         LightBrightness = 1.0,
         TwinkleEnabled = true,
-    }
+        SnowColor = 0xFFEFEFFF,
+        PeeColor = 0xFF88FFFF,
+        LightColor1 = 0xFFFF4040,
+        LightColor2 = 0xFF40FF40,
+        LightColor3 = 0xFFFFFF40,
+        LightColor4 = 0xFF40C0FF,
+        LightColor5 = 0xFFFF80FF,
+    },
+    BreakRow = {
+        Text = 0xFFE67505, 
+        HighlightBg = 0x00000000,
+    },
+    Dropdown = {
+        ArrowRight = IconGlyphs.ArrowExpand or ">",
+        ArrowDown = IconGlyphs.ArrowExpandAll or "v",
+        FramesPerOption = 3, 
+        RevealFrameDelay = 3, 
+        TextColor = 0xFFFFFFFF,
+        SelectedColor = 0xFF3A6EA5,
+        RowPrefix = "- ",  
+    },
 }
 
--- Initialize empty tables for active UI settings
-UI.Layout = {}
-UI.OptionRow = {}
-UI.Header = {}
-UI.SecondHeader = {}
-UI.Footer = {}
-UI.Notification = {}
-UI.InfoBox = {}
-UI.BreakRow = {
-    Text = UI.ColPalette.SolidBlueHighlight, 
-    HighlightBg = UI.ColPalette.Transparent,
-}
-UI.Dropdown = {
-    ArrowRight = IconGlyphs.ArrowExpand,
-    ArrowDown = IconGlyphs.ArrowExpandAll,
-    FramesPerOption = 3, 
-    RevealFrameDelay = 3, 
-    TextColor = UI.Colors.Text,
-    SelectedColor = UI.ColPalette.CoolSkyBlue,
-    RowPrefix = "- ",  
-}
-UI.Toggle = {}
-UI.Numeric = {}
-UI.Radio = {}
-UI.StringCycler = {}
-UI.ColorPicker = {}
-UI.TextInput = {}
-UI.Background = {}
-
--- Constant style elements that don't scale
-UI.Header.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
-UI.Header.TextColor = UI.ColPalette.SolidBlueHighlight
-UI.Header.BorderColor = UI.Colors.Border
-
-UI.SecondHeader.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
-UI.SecondHeader.TextColor = UI.ColPalette.SolidBlueHighlight
-UI.SecondHeader.BorderColor = UI.Colors.Border
-
-UI.Footer.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
-UI.Footer.TextColor = UI.ColPalette.SolidBlueHighlight
-
-UI.Notification.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
-UI.Notification.BorderColor = UI.Colors.Transparent
-UI.Notification.ProgressColors = {
-    Default = UI.ColPalette.CoolSkyBlue,
-    info = UI.ColPalette.PureWhite,
-    success = UI.ColPalette.GlowGreen,
-    warning = UI.ColPalette.GlowYellow,
-    error = UI.ColPalette.SoftRed,
-}
-UI.Notification.TypeColors = {
-    info = UI.ColPalette.PureWhite,
-    success = UI.ColPalette.GlowGreen,
-    warning = UI.ColPalette.GlowYellow,
-    error = UI.ColPalette.SoftRed,
-}
-
-UI.InfoBox.TextColor = UI.Colors.Text
-UI.InfoBox.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
-UI.InfoBox.BorderColor = UI.Colors.Transparent
-
-UI.OptionRow.HoverBg = UI.Colors.HoverBg
-UI.OptionRow.HighlightBg = UI.Colors.Highlight
-UI.OptionRow.Text = UI.Colors.Text
-UI.OptionRow.MutedText = UI.Colors.MutedText
-
-UI.Toggle.OnColor = UI.ColPalette.SoftWhite
-UI.Toggle.OffColor = UI.ColPalette.Transparent
-UI.Toggle.BorderColor = UI.Colors.Text
-UI.Toggle.FrameBg = UI.Colors.FrameBg
-UI.Toggle.TextColor = UI.Colors.Text
-
-UI.Numeric.FrameBg = UI.ColPalette.ToggleOff
-UI.Numeric.TextColor = UI.ColPalette.SolidBlueHighlight
-UI.Numeric.DisabledColor = UI.Colors.MutedText
-
-UI.Radio.SelectedColor = UI.Toggle.OnColor
-UI.Radio.UnselectedColor = UI.Colors.Text
-
-UI.StringCycler.FrameBg = UI.Colors.FrameBg
-UI.StringCycler.ValueColor = UI.ColPalette.CoolSkyBlue
-
-UI.ColorPicker.FrameBg = UI.Colors.FrameBg
-UI.ColorPicker.TextColor = UI.Colors.Text
-UI.ColorPicker.BorderColor = UI.Colors.Border
-
-UI.TextInput.BackgroundColor = UI.ColPalette.DarkCharcoal
-UI.TextInput.BorderColor = UI.ColPalette.SteelBorderGray
-UI.TextInput.TextColor = UI.Colors.Text
-
-UI.Background.SnowColor = 0xFFEFEFFF
-UI.Background.PeeColor = 0xFF88FFFF
-UI.Background.LightColor1 = 0xFFFF4040
-UI.Background.LightColor2 = 0xFF40FF40
-UI.Background.LightColor3 = 0xFFFFFF40
-UI.Background.LightColor4 = 0xFF40C0FF
-UI.Background.LightColor5 = 0xFFFF80FF
+-- All properties are now consolidated in UI.Base and merged via ApplyScale
 
 -- Initial call to apply scale (usually 1.0 at first)
 UI.ApplyScale()
