@@ -109,8 +109,8 @@ function Overlay.Render()
             local currentX = winX + (urlBoxW - actualUrlW) / 2
             local centerY = winY + (boxH - actualUrlH) / 2
             
-            -- Draw URL (Blue)
-            DrawHelpers.Text(currentX, centerY, blueLinkColor, urlText, scaledFontSize)
+            -- Draw URL (Match Top Branding Color)
+            DrawHelpers.Text(currentX, centerY, textColor, urlText, scaledFontSize)
             currentX = currentX + (ImGui.CalcTextSize(urlText) * scale)
             
             -- Draw Separator (Accent)

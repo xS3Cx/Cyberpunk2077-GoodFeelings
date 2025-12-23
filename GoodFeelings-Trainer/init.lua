@@ -230,9 +230,14 @@ Event.RegisterDraw(function()
             local baseH = (UIStyle.Header.Height or 65) + (UIStyle.SecondHeader.Height or 30) + (UIStyle.Footer.Height or 35) + (UIStyle.Layout.OptionPaddingY or 0) * 2
             local count = State.menuCounts[currentTitle] or State.optionCount or 1
             local limit = UIStyle.Layout.MaxVisibleOptions or 16
+            
             local displayCount = math.min(count, limit)
+            
             local spacing = (UIStyle.Layout.ItemSpacing and UIStyle.Layout.ItemSpacing.y) or 2.0
-            targetH = baseH + (displayCount * UIStyle.Layout.OptionHeight) + ((displayCount - 1) * spacing)
+            
+            -- Explicitly use floats and add slight padding
+            local contentHeight = (displayCount * UIStyle.Layout.OptionHeight) + (displayCount * spacing)
+            targetH = baseH + contentHeight + 4.0 
         else
             targetH = UIStyle.Layout.WindowHeight or 500.0
         end
@@ -259,6 +264,7 @@ Event.RegisterDraw(function()
 
         ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0)
         ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, UIStyle.Header.Rounding or 15.0)
+        ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, { 0.0, 0.0 })
         ImGui.PushStyleColor(ImGuiCol.Border, 0)
         ImGui.PushStyleColor(ImGuiCol.WindowBg, UIStyle.Colors.Background or 0)
         if ImGui.Begin("GoodFeelings", ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse + ImGuiWindowFlags.NoTitleBar + ImGuiWindowFlags.NoResize) then
@@ -274,7 +280,7 @@ Event.RegisterDraw(function()
             ImGui.End()
         end
         ImGui.PopStyleColor(2)
-        ImGui.PopStyleVar(2)
+        ImGui.PopStyleVar(3)
 
         InfoBox.Render(menuX, menuY, menuW, menuH)
     end

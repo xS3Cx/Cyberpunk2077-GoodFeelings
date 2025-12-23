@@ -9,6 +9,7 @@ OptionRow.optionIndex = 0
 function OptionRow.Begin()
     State.optionIndex = 0
     State.visualIndex = 0
+    State.separatorCount = 0
 end
 
 local function UpdateScroll(menuH)
@@ -18,11 +19,28 @@ local function UpdateScroll(menuH)
     local avail = h - L.OptionPaddingY * 2 - headerHeight - (UI.Footer.Height or 0)
 
     local maxLimit = L.MaxVisibleOptions or 16
-    State.maxVisible = math.min(maxLimit, math.max(1, math.floor((avail + L.ItemSpacing.y) / (L.OptionHeight + L.ItemSpacing.y))))
+    local bias = (L.OptionHeight * 0.5)
+    State.maxVisible = math.min(maxLimit, math.max(1, math.floor((avail + L.ItemSpacing.y + bias) / (L.OptionHeight + L.ItemSpacing.y))))
 
-    local cur = (State.currentOption or 1) - 1
-    State.startOpt = math.floor(cur / State.maxVisible) * State.maxVisible + 1
-    State.endOpt   = State.startOpt + State.maxVisible - 1
+    -- Scroll Logic Fix for Separators (Sliding Window):
+    -- Instead of pages, we just ensure the selected visual index is within the visible range.
+    
+    local targetVisual = State.lastVisualSelection or (State.currentOption or 1)
+    
+    -- Initialize if nil
+    if not State.startOpt then State.startOpt = 1 end
+
+    -- Slide window down if target is above visible range
+    if targetVisual > (State.startOpt + State.maxVisible - 1) then
+        State.startOpt = targetVisual - State.maxVisible + 1
+    end
+    
+    -- Slide window up if target is below visible range
+    if targetVisual < State.startOpt then
+        State.startOpt = targetVisual
+    end
+    
+    State.endOpt = State.startOpt + State.maxVisible - 1
 end
 
 ---@param menuX number
@@ -92,8 +110,21 @@ end
 ---@return boolean clicked
 function OptionRow.Draw(menuX, menuY, menuW, menuH, left, center, right, textColor, highlightColor, isSeparator)
     State.visualIndex = State.visualIndex + 1
-    if not isSeparator then
-        State.optionIndex = State.optionIndex + 1
+    State.optionIndex = State.optionIndex + 1
+
+    if isSeparator then
+        -- Auto-skip separators during navigation
+        if State.optionIndex == State.currentOption then
+             if State.upPressed then
+                 State.currentOption = State.optionIndex - 1
+             else
+                 State.currentOption = State.optionIndex + 1
+             end
+        end
+    else
+        if State.optionIndex == State.currentOption then
+            State.lastVisualSelection = State.visualIndex
+        end
     end
 
     local pos = OptionRow.calcPosition(menuX, menuY, menuW, menuH) 
@@ -117,27 +148,33 @@ function OptionRow.Draw(menuX, menuY, menuW, menuH, left, center, right, textCol
     local c = textColor or UI.OptionRow.Text
     local padding = UI.OptionRow.LabelOffsetX
 
-    if isSeparator and left and left ~= "" then
-        local tw = ImGui.CalcTextSize(left)
-        local cx = pos.x + (pos.w - tw) * 0.5
-        local cy = pos.y + pos.h * 0.5
-        local lineGap = 10
-        local lineY = cy -- Align line with vertical center of row
+    if isSeparator then
+        local lineY = pos.y + pos.h * 0.5
+        local padding = 10 -- Or use UI.OptionRow.LabelOffsetX
         
-        -- Draw text centered
-        DrawHelpers.Text(cx, pos.fontY, c, left)
+        local text = left
+        if not text or text == "" then text = center end
         
-        -- Draw lines on both sides
-        local lineX1_start = pos.x + padding
-        local lineX1_end = cx - lineGap
-        if lineX1_end > lineX1_start then
-            DrawHelpers.Line(lineX1_start, lineY, lineX1_end, lineY, c, 1.0)
-        end
-        
-        local lineX2_start = cx + tw + lineGap
-        local lineX2_end = pos.x + pos.w - padding
-        if lineX2_end > lineX2_start then
-            DrawHelpers.Line(lineX2_start, lineY, lineX2_end, lineY, c, 1.0)
+        if text and text ~= "" then
+            local tw = ImGui.CalcTextSize(text)
+            local cx = pos.x + (pos.w - tw) * 0.5
+            local lineGap = 10
+            
+            -- Draw text centered
+            DrawHelpers.Text(cx, pos.fontY, c, text)
+            
+            -- Draw lines on both sides
+            local lineX1_start = pos.x + padding
+            local lineX1_end = cx - lineGap
+            if lineX1_end > lineX1_start then
+                DrawHelpers.Line(lineX1_start, lineY, lineX1_end, lineY, c, 1.0)
+            end
+            
+            local lineX2_start = cx + tw + lineGap
+            local lineX2_end = pos.x + pos.w - padding
+            if lineX2_end > lineX2_start then
+                DrawHelpers.Line(lineX2_start, lineY, lineX2_end, lineY, c, 1.0)
+            end
         end
     else
         if left and left ~= "" then
