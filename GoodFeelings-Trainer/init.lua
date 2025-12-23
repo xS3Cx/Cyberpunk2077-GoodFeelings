@@ -28,6 +28,7 @@ local GeneralLoader = require("Utils/DataExtractors/GeneralLoader")
 local TeleportLocations = require("Features/Teleports/TeleportLocations")
 
 local WelcomeWindow = require("View/Welcome")
+local WelcomeLanding = require("View/WelcomeLanding")
 local Utils
 local Weapon
 local SelfFeature
@@ -83,6 +84,9 @@ local function TryLoadModules()
         if ok then
             modulesLoaded = true
             Logger.Log("Game modules initialized.")
+            Cron.After(2.0, function()
+                WelcomeLanding.Show()
+            end)
         end
     end
 end
@@ -142,6 +146,7 @@ Event.RegisterInit(function()
 
     OptionConfig.Load()
     Logger.Log("Option config loaded")
+
 
 
     Event.Observe("PlayerPuppet", "OnAction", function(_, action)

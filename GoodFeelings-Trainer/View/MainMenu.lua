@@ -30,6 +30,7 @@ local WeatherView         = require("View/World/WeatherView")
 local TimeView            = require("View/World/TimeView")
 local GameFactsView       = require("View/World/FactView")
 local ItemBrowserView     = require("View/Items/ItemBrowserView")
+local DebugMenuView       = require("View/Debug/DebugMenuView")
 
 local testToggle          = { value = false }
 local testInt             = { value = 5, min = 0, max = 10 }
@@ -95,6 +96,7 @@ local function MainMenuView()
     UI.Buttons.Submenu(getIcon("Clock", "[T]") .. " " .. L("mainmenu.time.label"), TimeView, tip("mainmenu.time.tip"))
     UI.Buttons.Submenu(getIcon("WeatherCloudy", "[W]") .. " " .. L("mainmenu.weather.label"), WeatherView, tip("mainmenu.weather.tip"))
     UI.Buttons.Submenu(getIcon("Database", "[I]") .. " " .. L("mainmenu.items.label"), ItemBrowserView, tip("mainmenu.items.tip"))
+    UI.Buttons.Submenu(getIcon("Wrench", "[D]") .. " Debug Tools", DebugMenuView, "Tools to test InkWidgets and HUD elements")
     UI.Buttons.Submenu(getIcon("Cog", "[S]") .. " " .. L("mainmenu.settingsmenu.label"), SettingsView, tip("mainmenu.settingsmenu.tip"))
 end
 
