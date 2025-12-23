@@ -277,10 +277,14 @@ Event.RegisterDraw(function()
             menuX, menuY = ImGui.GetWindowPos()
             menuW, menuH = ImGui.GetWindowSize()
             MainMenu.Render(menuX, menuY, menuW, menuH)
+            
             ImGui.End()
         end
         ImGui.PopStyleColor(2)
         ImGui.PopStyleVar(3)
+
+        local Scrollbar = require("UI/Elements/Scrollbar")
+        Scrollbar.Render(menuX, menuY, menuW, menuH)
 
         InfoBox.Render(menuX, menuY, menuW, menuH)
     end
