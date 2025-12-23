@@ -46,6 +46,11 @@ function GameHUD.Initialize()
 	end
 end
 
+function GameHUD.PlaySound(name)
+	if name == nil or name == "" then return end
+	Game.GetAudioSystem():Play(CName.new(name))
+end
+
 function GameHUD.ShowMessage(text)
 	if text == nil or text == "" then
 		return

@@ -1,4 +1,5 @@
 local State = require("Controls/State")
+local GameHUD = require("Core/cp2077-cet-kit/GameHUD")
 
 local SubmenuManager = {}
 
@@ -21,6 +22,7 @@ function SubmenuManager.OpenSubmenu(submenu)
 
     SubmenuManager.currentMenuIndex = SubmenuManager.currentMenuIndex + 1
     State.currentOption = 1
+    GameHUD.PlaySound("ui_menu_map_pin_on")
 end
 
 function SubmenuManager.CloseSubmenu()
@@ -35,6 +37,7 @@ function SubmenuManager.CloseSubmenu()
     else
         State.currentOption = 1
     end
+    GameHUD.PlaySound("ui_menu_close")
 end
 
 function SubmenuManager.GetBreadcrumbTitle()

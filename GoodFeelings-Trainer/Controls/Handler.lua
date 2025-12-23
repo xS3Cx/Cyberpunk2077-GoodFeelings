@@ -7,6 +7,7 @@ local Cursor = require("Controls/Cursor")
 local BindManager = require("Features/BindManager")
 
 local SubmenuManager = require("UI/Core/SubmenuManager")
+local GameHUD = require("Core/cp2077-cet-kit/GameHUD")
 
 local Handler = {}
 
@@ -77,6 +78,7 @@ function Handler.Update()
         State.upPressed = true
         lastTick.up = now
         scrollDelay.up = getScrollDelay("up", now)
+        GameHUD.PlaySound("ui_menu_onpress")
     elseif not Bindings.IsActionDown("UP") then
         holdStart.up, scrollDelay.up = 0, Handler.scrollDelayBase
     end
@@ -85,6 +87,7 @@ function Handler.Update()
         State.downPressed = true
         lastTick.down = now
         scrollDelay.down = getScrollDelay("down", now)
+        GameHUD.PlaySound("ui_menu_onpress")
     elseif not Bindings.IsActionDown("DOWN") then
         holdStart.down, scrollDelay.down = 0, Handler.scrollDelayBase
     end
@@ -93,6 +96,7 @@ function Handler.Update()
         State.leftPressed = true
         lastTick.left = now
         scrollDelay.left = getScrollDelay("left", now)
+        GameHUD.PlaySound("ui_menu_onpress")
     elseif not Bindings.IsActionDown("LEFT") then
         holdStart.left, scrollDelay.left = 0, Handler.scrollDelayBase
     end
@@ -101,6 +105,7 @@ function Handler.Update()
         State.rightPressed = true
         lastTick.right = now
         scrollDelay.right = getScrollDelay("right", now)
+        GameHUD.PlaySound("ui_menu_onpress")
     elseif not Bindings.IsActionDown("RIGHT") then
         holdStart.right, scrollDelay.right = 0, Handler.scrollDelayBase
     end

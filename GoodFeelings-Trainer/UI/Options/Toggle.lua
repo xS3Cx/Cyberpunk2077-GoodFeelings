@@ -82,7 +82,15 @@ function Toggle.Option(label, ref, tip)
     BindManager.Register(label, ref)
     BindManager.Recruit(label, ref, OptionRow.IsSelected())
 
-    if clicked then ref.value = not ref.value end
+    if clicked then
+        ref.value = not ref.value
+        local GameHUD = require("Core/cp2077-cet-kit/GameHUD")
+        if ref.value then
+            GameHUD.PlaySound("ui_menu_value_down") -- ON sound
+        else
+            GameHUD.PlaySound("ui_menu_value_up")   -- OFF sound
+        end
+    end
     return clicked
 end
 
