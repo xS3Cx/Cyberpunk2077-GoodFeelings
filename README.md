@@ -1,4 +1,5 @@
-<img width="1280" height="719" alt="image" src="https://github.com/user-attachments/assets/e707f30a-f386-4b04-83c5-e257ff3e3383" />
+
+<img width="1915" height="1075" alt="Bez tytułu" src="https://github.com/user-attachments/assets/4c973258-4145-4487-8174-b17daf7cfe2a" />
 
 ## Credits and Original Source
 Based on [EasyTrainers](https://github.com/AviWind02/EasyTrainers) - Lua implementation of the original EasyTrainer mod.
