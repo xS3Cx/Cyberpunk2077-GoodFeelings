@@ -23,6 +23,7 @@ local function SettingsViewFunction()
     Buttons.Submenu(L("settingsmenu.translations.label"), TranslationsView, tip("settingsmenu.translations.tip"))
 
     Buttons.Break(L("settingsmenu.ui.label"))
+    Buttons.Submenu("Particles", require("View/Settings/ParticlesMenuView"), "Configure particle effects in header")
     Buttons.Submenu(L("settingsmenu.snowbackground.label"), SnowBackground, tip("settingsmenu.snowbackground.tip"))
     Buttons.Submenu(L("settingsmenu.scrolling.label"), require("View/Settings/ScrollingMenuView"), tip("settingsmenu.scrolling.tip"))
     Buttons.Submenu("Hotkey Menu", require("View/Settings/HotkeyManagerView"), "View and manage all your hotkey bindings")

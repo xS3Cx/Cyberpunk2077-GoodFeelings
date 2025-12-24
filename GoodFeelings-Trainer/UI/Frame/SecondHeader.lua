@@ -26,7 +26,7 @@ function SecondHeader.Draw(menuX, menuY, menuW, headerHeight)
     if breadcrumb and breadcrumb ~= "" then
         local breadcrumbWidth = ImGui.CalcTextSize(breadcrumb)
         local breadcrumbX = math.floor(x + (w - breadcrumbWidth) * 0.5) + 0.5
-        local breadcrumbY = math.floor(y + (h - secondHeader.FontSize) * 0.5) + 0.5
+        local breadcrumbY = math.floor(y + (h - ImGui.GetFontSize()) * 0.5) + 0.5
 
         -- Calculate Background Rect for Hover
         local paddingX = 8.0
@@ -34,7 +34,7 @@ function SecondHeader.Draw(menuX, menuY, menuW, headerHeight)
         local bgX = breadcrumbX - paddingX
         local bgY = breadcrumbY - paddingY
         local bgW = breadcrumbWidth + paddingX * 2
-        local bgH = secondHeader.FontSize + paddingY * 2
+        local bgH = ImGui.GetFontSize() + paddingY * 2
 
         -- Check Hover/Click
         local isHovered = false
@@ -55,30 +55,25 @@ function SecondHeader.Draw(menuX, menuY, menuW, headerHeight)
         end
 
         local drawlist = ImGui.GetWindowDrawList()
-        ImGui.ImDrawListAddText(drawlist, secondHeader.FontSize, breadcrumbX, breadcrumbY, secondHeader.TextColor, breadcrumb)
+        ImGui.ImDrawListAddText(drawlist, ImGui.GetFontSize(), breadcrumbX, breadcrumbY, secondHeader.TextColor, breadcrumb)
     end
 
-    -- Draw Version (Left)
-    local versionText = "1.0.0"
-    local versionY = math.floor(y + (h - secondHeader.FontSize) * 0.5) + 0.5
+
+    local versionText = MOD_VERSION
+    local versionY = math.floor(y + (h - ImGui.GetFontSize()) * 0.5) + 0.5
     local versionX = x + 10.0
     local drawlist = ImGui.GetWindowDrawList()
-    ImGui.ImDrawListAddText(drawlist, secondHeader.FontSize, versionX, versionY, secondHeader.TextColor, versionText)
+    ImGui.ImDrawListAddText(drawlist, ImGui.GetFontSize(), versionX, versionY, secondHeader.TextColor, versionText)
 
     -- Draw Option Count (Right)
     local current = State.currentOption or 1
     local total = State.optionCount or State.optionIndex or 1 -- State.optionIndex seems to be total count based on usage in EasyTrainers
     local countText = string.format("%d\\%d", current, total)
     local countWidth = ImGui.CalcTextSize(countText)
-    -- Adjust width for font size scaling if needed, but CalcTextSize usually uses current font. 
-    -- If custom font size is used, we need to scale.
-    local currentFontSize = ImGui.GetFontSize()
-    if secondHeader.FontSize ~= currentFontSize then
-         countWidth = countWidth * (secondHeader.FontSize / currentFontSize)
-    end
-
+    -- Width adjustment not needed if using standard font size
+    
     local countX = math.floor(x + w - countWidth - 10.0) + 0.5
-    ImGui.ImDrawListAddText(drawlist, secondHeader.FontSize, countX, versionY, secondHeader.TextColor, countText)
+    ImGui.ImDrawListAddText(drawlist, ImGui.GetFontSize(), countX, versionY, secondHeader.TextColor, countText)
 end
 
 return SecondHeader

@@ -98,6 +98,9 @@ local function MainMenuView()
     UI.Buttons.Submenu(getIcon("Database", "[I]") .. " " .. L("mainmenu.items.label"), ItemBrowserView, tip("mainmenu.items.tip"))
     UI.Buttons.Submenu(getIcon("Wrench", "[D]") .. " Debug Tools", DebugMenuView, "Tools to test InkWidgets and HUD elements")
     UI.Buttons.Submenu(getIcon("Cog", "[S]") .. " " .. L("mainmenu.settingsmenu.label"), SettingsView, tip("mainmenu.settingsmenu.tip"))
+    
+    local NPCMenuView = require("View/NPCMenuView")
+    UI.Buttons.Submenu(getIcon("Skull", "[N]") .. " NPC Menu", NPCMenuView, "Spawn Enemies and Bosses")
 end
 
 local MainMenu = { title = "GoodFeelings", view = MainMenuView }

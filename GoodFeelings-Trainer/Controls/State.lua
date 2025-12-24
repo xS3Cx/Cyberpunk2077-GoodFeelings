@@ -9,6 +9,7 @@ State.overlayShowTop = { value = true }
 State.overlayShowTitle = { value = true }
 State.overlayShowTime = { value = true }
 State.overlayShowFPS = { value = true }
+State.particlesNetworkEnabled = { value = true }
 
 State.menuOpen = true
 State.mouseEnabled = false

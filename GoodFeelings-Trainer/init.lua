@@ -6,6 +6,9 @@ local Session = require("Core/cp2077-cet-kit/GameSession")
 local Cron = require("Core/cp2077-cet-kit/Cron")
 local OptionConfig = require("Config/OptionConfig")
 local Input = require("Core/Input")
+
+-- Global Version
+MOD_VERSION = "1.0.1"
 -- Config
 local BindingsConfig = require("Config/BindingsConfig")
 local UIConfig = require("Config/UIConfig")
@@ -29,6 +32,7 @@ local TeleportLocations = require("Features/Teleports/TeleportLocations")
 
 local WelcomeWindow = require("View/Welcome")
 local WelcomeLanding = require("View/WelcomeLanding")
+
 local Utils
 local Weapon
 local SelfFeature
@@ -38,6 +42,8 @@ local Vehicle
 local AutoTeleport
 local WorldWeather
 local WorldTime
+local NPCGun -- Added NPCGun variable
+
 registerForEvent("onOverlayOpen", function() State.overlayOpen = true end)
 registerForEvent("onOverlayClose", function() State.overlayOpen = false end)
 
@@ -76,6 +82,8 @@ local function TryLoadModules()
         WorldWeather = require("Features/World/WorldWeather")
         WorldTime = require("Features/World/WorldTime")
         MainMenu = require("View/MainMenu")
+        NPCGun = require("Features/NPC/NPCGun") -- Load NPCGun
+        
         -- this is a very cancer statement but I guess it works?
         if not (Utils and SelfFeature and AutoTeleport and WorldWeather and WorldTime and SelfTick and Weapon and Vehicle and MainMenu) then
             ok = false
@@ -212,12 +220,15 @@ Event.RegisterUpdate(function(dt)
     Vehicle.VehicleNitro.Tick(dt)
     WorldWeather.Update()
     WorldTime.Update(dt)
+    
+    if NPCGun then NPCGun.Tick() end
 end)
 
 Event.RegisterDraw(function()
     UI.Notification.Render()
     WelcomeWindow.Render()
     UI.Overlay.Render()
+
     
     if not modulesLoaded then return end
     MainMenu.Initialize()

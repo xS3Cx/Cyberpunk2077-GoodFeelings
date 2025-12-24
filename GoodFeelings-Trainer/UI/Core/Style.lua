@@ -104,22 +104,18 @@ UI.Base = {
         MutedText = 0xFF788CA0,
     },
     Header = {
-        Height = 65.0,
-        FontSize = 8.0,
+        Height = 75.0,
+        FontSize = 40.0, -- Reduced size for main title
         FontSizeSub = 16.0,
         Rounding = 15.0,
         BackgroundColor = 0xFF080808,
         TextColor = 0xFFE67505,
         BorderColor = 0xFF505A6E,
-        Text = [[    .aMMMMP      .aMMMb      .aMMMb      dMMMMb      dMMMMMP  dMMMMMP   dMMMMMP  dMP               dMP    dMMMMb     aMMMMP   .dMMMb
-  dMP"              dMP"  dMP  dMP"  dMP   dMP     VMP   dMP               dMP                dMP                dMP               amr     dMP   dMP  dMP"             dMP"    VP
- dMP    MMP" dMP  dMP  dMP    dMP    dMP     dMP   dMMMP        dMMMP          dMMMP        dMP               dMP    dMP   dMP   dMP   MMP"   VMMMb
-dMP.  dMP    dMP  .aMP   dMP  .aMP   dMP     .aMP    dMP              dMP                dMP               dMP               dMP    dMP   dMP   dMP.  dMP   dP      .dMP
-VMMMP"       VMMMP"     VMMMP"     dMMMMP"     dMP              dMMMMMP  dMMMMMP  dMMMMMP  dMP   dMP   dMP     VMMMP"       VMMMP"]]
+        Text = "GoodFeelings",
     },
     SecondHeader = {
         Height = 30.0,
-        FontSize = 18.0,
+        FontSize = 13.0,
         Rounding = 15.0,
         BackgroundColor = 0xFF080808,
         TextColor = 0xFFE67505,
@@ -152,7 +148,7 @@ VMMMP"       VMMMP"     VMMMP"     dMMMMP"     dMP              dMMMMMP  dMMMMMP
             error = 0xFF8080F0,
         },
         TypeColors = {
-            info = 0xFFFFFFFF,
+            info = 0xFFE67505, -- Overlay blue
             success = 0xFF88FF00,
             warning = 0xFF88FFFF,
             error = 0xFF8080F0,
@@ -169,7 +165,7 @@ VMMMP"       VMMMP"     VMMMP"     dMMMMP"     dMP              dMMMMMP  dMMMMMP
         BorderColor = 0x00000000,
     },
     Toggle = {
-        Size = 18.0,
+        Size = 20.0,
         WidthFactor = 1.55,
         Rounding = 6.40,
         Inset = 1.5,
@@ -261,8 +257,8 @@ VMMMP"       VMMMP"     VMMMP"     dMMMMP"     dMP              dMMMMMP  dMMMMMP
         HighlightBg = 0x00000000,
     },
     Dropdown = {
-        ArrowRight = IconGlyphs.ArrowExpand or ">",
-        ArrowDown = IconGlyphs.ArrowExpandAll or "v",
+        ArrowRight = (IconGlyphs and (IconGlyphs.ArrowRightBoldBoxOutline or IconGlyphs["arrow-right-bold-box-outline"])) or "arrow-right-bold-box-outline",
+        ArrowDown = (IconGlyphs and IconGlyphs.ArrowExpandAll) or "v",
         FramesPerOption = 3, 
         RevealFrameDelay = 3, 
         TextColor = 0xFFFFFFFF,

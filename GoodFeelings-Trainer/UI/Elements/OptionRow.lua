@@ -215,9 +215,41 @@ function OptionRow.Draw(menuX, menuY, menuW, menuH, left, center, right, textCol
             local gap = UI.Layout.ItemSpacing.x or 6
             local avail = pos.w - padding * 2 - ImGui.CalcTextSize(left or "")
             local truncated = TruncateTextToFit(right, avail - gap)
-            local rw = ImGui.CalcTextSize(truncated)
-            local rx = pos.x + pos.w - padding - rw
-            DrawHelpers.Text(rx, pos.fontY, c, truncated)
+            
+            -- Try to find last space to separate text from potential icon
+            local lastSpace = truncated:match("^.*()" .. " ")
+            
+            if lastSpace and lastSpace > 1 then
+                -- Split on last space - assume format is "text icon"
+                local textPart = truncated:sub(1, lastSpace - 1)
+                local iconPart = truncated:sub(lastSpace + 1)
+                
+                local textW = ImGui.CalcTextSize(textPart)
+                local totalW = ImGui.CalcTextSize(truncated)
+                local rx = pos.x + pos.w - padding - totalW
+                local offset = UI.Layout.IconOffsetY or 1.0
+                local extraDown = 1.0 -- Extra adjustment for right-side icons
+                
+                -- Render text without offset, last part (icon) with offset
+                DrawHelpers.Text(rx, pos.fontY, c, textPart)
+                DrawHelpers.Text(rx + textW + 4, pos.fontY + offset + extraDown, c, iconPart)
+            else
+                -- No space found - could be standalone icon (submenu arrow)
+                local rw = ImGui.CalcTextSize(truncated)
+                local rx = pos.x + pos.w - padding - rw
+                
+                -- Check if it's an icon by checking first byte
+                local firstByte = string.byte(truncated, 1) or 0
+                if firstByte >= 0xE0 then
+                    -- It's an icon, apply offset
+                    local offset = UI.Layout.IconOffsetY or 1.0
+                    local extraDown = 1.0 -- Same extra adjustment as dropdown icons
+                    DrawHelpers.Text(rx, pos.fontY + offset + extraDown, c, truncated)
+                else
+                    -- Regular text, no offset
+                    DrawHelpers.Text(rx, pos.fontY, c, truncated)
+                end
+            end
         end
     end
 

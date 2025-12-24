@@ -2,6 +2,7 @@ local UI = require("UI/Core/Style")
 local DrawHelpers = require("UI/Core/DrawHelpers")
 local State = require("Controls/State")
 local SubmenuManager = require("UI/Core/SubmenuManager")
+local Particles = require("UI/Effects/Particles")
 
 local Footer = {}
 
@@ -17,6 +18,11 @@ function Footer.Draw(menuX, menuY, menuW, menuH)
     local h = footer.Height
 
     DrawHelpers.RectFilled(x, y, w, h, footer.BackgroundColor, footer.Rounding, ImDrawFlags.RoundCornersBottom)
+
+    -- Render network particles if enabled
+    if State.particlesNetworkEnabled and State.particlesNetworkEnabled.value then
+        Particles.Render(x, y, w, h, footer.TextColor)
+    end
 
     local text = footer.Text
     local currentFontSize = ImGui.GetFontSize()

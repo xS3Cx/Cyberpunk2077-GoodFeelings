@@ -18,11 +18,14 @@ local function resolveAutoPosition()
 end
 
 local function push(msg, duration, position, ntype)
+    -- Add GoodFeelings prefix
+    local prefixedMsg = "GoodFeelings " .. msg
+    
     table.insert(Notification.active, {
-        msg = msg,
+        msg = prefixedMsg,
         time = os.clock(),
         duration = duration or 3.0,
-        pos = (position == "Auto" or not position) and resolveAutoPosition() or position,
+        pos = position or "TopCenter", -- Default to TopCenter instead of Auto
         type = ntype or "info"
     })
 end
@@ -31,28 +34,28 @@ end
 ---@param duration? number Seconds to display (default 3)
 ---@param position? string "TopLeft, TopRight, BottomLeft, BottomRight, TopCenter, BottomCenter, Auto"
 function Notification.Info(msg, duration, position)
-    push(msg, duration, position, "info")
+    push(msg, duration, position or "TopCenter", "info")
 end
 
 ---@param msg string
 ---@param duration? number Seconds to display (default 3)
 ---@param position? string "TopLeft, TopRight, BottomLeft, BottomRight, TopCenter, BottomCenter, Auto"
 function Notification.Success(msg, duration, position)
-    push(msg, duration, position, "success")
+    push(msg, duration, position or "TopCenter", "success")
 end
 
 ---@param msg string
 ---@param duration? number Seconds to display (default 3)
 ---@param position? string "TopLeft, TopRight, BottomLeft, BottomRight, TopCenter, BottomCenter, Auto"
 function Notification.Warning(msg, duration, position)
-    push(msg, duration, position, "warning")
+    push(msg, duration, position or "TopCenter", "warning")
 end
 
 ---@param msg string
 ---@param duration? number Seconds to display (default 3)
 ---@param position? string "TopLeft, TopRight, BottomLeft, BottomRight, TopCenter, BottomCenter, Auto"
 function Notification.Error(msg, duration, position)
-    push(msg, duration, position, "error")
+    push(msg, duration, position or "TopCenter", "error")
 end
 
 local function estimateWrappedHeight(text, maxWidth)
@@ -68,15 +71,15 @@ local function estimateWrappedHeight(text, maxWidth)
     return lines * ImGui.GetTextLineHeight()
 end
 
-local function getNotificationPosition(pos, dynamicHeight, stackOffset, screenW, screenH)
+local function getNotificationPosition(pos, dynamicHeight, stackOffset, screenW, screenH, width)
     local N = UI.Notification
-    local pad, width = N.Padding, N.Width
+    local pad = N.Padding
     if pos == "TopLeft" then
         return pad, pad + stackOffset
     elseif pos == "TopRight" then
         return screenW - width - pad, pad + stackOffset
     elseif pos == "TopCenter" then
-        return (screenW - width) / 2, pad + stackOffset
+        return (screenW - width) / 2, 10 + stackOffset -- Same as overlay (10px from top)
     elseif pos == "BottomLeft" then
         return pad, screenH - pad - dynamicHeight - stackOffset
     elseif pos == "BottomRight" then
@@ -107,34 +110,52 @@ end
 
 local function drawNotificationWindow(i, x, y, dynamicHeight, msg, progress, ntype)
     local N = UI.Notification
-    local pad, width, rounding = N.Padding, N.Width, N.Rounding
+    local rounding = 3.0 -- Same as overlay
+    local scale = UI.Base.Layout.Scale or 1.0
+    local padX = 8
+
+    -- Split message into "GoodFeelings" and rest
+    local prefix = "GoodFeelings "
+    local rest = msg:sub(#prefix + 1) or ""
+    
+    -- Calculate text sizes (like overlay)
+    local baseFontSize = ImGui.GetFontSize() or 18
+    local scaledFontSize = baseFontSize * scale
+    local textW, textH = ImGui.CalcTextSize(prefix .. rest)
+    local actualTextW = textW * scale
+    local actualTextH = textH * scale
+    
+    -- Dynamic width based on text (like overlay)
+    local width = actualTextW + (padX * 2 * scale)
 
     ImGui.SetNextWindowPos(x, y)
     ImGui.SetNextWindowSize(width, dynamicHeight)
     ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, rounding)
     ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0)
+    ImGui.PushStyleVar(ImGuiStyleVar.WindowMinSize, { 0, 0 })
     ImGui.PushStyleColor(ImGuiCol.Border, UI.Colors.Transparent)
+    ImGui.PushStyleColor(ImGuiCol.WindowBg, UI.Colors.Transparent)
 
     ImGui.Begin("##Notification_" .. i,
         ImGuiWindowFlags.NoDecoration + ImGuiWindowFlags.NoInputs + ImGuiWindowFlags.NoSavedSettings)
 
-    DrawHelpers.RectFilled(x, y, width, dynamicHeight, N.BackgroundColor, rounding)
-
-    local color = N.TypeColors[ntype] or UI.Colors.Text
-    local textX = x + pad
-    local textY = y + pad
-    local wrapWidth = width - pad * 2
-    DrawHelpers.TextWrapped(textX, textY, color, msg, wrapWidth)
-
-    local pColor = N.ProgressColors[ntype] or N.ProgressColors.Default
-    ImGui.PushStyleColor(ImGuiCol.PlotHistogram, pColor)
-    ImGui.SetCursorPosY(ImGui.GetWindowHeight() + (N.ProgressOffsetY or -2))
-    ImGui.ProgressBar(progress, -1, N.ProgressHeight, "")
-    ImGui.PopStyleColor()
+    local winX, winY = ImGui.GetWindowPos()
+    DrawHelpers.RectFilled(winX, winY, width, dynamicHeight, N.BackgroundColor, rounding)
+    
+    -- Center text in box (exactly like overlay does)
+    local currentX = winX + (width - actualTextW) / 2
+    local centerY = winY + (dynamicHeight - actualTextH) / 2
+    
+    -- Draw "GoodFeelings" in blue
+    DrawHelpers.Text(currentX, centerY, 0xFFE67505, prefix, scaledFontSize)
+    
+    -- Draw rest in white
+    local prefixWidth = ImGui.CalcTextSize(prefix) * scale
+    DrawHelpers.Text(currentX + prefixWidth, centerY, 0xFFFFFFFF, rest, scaledFontSize)
 
     ImGui.End()
-    ImGui.PopStyleColor()
-    ImGui.PopStyleVar(2)
+    ImGui.PopStyleColor(2)
+    ImGui.PopStyleVar(3)
 end
 
 function Notification.Render()
@@ -142,6 +163,8 @@ function Notification.Render()
     local now = os.clock()
     local screenW, screenH = GetDisplayResolution()
     local positionStacks = {}
+    local scale = UI.Base.Layout.Scale or 1.0
+    local padX = 8
 
     for i = #Notification.active, 1, -1 do
         local n = Notification.active[i]
@@ -155,10 +178,15 @@ function Notification.Render()
             local pos = n.pos or "TopLeft"
             local stackOffset = positionStacks[pos] or 0
 
-            local textHeight = estimateWrappedHeight(n.msg, N.Width - N.Padding * 2)
-            local dynamicHeight = textHeight + N.Padding * 2 + (N.ProgressHeight or 4) + 4
+            -- Fixed height matching overlay (20 * scale)
+            local dynamicHeight = 20 * scale
+            
+            -- Calculate dynamic width based on text
+            local textW = ImGui.CalcTextSize(n.msg)
+            local actualTextW = textW * scale
+            local width = actualTextW + (padX * 2 * scale)
 
-            local x, y = getNotificationPosition(pos, dynamicHeight, stackOffset, screenW, screenH)
+            local x, y = getNotificationPosition(pos, dynamicHeight, stackOffset, screenW, screenH, width)
             x, y = applySlideOffset(pos, x, y, elapsed, remaining)
 
             drawNotificationWindow(i, x, y, dynamicHeight, n.msg, progress, n.type)

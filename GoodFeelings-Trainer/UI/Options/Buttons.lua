@@ -34,8 +34,11 @@ function Buttons.Break(left, center, right)
     return Option.Break(left, center, right)
 end
 
+local Style = require("UI/Core/Style")
+
 function Buttons.Submenu(label, submenuId, tip, action)
-    if Option.Option(label, "", IconGlyphs.ArrowRight, tip) then
+    local arrow = (Style and Style.Dropdown and Style.Dropdown.ArrowRight) or ">"
+    if Option.Option(label, "", arrow, tip) then
         if submenuId then Submenus.OpenSubmenu(submenuId) end
         if action then action() end
         return true
