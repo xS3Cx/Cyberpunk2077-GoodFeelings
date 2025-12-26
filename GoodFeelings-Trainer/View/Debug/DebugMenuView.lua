@@ -163,6 +163,7 @@ local function DebugViewFunction()
     if UI.Buttons.Option("Clear All Test Widgets", "Hide all spawned debug widgets") then
         ClearTestWidgets()
     end
+    
 end
 
 local DebugMenuView = { title = "Debug Tools", view = DebugViewFunction }

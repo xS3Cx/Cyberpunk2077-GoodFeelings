@@ -3,6 +3,8 @@ local Buttons = UI.Buttons
 local Inventory = require("Utils").Inventory
 local Weapons = require("Features/Weapons")
 local WeaponItemsMenu = require("View/Weapons/WeaponsItemView")
+local State = require("Controls/State")
+local OptionRow = require("UI/Elements/OptionRow")
 
 local ammoTypes = {
     { id = "Ammo.HandgunAmmo", label = L("weaponsmenu.ammoitems.types.handgun") },
@@ -53,6 +55,56 @@ local function WeaponsViewFunction()
 
     
     Buttons.Toggle(L("weaponsmenu.explosivebullets.label"), Weapons.ExplosiveBullets.enabled, tip("weaponsmenu.explosivebullets.tip"))
+    
+    -- Explosion selection (categorized submenus)
+    if Weapons.ExplosiveBullets.enabled.value then
+        local explosionSubmenu = {
+            title = "Select Explosion Type",
+            view = function()
+                -- Quick Sets Submenu
+                local quickSetsSubmenu = {
+                    title = "Quick Sets (" .. #Weapons.ExplosiveBullets.quickSets .. ")",
+                    view = function()
+                        for _, fullId in ipairs(Weapons.ExplosiveBullets.quickSets) do
+                            local label = fullId:gsub("^Attacks%.", ""):gsub("^AdamSmasher%.", "Smasher: ")
+                            local isSelected = Weapons.ExplosiveBullets.explosionTypes[Weapons.ExplosiveBullets.explosionTypeIndex.index] == fullId
+                            local displayLabel = (isSelected and "[X] " or "[-] ") .. label
+                            
+                            if Buttons.Option(displayLabel, "Selection: " .. fullId) then
+                                Weapons.ExplosiveBullets.SelectType(fullId)
+                            end
+                        end
+                    end
+                }
+                Buttons.Submenu("Quick Sets", quickSetsSubmenu, "Hand-picked explosions for quick access")
+                Buttons.Break("Categories")
+
+                for _, category in ipairs(Weapons.ExplosiveBullets.categories) do
+                    local categorySubmenu = {
+                        title = category.name,
+                        view = function()
+                            for _, fullId in ipairs(category.items) do
+                                local label = fullId:gsub("^Attacks%.", ""):gsub("^AdamSmasher%.", "Smasher: ")
+                                
+                                -- Button state (mark selected)
+                                local isSelected = Weapons.ExplosiveBullets.explosionTypes[Weapons.ExplosiveBullets.explosionTypeIndex.index] == fullId
+                                local displayLabel = (isSelected and "[X] " or "[-] ") .. label
+                                
+                                if Buttons.Option(displayLabel, "Selection: " .. fullId) then
+                                    Weapons.ExplosiveBullets.SelectType(fullId)
+                                end
+                            end
+                        end
+                    }
+                    Buttons.Submenu(category.name, categorySubmenu, "Browse " .. category.name)
+                end
+            end
+        }
+        
+        Buttons.Submenu("Select Explosion Type", explosionSubmenu, "Browse 425+ explosion types by category")
+        Buttons.Float("Explosion Radius", Weapons.ExplosiveBullets.explosionRadius, "Explosion radius in meters")
+    end
+    
     Buttons.Toggle(L("weaponsmenu.infiniteammo.label"), Weapons.InfiniteAmmo.enabled, tip("weaponsmenu.infiniteammo.tip"))
     Buttons.Toggle(L("weaponsmenu.norecoil.label"), Weapons.StatModifiers.NoRecoil.toggleNoRecoil, tip("weaponsmenu.norecoil.tip"))
     Buttons.Toggle(L("weaponsmenu.speedcola.label"), Weapons.StatModifiers.FastReload.toggleFastReload, tip("weaponsmenu.speedcola.tip"))

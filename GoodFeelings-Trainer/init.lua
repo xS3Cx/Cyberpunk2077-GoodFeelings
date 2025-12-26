@@ -8,7 +8,7 @@ local OptionConfig = require("Config/OptionConfig")
 local Input = require("Core/Input")
 
 -- Global Version
-MOD_VERSION = "1.0.1"
+MOD_VERSION = "1.0.2"
 -- Config
 local BindingsConfig = require("Config/BindingsConfig")
 local UIConfig = require("Config/UIConfig")

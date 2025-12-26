@@ -53,6 +53,13 @@ This fork includes the bold and sharp **Rajdhani-Bold** font to give the trainer
 
 - Source used: [SimpleEnemySpawner](https://www.nexusmods.com/cyberpunk2077/mods/4674). Please visit the mod page for detailed functionality.
 
+### 1.0.2
+- **Explosive Bullets**:
+    - Added over **400 explosion types** (TweakDB IDs).
+    - **Categorized UI**: Organized explosions into 14 logical groups (Bosses, Quickhacks, Chimera, etc.) with nested submenus.
+    - **Quick Sets**: Added a hand-picked list of the best and most common explosion types for quick access.
+    - **Navigation Improvements**: Current explosion selection is now marked with an `[X]` indicator.
+
 ## Known Issues
-- Due to Cyberpunk's spawning mechanism and my level of knowledge of CET, this mod has some oddities, quirks... bugs.
-- Cyberpunk doesn't like spawning assets in the player's view... for obvious reasons. So you may need to look away and back to see the NPC(s).
+- **Explosive Bullets**: Some explosion types may cause game crashes, have no visual/audio effects, or not work at all. Use with caution.
+- **NPC Spawning**: Due to Cyberpunk's spawning mechanism and current CET limitations, this mod has some oddities/bugs. Cyberpunk doesn't like spawning assets in the player's direct view, so you may need to look away and back to see the spawned NPC(s).
