@@ -1,4 +1,5 @@
-<img width="1915" height="1075" alt="Bez tytułu" src="https://github.com/user-attachments/assets/4c973258-4145-4487-8174-b17daf7cfe2a" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/dd6d2d78-3612-4eaa-9971-ccf63e29e1fc" />
+
 
 ## Credits and Original Source
 
