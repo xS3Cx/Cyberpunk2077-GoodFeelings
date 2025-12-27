@@ -9,6 +9,8 @@ State.overlayShowTop = { value = true }
 State.overlayShowTitle = { value = true }
 State.overlayShowTime = { value = true }
 State.overlayShowFPS = { value = true }
+State.overlayShowModVersion = { value = true }
+State.overlayShowGameVersion = { value = true }
 State.particlesNetworkEnabled = { value = true }
 
 State.menuOpen = true
@@ -18,7 +20,6 @@ State.typingEnabled = false
 
 State.optionIndex = 0
 State.currentOption = 1
-State.currentOption = 1
 State.maxVisible = 0
 State.optionCount = 0
 State.visualIndex = 0
@@ -26,6 +27,7 @@ State.currentHeight = 0
 State.targetHeight = 0
 State.menuCounts = {}
 State.lastMenuTitle = ""
+State.tipSetByHover = false
 
 State.upPressed = false
 State.downPressed = false

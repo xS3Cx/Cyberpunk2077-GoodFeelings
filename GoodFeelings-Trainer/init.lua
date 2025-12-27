@@ -8,7 +8,7 @@ local OptionConfig = require("Config/OptionConfig")
 local Input = require("Core/Input")
 
 -- Global Version
-MOD_VERSION = "1.0.2"
+MOD_VERSION = "1.0.3"
 -- Config
 local BindingsConfig = require("Config/BindingsConfig")
 local UIConfig = require("Config/UIConfig")
@@ -43,6 +43,7 @@ local AutoTeleport
 local WorldWeather
 local WorldTime
 local NPCGun -- Added NPCGun variable
+local WorldInteractions
 
 registerForEvent("onOverlayOpen", function() State.overlayOpen = true end)
 registerForEvent("onOverlayClose", function() State.overlayOpen = false end)
@@ -83,9 +84,10 @@ local function TryLoadModules()
         WorldTime = require("Features/World/WorldTime")
         MainMenu = require("View/MainMenu")
         NPCGun = require("Features/NPC/NPCGun") -- Load NPCGun
+        WorldInteractions = require("Features/World/WorldInteractions")
         
         -- this is a very cancer statement but I guess it works?
-        if not (Utils and SelfFeature and AutoTeleport and WorldWeather and WorldTime and SelfTick and Weapon and Vehicle and MainMenu) then
+        if not (Utils and SelfFeature and AutoTeleport and WorldWeather and WorldTime and SelfTick and Weapon and Vehicle and MainMenu and WorldInteractions) then
             ok = false
         end
 
@@ -140,6 +142,10 @@ Event.RegisterInit(function()
     WeaponLoader:LoadAll()
     VehicleLoader:LoadAll()
     GeneralLoader:LoadAll()
+    
+    local StatusEffectLoader = require("Utils/DataExtractors/StatusEffectLoader")
+    StatusEffectLoader:LoadAll()
+    
     Logger.Log("DataLoaded")
 
 
@@ -160,6 +166,9 @@ Event.RegisterInit(function()
     Event.Observe("PlayerPuppet", "OnAction", function(_, action)
         if modulesLoaded then
             SelfFeature.NoClip.HandleMouseLook(action)
+            if WorldInteractions then
+                WorldInteractions.HandleClickInteractions(action)
+            end
             if Utils then
                 Utils.Weapon.HandleInputAction(action)
             end

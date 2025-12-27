@@ -1,6 +1,7 @@
 local Self = require("Features/Self")
 local Buttons = require("UI").Buttons
 local Prevention = require("Utils").Prevention
+local CameraFeatures = require("Features/Self/CameraFeatures")
 
 local function SelfViewFunction()
     Buttons.Toggle(L("self.godmode.label"), Self.GodMode.enabled, tip("self.godmode.tip"))
@@ -12,6 +13,7 @@ local function SelfViewFunction()
     Buttons.Toggle(L("self.noclip.label"), Self.NoClip.toggleNoClip, tip("self.noclip.tip"))
     Buttons.Toggle(L("self.infinitejump.label"), Self.InfiniteJumps.enabled, tip("self.infinitejump.tip")) 
     -- Buttons.Toggle(L("self.infiniteairdash.label"), Self.InfiniteAirDash.enabled, tip("self.infiniteairdash.tip")) 
+    Buttons.Toggle(L("self.forcefield.label"), Self.Forcefield.enabled, tip("self.forcefield.tip"))
 
     Buttons.Break(L("self.wanted.label"))
     Buttons.Toggle(L("self.neverwanted.label"), Self.WantedLevel.tickNeverWanted, tip("self.neverwanted.tip"))
@@ -32,6 +34,19 @@ local function SelfViewFunction()
     Buttons.Toggle(L("self.nonthreat.label"), Self.StatModifiers.Stealth.toggleDetection, tip("self.nonthreat.tip"))
     Buttons.Toggle(L("self.lowtracerate.label"), Self.StatModifiers.Stealth.toggleTrace, tip("self.lowtracerate.tip"))
     Buttons.Toggle(L("self.refillmemory.label"), Self.StatModifiers.Enhancements.toggleSetMemoryFull, tip("self.refillmemory.tip"))
+
+    Buttons.Break(L("modifiers.camera.label"))
+    Buttons.Int(
+        L("modifiers.camera.fov.label"),
+        CameraFeatures.fovRef,
+        L("modifiers.camera.fov.tip"),
+        CameraFeatures.ApplyFOV
+    )
+
+    Buttons.Break("Quick Actions")
+    if Buttons.Option("Instant Suicide", "Apply ForceKill status effect") then
+        Game.GetStatusEffectSystem():ApplyStatusEffect(Game.GetPlayer():GetEntityID(), "BaseStatusEffect.ForceKill")
+    end
 end
 
 local SelfView = { title = "self.title", view = SelfViewFunction }

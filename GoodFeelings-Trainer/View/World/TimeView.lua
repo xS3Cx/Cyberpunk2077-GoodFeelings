@@ -80,6 +80,10 @@ local function WorldTimeViewFunction()
     Buttons.Break(L("worldtime.timelapse.label"))
     Buttons.Toggle(L("worldtime.enabletimelapse.label"), WorldTime.toggleTimeLapse, L("worldtime.enabletimelapse.tip"))
     Buttons.Int(L("worldtime.timelapsemultiplier.label"), WorldTime.timeLapseMultiplier, L("worldtime.timelapsemultiplier.tip"))
+
+    Buttons.Break(L("worldtime.dilation.label"))
+    Buttons.Toggle(L("worldtime.slowworld.label"), WorldTime.toggleSlowWorld, L("worldtime.slowworld.tip"))
+    Buttons.Toggle(L("worldtime.stopworld.label"), WorldTime.toggleStopWorld, L("worldtime.stopworld.tip"))
 end
 
 local WorldTimeView = {

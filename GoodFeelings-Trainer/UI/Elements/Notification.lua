@@ -147,7 +147,7 @@ local function drawNotificationWindow(i, x, y, dynamicHeight, msg, progress, nty
     local centerY = winY + (dynamicHeight - actualTextH) / 2
     
     -- Draw "GoodFeelings" in blue
-    DrawHelpers.Text(currentX, centerY, 0xFFE67505, prefix, scaledFontSize)
+    DrawHelpers.Text(currentX, centerY, UI.Base.Header.TextColor, prefix, scaledFontSize)
     
     -- Draw rest in white
     local prefixWidth = ImGui.CalcTextSize(prefix) * scale

@@ -100,8 +100,12 @@ function Numeric.Option(label, ref, tip, isFloat, onClick)
 
     local ty = pos.y + (pos.h - pillHeight) * 0.5
     
-    -- Draw Value Box
-    DrawHelpers.RectFilled(valueX - fpad, ty, vw + fpad*2, pillHeight, UI.Numeric.FrameBg, UI.Layout.FrameRounding)
+    -- Draw Value Box with Beveled Border
+    local scale = UI.Base.Layout.Scale or 1.0
+    local cutSize = 5.0 * scale
+    
+    DrawHelpers.BeveledRectFilled(valueX - fpad, ty, vw + fpad*2, pillHeight, UI.Numeric.FrameBg, cutSize)
+    DrawHelpers.BeveledRect(valueX - fpad, ty, vw + fpad*2, pillHeight, UI.Numeric.FrameBorder, cutSize, 1.0)
     
     local txtColor = UI.Numeric.TextColor or UI.ColPalette.SolidBlueHighlight
     DrawHelpers.Text(valueX, pos.fontY, txtColor, valueText)

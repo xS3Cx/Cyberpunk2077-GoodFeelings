@@ -3,11 +3,17 @@ local Buttons = require("UI").Buttons
 local Self = require("Features/Self")
 local Cooldown = Self.StatModifiers.Cooldown
 local StatModifiers = Self.StatModifiers
+local CameraFeatures = require("Features/Self/CameraFeatures")
 
 
 local CustomModifiersView = require("View/Self/CustomModifiersView")
 
 local function PlayerStatsView()
+    Buttons.Break(L("modifiers.gameplay.label"))
+    if Buttons.Option(L("modifiers.cycledifficulty.label"), L("modifiers.cycledifficulty.tip")) then
+        require("Features/World/CheatFeatures").CycleDifficulty()
+    end
+
     Buttons.Toggle(L("modifiers.infinitestamina.label"), StatModifiers.Enhancements.toggleInfiniteStamina, tip("modifiers.infinitestamina.tip"))
     Buttons.Toggle(L("modifiers.infiniteoxygen.label"), StatModifiers.Enhancements.toggleInfiniteOxygen, tip("modifiers.infiniteoxygen.tip"))
     Buttons.Toggle(L("modifiers.refillstamina.label"), StatModifiers.Enhancements.toggleSetStaminaFull, tip("modifiers.refillstamina.tip"))

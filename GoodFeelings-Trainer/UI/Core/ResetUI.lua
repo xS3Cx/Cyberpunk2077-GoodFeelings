@@ -58,7 +58,7 @@ function ResetUI.ResetNotification()
     UI.Base.Notification.Rounding = 15.0
     UI.Base.Notification.SlideDistance = 40.0
     UI.Base.Notification.AnimDuration = 0.2
-    UI.Base.Notification.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
+    UI.Base.Notification.BackgroundColor = UI.ColPalette.UIBackground
     UI.Base.Notification.BorderColor = UI.Colors.Transparent
     UI.Base.Notification.ProgressHeight = 4.0
     UI.Base.Notification.ProgressOffsetY = -2.0
@@ -71,7 +71,7 @@ function ResetUI.ResetInfoBox()
     UI.Base.InfoBox.Rounding = 15.0
     UI.Base.InfoBox.Spacing = 15.0
     UI.Base.InfoBox.TextColor = UI.Colors.Text
-    UI.Base.InfoBox.BackgroundColor = UI.ColPalette.GoodFeelingsHeader
+    UI.Base.InfoBox.BackgroundColor = UI.ColPalette.UIBackground
     UI.Base.InfoBox.BorderColor = UI.Colors.Transparent
     UI.Base.InfoBox.CharsPerSecond = 175.0
     UI.Base.InfoBox.FallbackRotateSeconds = 10.0

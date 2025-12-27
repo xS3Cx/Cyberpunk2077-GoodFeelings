@@ -147,6 +147,10 @@
     "refillmemory": {
       "label": "Refill Memory (loop)",
       "tip": "Refills cyberdeck memory to 100% if it drops below 98%."
+    },
+    "forcefield": {
+      "label": "Forcefield",
+      "tip": "Creates a continuous destructive wave of force around the player (Radius: 15m). Caution: Destructive."
     }
   },
   "modifiers": {
@@ -154,6 +158,13 @@
     "custom": {
       "label": "Custom Modifiers (Not Tested Enough)",
       "tip": "Create and manage your own stat modifiers for player, weapons, or vehicles."
+    },
+    "gameplay": {
+      "label": "Gameplay"
+    },
+    "cycledifficulty": {
+      "label": "Cycle Game Difficulty",
+      "tip": "Cycles through Story -> Easy -> Hard -> Very Hard difficulty levels."
     },
     "infinitestamina": {
       "label": "Infinite Stamina",
@@ -242,6 +253,16 @@
     "sandevistanscale": {
       "label": "Sandevistan Time Scale",
       "tip": "Controls time dilation while Sandevistan is active."
+    },
+    "camera": {
+      "label": "Camera Controls",
+      "fov": {
+        "label": "Field of View (FOV)",
+        "tip": "Adjusts your field of view (65-115). Resets camera zoom on change."
+      },
+      "fovset": {
+        "msg": "FOV Set: {fov}"
+      }
     }
   },
   "playerdev": {
@@ -1298,6 +1319,17 @@
     "timelapsemultiplier": {
       "label": "Time-Lapse Multiplier",
       "tip": "How fast time speeds forward during time-lapse."
+    },
+    "dilation": {
+      "label": "Time Dilation (World)"
+    },
+    "slowworld": {
+      "label": "Slow The World Around You",
+      "tip": "Slows down time for everything except the player (0.15x speed)."
+    },
+    "stopworld": {
+      "label": "Stop The World Around You",
+      "tip": "Nearly stops time for everything except the player (effectively paused)."
     }
   },
   "worldweather": {
@@ -1346,6 +1378,104 @@
       "cloudymorning": "Cloudy (Morning)",
       "rainnight": "Rain (Night)",
       "cloudscourier": "Clouds (Courier)"
+    }
+  },
+  "worldinteractions": {
+    "title": "World Interactions",
+    "tip": "Interact with world objects like doors, terminals, and more.",
+    "doors": {
+      "label": "Door Controls"
+    },
+    "toggledoor": {
+      "label": "Toggle Door Status",
+      "tip": "Open or close the door you are looking at. Also fixes stuck automatic doors."
+    },
+    "destroydoor": {
+      "label": "Destroy Door / Fake Door",
+      "tip": "Make the targeted door or fake door disappear instantly."
+    },
+    "devices": {
+      "label": "Devices"
+    },
+    "toggledevices": {
+      "label": "Toggle Targeted Device",
+      "tip": "Turn ON/OFF targeted electronics like TVs, Jukeboxes, PCs, etc."
+    },
+    "onclickdoor": {
+      "label": "Door Interaction (On Click)",
+      "tip": "Enable to toggle door status by simply Left Clicking when looking at them."
+    },
+    "onclickdevice": {
+      "label": "Device Interaction (On Click)",
+      "tip": "Enable to toggle electronic devices by simply Left Clicking when looking at them."
+    },
+    "npc_header": {
+      "label": "NPC Interactions"
+    },
+    "npc_kill": {
+      "label": "Instant Kill NPC (On Click)",
+      "tip": "When enabled, look at any NPC and Left Click to eliminate them instantly.",
+      "notarget": "LOOK AT THE NPC FIRST",
+      "success": "Bye Bye..."
+    },
+    "randomizenpc": {
+      "label": "Randomize NPC Appearance",
+      "tip": "Randomly change the appearance/outfit of the NPC you are looking at."
+    },
+    "notarget": {
+      "msg": "No target found! Look at an object first."
+    },
+    "notdoor": {
+      "msg": "Target is not a door!"
+    },
+    "notnpc": {
+      "msg": "This is not an NPC!"
+    },
+    "entity": {
+      "randomizing": {
+        "msg": "Entity found (not NPC). Trying to randomize appearance..."
+      }
+    },
+    "fakedoor": {
+      "msg": "Fake door detected! Use 'Destroy Door' to remove it."
+    },
+    "device": {
+      "isdoor": {
+        "msg": "Door detected. Use 'Toggle Door Status' instead."
+      },
+      "toggled": {
+        "msg": "{name} Detected.\nToggled..."
+      },
+      "canttoggle": {
+        "msg": "Device detected but cannot be toggled."
+      },
+      "notdevice": {
+        "msg": "Target is not a device!"
+      }
+    },
+    "npc": {
+      "label": "NPC Interactions",
+      "randomized": {
+        "msg": "{name}\nAppearance Randomized."
+      }
+    },
+    "door": {
+      "opening": {
+        "msg": "Door opening..."
+      },
+      "closing": {
+        "msg": "Door closing..."
+      },
+      "destroyed": {
+        "msg": "Door removed!"
+      }
+    }
+  },
+  "debug": {
+    "cheats": {
+      "difficulty": {
+        "msg": "Game Difficulty set to: {difficulty}"
+      }
     }
   },
   "teleport": {

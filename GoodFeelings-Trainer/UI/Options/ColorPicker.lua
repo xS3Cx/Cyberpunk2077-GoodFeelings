@@ -53,8 +53,12 @@ function ColorPicker.Option(label, ref, tip)
         local boxW,boxH = vw+10,p.h-UI.ColorPicker.RowSpacing
         local boxX = p.x+p.w-UI.Layout.LabelOffsetX-UI.ColorPicker.PreviewBoxSize-boxW-UI.ColorPicker.ChannelPadding
         local boxY = p.y+(p.h-boxH)*0.5
-        DrawHelpers.RectFilled(boxX,boxY,boxW,boxH,UI.ColorPicker.FrameBg,UI.ColorPicker.Rounding)
-        DrawHelpers.Text(boxX+5,p.fontY,UI.ColorPicker.TextColor,valueText)
+        local scale = UI.Base.Layout.Scale or 1.0
+        local cutSize = 5.0 * scale
+        
+        DrawHelpers.BeveledRectFilled(boxX, boxY, boxW, boxH, UI.ColorPicker.FrameBg, cutSize)
+        DrawHelpers.BeveledRect(boxX, boxY, boxW, boxH, UI.ColorPicker.FrameBorder, cutSize, 1.0)
+        DrawHelpers.Text(boxX + 5, p.fontY, UI.ColorPicker.TextColor, valueText)
 
         local px = p.x+p.w-UI.Layout.LabelOffsetX-UI.ColorPicker.PreviewBoxSize
         local py = p.y+(p.h-UI.ColorPicker.PreviewBoxSize)*0.5

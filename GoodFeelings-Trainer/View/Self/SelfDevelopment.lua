@@ -359,7 +359,6 @@ local function PlayerDevView()
     Buttons.StringCycler(L("playerdev.perks.filter.label"), perkFilter, perkFilterOptions,
         tip("playerdev.perks.filter.tip"))
 
-
     Buttons.Break(L("playerdev.perks.header"))
     DrawPerksForAttribute(attributeOptions[selectedAttribute.index])
 end

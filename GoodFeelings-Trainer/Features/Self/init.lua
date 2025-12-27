@@ -9,6 +9,7 @@ SelfFeatures.WantedLevel = require("Features/Self/Abilities/WantedLevel")
 SelfFeatures.NoClip = require("Features/Self/Abilities/NoClip")
 SelfFeatures.InfiniteJumps = require("Features/Self/Abilities/InfiniteJumps")
 SelfFeatures.InfiniteAirDash = require("Features/Self/Abilities/InfiniteAirDash")
+SelfFeatures.Forcefield = require("Features/Self/Abilities/Forcefield")
 
 SelfFeatures.StatModifiers = {
 	Movement = require("Features/Self/StatModifiers/Movement"),

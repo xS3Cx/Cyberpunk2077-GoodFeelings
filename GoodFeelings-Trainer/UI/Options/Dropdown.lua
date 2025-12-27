@@ -36,8 +36,7 @@ function Dropdown.Option(label, ref, options, tip)
 
     for i=1,(ref.revealProgress or 0) do
         local rowLabel = (UI.Dropdown.RowPrefix or "- ")..L(options[i])
-        local rightText = (ref.index == i) and IconGlyphs.CheckBold or ""
-        if Option.Option(rowLabel,nil,rightText) then
+        if Option.Option(rowLabel,nil,"") then
             ref.index,ref.expanded,ref.revealProgress,ref.lastRevealFrame = i,false,nil,nil
             State.currentOption = State.optionIndex-i
             break

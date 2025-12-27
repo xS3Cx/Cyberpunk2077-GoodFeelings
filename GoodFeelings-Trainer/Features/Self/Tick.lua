@@ -67,6 +67,7 @@ function SelfTick.TickOtherFeatures()
     Self.AdvancedMobility.Tick()
     Self.NoClip.Tick()
     Self.InfiniteJumps.Tick()
+    Self.Forcefield.Tick()
 end
 
 function SelfTick.TickHandler()

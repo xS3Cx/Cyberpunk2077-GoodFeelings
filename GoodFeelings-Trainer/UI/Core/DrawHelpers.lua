@@ -28,6 +28,32 @@ function DrawHelpers.Rect(x, y, w, h, color, rounding, flags, thickness)
     end
 end
 
+function DrawHelpers.BeveledRectFilled(x, y, w, h, color, cutSize)
+    local dl = ImGui.GetWindowDrawList()
+    local x1, y1 = x, y
+    local x2, y2 = x1 + w, y1 + h
+    cutSize = cutSize or 10
+    
+    ImGui.ImDrawListAddRectFilled(dl, x1, y1, x2 - cutSize, y2, color)
+    ImGui.ImDrawListAddRectFilled(dl, x2 - cutSize, y1, x2, y2 - cutSize, color)
+    ImGui.ImDrawListAddTriangleFilled(dl, x2 - cutSize, y2 - cutSize, x2, y2 - cutSize, x2 - cutSize, y2, color)
+end
+
+function DrawHelpers.BeveledRect(x, y, w, h, color, cutSize, thickness)
+    local x1, y1 = x, y
+    local x2, y2 = x1 + w, y1 + h
+    cutSize = cutSize or 10
+    thickness = thickness or 1.0
+    local e2 = thickness * 0.5
+    local e = 0.30
+    
+    DrawHelpers.Line(x1 - e2, y1, x2 + e2, y1, color, thickness)
+    DrawHelpers.Line(x1, y1 - e2, x1, y2 + e2, color, thickness)
+    DrawHelpers.Line(x2, y1 - e2, x2, y2 - cutSize + e, color, thickness)
+    DrawHelpers.Line(x2, y2 - cutSize, x2 - cutSize, y2, color, thickness)
+    DrawHelpers.Line(x2 - cutSize + e, y2, x1 - e2, y2, color, thickness)
+end
+
 function DrawHelpers.Line(x1, y1, x2, y2, color, thickness)
     local drawlist = ImGui.GetWindowDrawList()
     if thickness then

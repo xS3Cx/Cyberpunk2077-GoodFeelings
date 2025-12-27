@@ -21,7 +21,7 @@ function Footer.Draw(menuX, menuY, menuW, menuH)
 
     -- Render network particles if enabled
     if State.particlesNetworkEnabled and State.particlesNetworkEnabled.value then
-        Particles.Render(x, y, w, h, footer.TextColor)
+        Particles.Render(x, y, w, h, footer.TextColor, nil, "footer")
     end
 
     local text = footer.Text

@@ -93,34 +93,89 @@ function InfoBox.Render(menuX, menuY, menuW, menuH)
 
     local pad = N.Padding or 14.0
     local spacing = N.Spacing or 15.0
+    local scale = UI.Base.Layout.Scale or 1.0
     local screenW, screenH = GetDisplayResolution()
 
+
+    local icon = (IconGlyphs and (
+        IconGlyphs.InformationSlabCircle or 
+        IconGlyphs["information-slab-circle"] or
+        IconGlyphs.Information or
+        IconGlyphs.InformationOutline or
+        IconGlyphs["information-outline"] or
+        IconGlyphs.HelpCircle or
+        IconGlyphs["help-circle"]
+    )) or "ℹ" 
+    
+    local baseFontSize = ImGui.GetFontSize() or 18
+    local scaledFontSize = baseFontSize * scale
+    local iconFontSize = scaledFontSize * 0.85 
+    local iconOffset = (UI.Base.Layout.IconOffsetY or 1.0) * scale
+    local manualExtra = 1.0 * scale
+    local iconGap = 8.0 * scale
+
     local boxW = menuW
-    local textW, textH = ImGui.CalcTextSize(InfoBox.animatedText, false, boxW - 2 * pad)
-    local boxH = textH + 2 * pad
+    
+    -- Measure content like Overlay does
+    local iconW = ImGui.CalcTextSize(icon) * scale
+    local textWrapWidth = (boxW - (2 * pad) - iconW - iconGap) / scale
+    local _, textH = ImGui.CalcTextSize(InfoBox.animatedText, false, textWrapWidth)
+    local actualTextH = textH * scale
+    
+    local boxH = actualTextH + (2 * pad)
 
     local belowY = menuY + menuH + spacing
-    local aboveY = menuY - boxH - spacing
-    local useAbove = (belowY + boxH > screenH)
-    local finalY = useAbove and aboveY or belowY
+    local finalY = (belowY + boxH > screenH) and (menuY - boxH - spacing) or belowY
     local finalX = menuX
 
     ImGui.SetNextWindowPos(finalX, finalY)
     ImGui.SetNextWindowSize(boxW, boxH)
+    
     ImGui.PushStyleVar(ImGuiStyleVar.WindowRounding, N.Rounding or UI.Layout.FrameRounding)
     ImGui.PushStyleVar(ImGuiStyleVar.WindowBorderSize, 0.0)
+    ImGui.PushStyleVar(ImGuiStyleVar.WindowMinSize, { 0, 0 })
     ImGui.PushStyleColor(ImGuiCol.Border, UI.Colors.Transparent)
+    ImGui.PushStyleColor(ImGuiCol.WindowBg, UI.Colors.Transparent)
 
     ImGui.Begin("##InfoBoxWindow", ImGuiWindowFlags.NoDecoration + ImGuiWindowFlags.NoInputs + ImGuiWindowFlags.NoSavedSettings)
 
     local winX, winY = ImGui.GetWindowPos()
-    local wrapWidth = boxW - 2 * pad
-    DrawHelpers.RectFilled(winX, winY, boxW, boxH, N.BackgroundColor, N.Rounding)
-    DrawHelpers.TextWrapped(winX + pad, winY + pad, N.TextColor, InfoBox.animatedText, wrapWidth)
-
+    
+    local dl = ImGui.GetWindowDrawList()
+    local borderColor = N.BorderColor
+    local scale = UI.Base.Layout.Scale or 1.0
+    local cutSize = math.floor(10 * scale)
+    
+    local boxW_i = math.floor(boxW)
+    local boxH_i = math.floor(boxH)
+    local x1, y1 = math.floor(winX), math.floor(winY)
+    local x2, y2 = x1 + boxW_i, y1 + boxH_i
+    
+    ImGui.ImDrawListAddRectFilled(dl, x1, y1, x2 - cutSize, y2, N.BackgroundColor)
+    ImGui.ImDrawListAddRectFilled(dl, x2 - cutSize, y1, x2, y2 - cutSize, N.BackgroundColor)
+    ImGui.ImDrawListAddTriangleFilled(dl, x2 - cutSize, y2 - cutSize, x2, y2 - cutSize, x2 - cutSize, y2, N.BackgroundColor)
+    
+    local thickness = 3.0
+    local e2 = thickness * 0.5
+    local e = 0.30
+    
+    DrawHelpers.Line(x1 - e2, y1, x2 + e2, y1, borderColor, thickness)
+    DrawHelpers.Line(x1, y1 - e2, x1, y2 + e2, borderColor, thickness)
+    DrawHelpers.Line(x2, y1 - e2, x2, y2 - cutSize + e, borderColor, thickness)
+    DrawHelpers.Line(x2, y2 - cutSize, x2 - cutSize, y2, borderColor, thickness)
+    DrawHelpers.Line(x2 - cutSize + e, y2, x1 - e2, y2, borderColor, thickness)
+    
+    local iconHeight = ImGui.CalcTextSize(icon)
+    local iconY = winY + (boxH - iconHeight) / 2 + 5.5
+    DrawHelpers.Text(winX + pad, iconY, UI.ColPalette.MainAccent, icon, iconFontSize)
+    
+    local textX = winX + pad + iconW + iconGap
+    local textWrapWidth = boxW - (2 * pad) - iconW - iconGap
+    DrawHelpers.TextWrapped(textX, winY + pad, N.TextColor, InfoBox.animatedText, textWrapWidth)
+    
     ImGui.End()
-    ImGui.PopStyleColor()
-    ImGui.PopStyleVar(2)
+    ImGui.PopStyleColor(2)
+    ImGui.PopStyleVar(3)
 end
 
 return InfoBox

@@ -10,8 +10,12 @@ local function OverlaySettingsViewFunction()
     
     Buttons.Break("Top Panel Content")
     Buttons.Toggle("Display Title", State.overlayShowTitle, "Show 'GoodFeelings' in the top overlay")
+    Buttons.Toggle("Display Mod Version", State.overlayShowModVersion, "Show mod version (v1.0.3) in the top overlay")
     Buttons.Toggle("Display Time", State.overlayShowTime, "Show system clock in the top overlay")
     Buttons.Toggle("Display FPS", State.overlayShowFPS, "Show real-time FPS counter in the top overlay")
+    
+    Buttons.Break("Bottom Panel Content")
+    Buttons.Toggle("Display Game Version", State.overlayShowGameVersion, "Show game version in the bottom-right corner")
 end
 
 local OverlaySettingsView = { title = "Overlay Settings", view = OverlaySettingsViewFunction }

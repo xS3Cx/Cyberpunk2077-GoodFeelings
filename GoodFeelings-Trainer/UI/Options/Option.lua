@@ -15,7 +15,14 @@ end
 
 function Option.Option(left, center, right, tip)
     local clicked, pos = OptionRow.Draw(Option.menuX, Option.menuY, Option.menuW, Option.menuH, left, center, right, nil, nil, false)
-    if OptionRow.IsSelected() then
+    -- Hover takes priority for InfoBox tips
+    if pos and pos.hovered then
+        InfoBox.SetText(tip or "")
+        State.tipSetByHover = true
+    end
+
+    -- If no hover captured a tip yet, use the selected option's tip
+    if OptionRow.IsSelected() and not State.tipSetByHover then
         InfoBox.SetText(tip or "")
     end
     return clicked, pos

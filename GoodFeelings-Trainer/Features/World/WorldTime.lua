@@ -10,6 +10,8 @@ WorldTime.nightSpeedMultiplier = { value = 2.0, min = 1.0, max = 10.0, step = 0.
 WorldTime.toggleFreezeTime = { value = false }
 WorldTime.toggleTimeLapse = { value = false }
 WorldTime.toggleSyncToSystemClock = { value = false }
+WorldTime.toggleSlowWorld = { value = false }
+WorldTime.toggleStopWorld = { value = false }
 
 WorldTime.timeLapseMultiplier = { value = 2, min = 1, max = 64, step = 1.0 }
 
@@ -188,6 +190,36 @@ end
 
 
 
+local function HandleTimeDilation()
+    local ts = Game.GetTimeSystem()
+    
+    -- Stop World (Higher priority than slow)
+    if WorldTime.toggleStopWorld.value then
+        if not WorldTime.isStopActive then
+            ts:SetIgnoreTimeDilationOnLocalPlayerZero(true)
+            ts:SetTimeDilation(CName.new("GoodFeelingsStopWorld"), 0.000000001)
+            WorldTime.isStopActive = true
+            WorldTime.isSlowActive = false -- Mutually exclusive
+            WorldTime.toggleSlowWorld.value = false
+        end
+        return
+    elseif WorldTime.isStopActive then
+        ts:UnsetTimeDilation(CName.new("GoodFeelingsStopWorld"))
+        WorldTime.isStopActive = false
+    end
+
+    -- Slow World
+    if WorldTime.toggleSlowWorld.value then
+        if not WorldTime.isSlowActive then
+            ts:SetIgnoreTimeDilationOnLocalPlayerZero(true)
+            ts:SetTimeDilation(CName.new("GoodFeelingsSlowWorld"), 0.15)
+            WorldTime.isSlowActive = true
+        end
+    elseif WorldTime.isSlowActive then
+        ts:UnsetTimeDilation(CName.new("GoodFeelingsSlowWorld"))
+        WorldTime.isSlowActive = false
+    end
+end
 
 function WorldTime.Update(delta)
     HandleSyncToSystemClock()
@@ -197,6 +229,7 @@ function WorldTime.Update(delta)
     HandleSkipDays(delta)
     HandleFasterTime(delta)
     HandleTimeLapse()
+    HandleTimeDilation()
 end
 
 

@@ -10,6 +10,7 @@ function OptionRow.Begin()
     State.optionIndex = 0
     State.visualIndex = 0
     State.separatorCount = 0
+    State.tipSetByHover = false
 end
 
 local function UpdateScroll(menuH)
@@ -47,6 +48,45 @@ end
 ---@param menuY number
 ---@param menuW number
 ---@return table pos {x:number, y:number, w:number, h:number, fontY:number, isActive:boolean}
+local function DrawBrandedArrow(dl, x0, y0, size, strokeColor, direction)
+    local fillColor = UI.OptionRow.HighlightBg or 0x44000000
+    local s = size / 25.0
+    
+    local p1x, p1y, p2x, p2y, p3x, p3y, p4x, p4y, p5x, p5y
+    
+    if direction == "down" then
+        -- Properly Rotated 90 degrees clockwise for "Down"
+        local cx, cy = x0 + 12.5 * s, y0 + 12.5 * s
+        local function rot(px, py)
+            local rx, ry = px - 12.5, py - 12.5
+            return cx - ry * s, cy + rx * s
+        end
+        p1x, p1y = rot(21.807, 12.5)
+        p2x, p2y = rot(1.717, 0.9)
+        p3x, p3y = rot(4.371, 2.533)
+        p4x, p4y = rot(4.371, 22.463)
+        p5x, p5y = rot(1.717, 24.096)
+    else
+        -- Default: Right-pointing
+        p1x, p1y = x0 + 21.807 * s, y0 + 12.5 * s
+        p2x, p2y = x0 + 1.717 * s, y0 + 0.9 * s
+        p3x, p3y = x0 + 4.371 * s, y0 + 2.533 * s
+        p4x, p4y = x0 + 4.371 * s, y0 + 22.463 * s
+        p5x, p5y = x0 + 1.717 * s, y0 + 24.096 * s
+    end
+    
+    ImGui.ImDrawListAddTriangleFilled(dl, p1x, p1y, p2x, p2y, p3x, p3y, fillColor)
+    ImGui.ImDrawListAddTriangleFilled(dl, p1x, p1y, p3x, p3y, p4x, p4y, fillColor)
+    ImGui.ImDrawListAddTriangleFilled(dl, p1x, p1y, p4x, p4y, p5x, p5y, fillColor)
+    
+    local thickness = 2.0
+    ImGui.ImDrawListAddLine(dl, p1x, p1y, p2x, p2y, strokeColor, thickness)
+    ImGui.ImDrawListAddLine(dl, p2x, p2y, p3x, p3y, strokeColor, thickness)
+    ImGui.ImDrawListAddLine(dl, p3x, p3y, p4x, p4y, strokeColor, thickness)
+    ImGui.ImDrawListAddLine(dl, p4x, p4y, p5x, p5y, strokeColor, thickness)
+    ImGui.ImDrawListAddLine(dl, p5x, p5y, p1x, p1y, strokeColor, thickness)
+end
+
 function OptionRow.calcPosition(menuX, menuY, menuW, menuH)
     if State.visualIndex == 1 then
         UpdateScroll(menuH)
@@ -133,24 +173,29 @@ function OptionRow.Draw(menuX, menuY, menuW, menuH, left, center, right, textCol
     local hovered, clicked = false, false
     if not isSeparator then
         hovered, clicked = mouseInteraction(pos)
+        pos.hovered = hovered
         if clicked then State.currentOption = State.optionIndex end
     end
 
-    if hovered and not isSeparator then
-        DrawHelpers.RectFilled(pos.x, pos.y, pos.w, pos.h, UI.OptionRow.HoverBg, UI.OptionRow.Rounding)
-    end
     if pos.isActive and not isSeparator then
         UI.OptionRow.SmoothY = UI.OptionRow.SmoothY + (pos.y - UI.OptionRow.SmoothY) * UI.OptionRow.SmoothSpeed
-        DrawHelpers.RectFilled(pos.x, UI.OptionRow.SmoothY, pos.w, pos.h,
-            highlightColor or UI.OptionRow.HighlightBg, UI.OptionRow.Rounding)
+        
+        local color = highlightColor or UI.OptionRow.HighlightBg
+        local borderColor = UI.ColPalette.MainAccent
+        local scale = UI.Base.Layout.Scale or 1.0
+        local cutSize = 10 * scale
+        local y1 = UI.OptionRow.SmoothY
+        
+        DrawHelpers.BeveledRectFilled(pos.x, y1, pos.w, pos.h, color, cutSize)
+        DrawHelpers.BeveledRect(pos.x, y1, pos.w, pos.h, borderColor, cutSize, 3.0)
     end
 
-    local c = textColor or UI.OptionRow.Text
+    local c = textColor or (hovered and UI.ColPalette.MainAccent or UI.OptionRow.Text)
     local padding = UI.OptionRow.LabelOffsetX
 
     if isSeparator then
         local lineY = pos.y + pos.h * 0.5
-        local padding = 10 -- Or use UI.OptionRow.LabelOffsetX
+        local padding = 5 -- Default padding for categories (separators)
         
         local text = left
         if not text or text == "" then text = center end
@@ -230,21 +275,44 @@ function OptionRow.Draw(menuX, menuY, menuW, menuH, left, center, right, textCol
                 local offset = UI.Layout.IconOffsetY or 1.0
                 local extraDown = 1.0 -- Extra adjustment for right-side icons
                 
-                -- Render text without offset, last part (icon) with offset
+                -- Render text without offset
                 DrawHelpers.Text(rx, pos.fontY, c, textPart)
-                DrawHelpers.Text(rx + textW + 4, pos.fontY + offset + extraDown, c, iconPart)
+                
+                -- Detect if iconPart should be a branded SVG arrow
+                local iconByte = string.byte(iconPart, 1) or 0
+                local shouldBeSVG = (iconByte >= 0xE0) or (iconPart == ">") or (iconPart == "v")
+                
+                if shouldBeSVG then
+                    local arrowSize = 14
+                    local arrowX = rx + textW + 4
+                    local arrowY = pos.fontY + (ImGui.GetFontSize() - arrowSize) / 2 + 2
+                    
+                    -- Improved direction detection
+                    local isDown = (iconPart == "v") or (UI.Dropdown and iconPart == UI.Dropdown.ArrowDown)
+                    local dir = isDown and "down" or "right"
+                    
+                    DrawBrandedArrow(ImGui.GetWindowDrawList(), arrowX, arrowY, arrowSize, UI.ColPalette.MainAccent, dir)
+                else
+                    DrawHelpers.Text(rx + textW + 4, pos.fontY + offset + extraDown, UI.ColPalette.MainAccent, iconPart)
+                end
             else
                 -- No space found - could be standalone icon (submenu arrow)
                 local rw = ImGui.CalcTextSize(truncated)
                 local rx = pos.x + pos.w - padding - rw
                 
-                -- Check if it's an icon by checking first byte
+                -- Detect if truncated (standalone) should be a branded SVG arrow
                 local firstByte = string.byte(truncated, 1) or 0
-                if firstByte >= 0xE0 then
-                    -- It's an icon, apply offset
-                    local offset = UI.Layout.IconOffsetY or 1.0
-                    local extraDown = 1.0 -- Same extra adjustment as dropdown icons
-                    DrawHelpers.Text(rx, pos.fontY + offset + extraDown, c, truncated)
+                local shouldBeSVG = (firstByte >= 0xE0) or (truncated == ">") or (truncated == "v")
+                
+                if shouldBeSVG then
+                    local arrowSize = 14
+                    local arrowX = pos.x + pos.w - padding - arrowSize - 2
+                    local arrowY = pos.fontY + (ImGui.GetFontSize() - arrowSize) / 2 + 2
+                    
+                    local isDown = (truncated == "v") or (UI.Dropdown and truncated == UI.Dropdown.ArrowDown)
+                    local dir = isDown and "down" or "right"
+                    
+                    DrawBrandedArrow(ImGui.GetWindowDrawList(), arrowX, arrowY, arrowSize, UI.ColPalette.MainAccent, dir)
                 else
                     -- Regular text, no offset
                     DrawHelpers.Text(rx, pos.fontY, c, truncated)

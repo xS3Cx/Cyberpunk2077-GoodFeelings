@@ -29,8 +29,13 @@ function UI.ApplyScale()
     process(UI.Base, UI)
 end
 
--- Colors use ARGB hex format: 0xAARRGGBB
+-- Colors use ABGR hex format (AA BB GG RR) as required by CET ImGui
 UI.ColPalette = {
+    -- Main Accents
+    MainAccent = 0xFF3C00FF,
+    MainAccentAlpha = 0x403C00FF,
+    SecondaryAccent = 0xFF3A6EA5,
+
     PureWhite = 0xFFFFFFFF,
     MediumGray = 0xFFAAAAAA,
     NearBlackGray = 0xFF1A1A1A,
@@ -50,15 +55,13 @@ UI.ColPalette = {
     SoftWhite = 0xFFC8C8C8,
     SoftYellow = 0xFF80D0D0,
 
-    GoodFeelingsHeader = 0xFF080808,
     CustomRed = 0xFF4850F5,
-    CustomBlueHighlight = 0x60E67505,
     TransparentBlack = 0xF2000000, -- 95% alpha black
-    SolidBlueHighlight = 0xFFE67505, -- Solid version of CustomBlueHighlight (ABGR)
+    
+    UIBackground = 0xFF040404, -- Unified background color for all UI elements
 
     ToggleOff = 0xFF151515,
     ToggleOffThumb = 0xFF0C0C0C,
-    ToggleOn = 0xFFE67505,
     ToggleOnThumb = 0xFFFFFFFF,
 }
 
@@ -68,8 +71,8 @@ UI.Colors = {
     Background = UI.ColPalette.TransparentBlack,
     FrameBg = UI.ColPalette.DarkCharcoal,
     Border = UI.ColPalette.SteelBorderGray,
-    Highlight = UI.ColPalette.CustomBlueHighlight,
-    HoverBg = UI.ColPalette.CustomBlueHighlight,
+    Highlight = UI.ColPalette.MainAccentAlpha,
+    HoverBg = UI.ColPalette.MainAccentAlpha,
     Active = UI.ColPalette.HotCyberPink,
     Transparent = UI.ColPalette.Transparent,
 }
@@ -80,8 +83,8 @@ UI.Base = {
         FrameRounding = 6.40,
         FrameHeight = 22.0,
         OptionHeight = 35.0,
-        OptionPaddingX = 0.0,
-        OptionPaddingY = 0.0,
+        OptionPaddingX = 5.0,
+        OptionPaddingY = 5.0,
         LabelOffsetX = 8.0,
         ItemSpacing = { x = 8.0, y = 2.0 },
         FramePadding = { x = 4.0, y = 0.5 },
@@ -98,8 +101,8 @@ UI.Base = {
         LabelOffsetX = 8.0,
         SmoothY = 0,
         SmoothSpeed = 0.25,
-        HoverBg = 0x60E67505,
-        HighlightBg = 0x60E67505,
+        HoverBg = UI.ColPalette.MainAccentAlpha,
+        HighlightBg = UI.ColPalette.MainAccentAlpha,
         Text = 0xFFFFFFFF,
         MutedText = 0xFF788CA0,
     },
@@ -107,26 +110,26 @@ UI.Base = {
         Height = 75.0,
         FontSize = 40.0, -- Reduced size for main title
         FontSizeSub = 16.0,
-        Rounding = 15.0,
-        BackgroundColor = 0xFF080808,
-        TextColor = 0xFFE67505,
+        Rounding = 6.40,
+        BackgroundColor = UI.ColPalette.UIBackground,
+        TextColor = UI.ColPalette.MainAccent,
         BorderColor = 0xFF505A6E,
         Text = "GoodFeelings",
     },
     SecondHeader = {
         Height = 30.0,
         FontSize = 13.0,
-        Rounding = 15.0,
-        BackgroundColor = 0xFF080808,
-        TextColor = 0xFFE67505,
+        Rounding = 6.40,
+        BackgroundColor = UI.ColPalette.UIBackground,
+        TextColor = UI.ColPalette.MainAccent,
         BorderColor = 0xFF505A6E,
     },
     Footer = {
         Height = 35.0,
-        FontSize = 18.0,
-        Rounding = 15.0,
-        BackgroundColor = 0xFF080808,
-        TextColor = 0xFFE67505,
+        FontSize = 23.0,
+        Rounding = 6.40,
+        BackgroundColor = UI.ColPalette.UIBackground,
+        TextColor = UI.ColPalette.MainAccent,
         Text = "https://goodfeelings.cc"
     },
     Notification = {
@@ -138,17 +141,17 @@ UI.Base = {
         AnimDuration = 0.2,
         ProgressHeight = 4.0,
         ProgressOffsetY = -2.0,
-        BackgroundColor = 0xFF080808,
+        BackgroundColor = UI.ColPalette.UIBackground,
         BorderColor = 0x00000000,
         ProgressColors = {
-            Default = 0xFF3A6EA5,
+            Default = UI.ColPalette.MainAccent,
             info = 0xFFFFFFFF,
             success = 0xFF88FF00,
             warning = 0xFF88FFFF,
             error = 0xFF8080F0,
         },
         TypeColors = {
-            info = 0xFFE67505, -- Overlay blue
+            info = UI.ColPalette.MainAccent, -- Overlay blue
             success = 0xFF88FF00,
             warning = 0xFF88FFFF,
             error = 0xFF8080F0,
@@ -156,20 +159,20 @@ UI.Base = {
     },
     InfoBox = {
         Padding = 14.0,      
-        Rounding = 15.0,
+        Rounding = 0.0,
         Spacing = 15.0, 
         CharsPerSecond = 175.0,    
         FallbackRotateSeconds = 10.0, 
         TextColor = 0xFFFFFFFF,
-        BackgroundColor = 0xFF080808,
-        BorderColor = 0x00000000,
+        BackgroundColor = UI.ColPalette.TransparentBlack,
+        BorderColor = UI.ColPalette.MainAccent,
     },
     Toggle = {
         Size = 20.0,
         WidthFactor = 1.55,
         Rounding = 6.40,
         Inset = 1.5,
-        OnColor = 0xFFE67505,
+        OnColor = UI.ColPalette.MainAccent,
         OffColor = 0xFF151515,
         OnThumbColor = 0xFFFFFFFF,
         OffThumbColor = 0xFF0C0C0C,
@@ -183,8 +186,9 @@ UI.Base = {
         Decimals = 2,
         DefaultIntStep = 1,
         DefaultFloatStep = 0.1,
-        FrameBg = 0xFF151515,
-        TextColor = 0xFFE67505,
+        FrameBg = UI.ColPalette.MainAccentAlpha,
+        FrameBorder = UI.ColPalette.MainAccent,
+        TextColor = UI.ColPalette.PureWhite,
         DisabledColor = 0xFF788CA0,
     },
     Radio = {
@@ -198,8 +202,9 @@ UI.Base = {
         FramePadding = 6.0,
         TextPadding = 3.0,
         BoxRounding = 6.40,
-        FrameBg = 0xFF202020,
-        ValueColor = 0xFF3A6EA5,
+        FrameBg = UI.ColPalette.MainAccentAlpha,
+        FrameBorder = UI.ColPalette.MainAccent,
+        ValueColor = UI.ColPalette.PureWhite,
     },
     ColorPicker = {
         ChannelBoxSize = 24.0, 
@@ -207,9 +212,10 @@ UI.Base = {
         PreviewBoxSize = 18.0, 
         RowSpacing = 2.0, 
         Rounding = 6.40,
-        FrameBg = 0xFF202020,
-        TextColor = 0xFFFFFFFF,
-        BorderColor = 0xFF505A6E,
+        FrameBg = UI.ColPalette.MainAccentAlpha,
+        FrameBorder = UI.ColPalette.MainAccent,
+        TextColor = UI.ColPalette.PureWhite,
+        BorderColor = UI.ColPalette.SteelBorderGray,
     },
     TextInput = {
         Width = 400.0,
@@ -253,16 +259,16 @@ UI.Base = {
         LightColor5 = 0xFFFF80FF,
     },
     BreakRow = {
-        Text = 0xFFE67505, 
+        Text = UI.ColPalette.MainAccent, 
         HighlightBg = 0x00000000,
     },
     Dropdown = {
-        ArrowRight = (IconGlyphs and (IconGlyphs.ArrowRightBoldBoxOutline or IconGlyphs["arrow-right-bold-box-outline"])) or "arrow-right-bold-box-outline",
+        ArrowRight = (IconGlyphs and (IconGlyphs.ArrowRightBoldBox or IconGlyphs["arrow-right-bold-box"])) or "arrow-right-bold-box",
         ArrowDown = (IconGlyphs and IconGlyphs.ArrowExpandAll) or "v",
         FramesPerOption = 3, 
         RevealFrameDelay = 3, 
         TextColor = 0xFFFFFFFF,
-        SelectedColor = 0xFF3A6EA5,
+        SelectedColor = UI.ColPalette.MainAccent,
         RowPrefix = "- ",  
     },
 }

@@ -27,7 +27,11 @@ function StringCycler.Option(label, ref, options, tip, onClick)
     local bx = pos.x + pos.w - UI.Layout.LabelOffsetX - tw - fpad * 2
     local by, bw, bh = pos.y + tpad, tw + fpad * 2, pos.h - tpad * 2
 
-    DrawHelpers.RectFilled(bx, by, bw, bh, UI.StringCycler.FrameBg, UI.StringCycler.BoxRounding)
+    local scale = UI.Base.Layout.Scale or 1.0
+    local cutSize = 5.0 * scale
+    
+    DrawHelpers.BeveledRectFilled(bx, by, bw, bh, UI.StringCycler.FrameBg, cutSize)
+    DrawHelpers.BeveledRect(bx, by, bw, bh, UI.StringCycler.FrameBorder, cutSize, 1.0)
     DrawHelpers.Text(bx + fpad, pos.fontY, UI.StringCycler.ValueColor, text)
 
     if pos.isActive then

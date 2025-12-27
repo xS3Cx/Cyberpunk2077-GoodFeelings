@@ -5,7 +5,7 @@ local UI = require("UI")
 
 local ExplosiveBullets = {}
 local cooldown = 0.1
-local lastExplosionTime = -1
+local lastExplosionTime = 0
 
 ExplosiveBullets.enabled = { value = false }
 

@@ -16,7 +16,6 @@ local WeaponsConfig = require("Features/Weapons/WeaponConfig")
 
 local TelportConfig = require("Features/Teleports/TeleportConfig")
 local VehicleConfig = require("Features/Vehicles/VehicleConfig")
-local WorldConfig = require("Features/World/WorldConfig")
 local ControlsConfig = require("Controls/ControlsConfig")
 
 local SelfView = require("View/Self/SelfMenuView")
@@ -31,6 +30,7 @@ local TimeView            = require("View/World/TimeView")
 local GameFactsView       = require("View/World/FactView")
 local ItemBrowserView     = require("View/Items/ItemBrowserView")
 local DebugMenuView       = require("View/Debug/DebugMenuView")
+local WorldInteractionView = require("View/World/WorldInteractionView")
 
 local testToggle          = { value = false }
 local testInt             = { value = 5, min = 0, max = 10 }
@@ -97,7 +97,12 @@ local function MainMenuView()
     UI.Buttons.Submenu(getIcon("WeatherCloudy", "[W]") .. " " .. L("mainmenu.weather.label"), WeatherView, tip("mainmenu.weather.tip"))
     UI.Buttons.Submenu(getIcon("Database", "[I]") .. " " .. L("mainmenu.items.label"), ItemBrowserView, tip("mainmenu.items.tip"))
     UI.Buttons.Submenu(getIcon("Wrench", "[D]") .. " Debug Tools", DebugMenuView, "Tools to test InkWidgets and HUD elements")
+    UI.Buttons.Submenu(getIcon("Earth", "[W]") .. " " .. L("worldinteractions.title"), WorldInteractionView, tip("worldinteractions.tip"))
     UI.Buttons.Submenu(getIcon("Cog", "[S]") .. " " .. L("mainmenu.settingsmenu.label"), SettingsView, tip("mainmenu.settingsmenu.tip"))
+    
+    -- Status Effects Menu
+    local StatusEffectsMenuView = require("View/StatusEffects/StatusEffectsMenuView")
+    UI.Buttons.Submenu(getIcon("Flask", "[SE]") .. " Status Effects", StatusEffectsMenuView, "Browse and apply 817+ status effects")
     
     local NPCMenuView = require("View/NPCMenuView")
     UI.Buttons.Submenu(getIcon("Skull", "[N]") .. " NPC Menu", NPCMenuView, "Spawn Enemies and Bosses")
@@ -114,7 +119,6 @@ function MainMenu.Initialize()
         WeaponsConfig()
         VehicleConfig()
         TelportConfig()
-        WorldConfig()
         SnowBackground.Init()
         UI.Notification.Info("GoodFeelings initialized!")
         initialized = true

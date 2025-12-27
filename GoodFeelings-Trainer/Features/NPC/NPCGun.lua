@@ -3,7 +3,7 @@ local NPCSpawner = require("Features/NPC/NPCSpawner")
 
 local NPCGun = {}
 local cooldown = 0.5
-local lastSpawnTime = -1
+local lastSpawnTime = 0
 
 NPCGun.enabled = { value = false }
 NPCGun.currentEnemy = nil
@@ -32,11 +32,6 @@ function NPCGun.Tick()
     
     NPCSpawner.SpawnAt(NPCGun.currentEnemy, spawnPos, spawnYaw)
     
-    -- Notification (optional, maybe distracting if rapid firing?)
-    -- local Notification = require("UI/Elements/Notification")
-    -- local shortName = NPCGun.currentEnemy:match("([^.]+)$") or NPCGun.currentEnemy
-    -- Notification.Info("Gun Spawned: " .. shortName, 1.0)
-
     lastSpawnTime = currentTime
 end
 
