@@ -33,6 +33,7 @@ local DebugMenuView       = require("View/Debug/DebugMenuView")
 local WorldInteractionView = require("View/World/WorldInteractionView")
 local StatusEffectsMenuView = require("View/StatusEffects/StatusEffectsMenuView")
 local NPCMenuView = require("View/NPCMenuView")
+local FxPlayerView = require("View/FxPlayer/FxPlayerView")
 
 local testToggle          = { value = false }
 local testInt             = { value = 5, min = 0, max = 10 }
@@ -101,6 +102,7 @@ local function MainMenuView()
     if UI.Buttons.Submenu(getIcon("HelpCircle", "[F]") .. " " .. L("mainmenu.facts.label"), GameFactsView, tip("mainmenu.facts.tip")) then
         UI.Notification.Warning(L("mainmenu.facts.warning"))
     end
+    UI.Buttons.Submenu(getIcon("AutoFix", "[FX]") .. " FX Player Menu", FxPlayerView, "Browse and spawn visual effects from game library")
     UI.Buttons.Submenu(getIcon("Wrench", "[D]") .. " Debug Tools", DebugMenuView, "Tools to test InkWidgets and HUD elements")
     UI.Buttons.Submenu(getIcon("Cog", "[S]") .. " " .. L("mainmenu.settingsmenu.label"), SettingsView, tip("mainmenu.settingsmenu.tip"))
 end

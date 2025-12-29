@@ -5,8 +5,17 @@
 
 - Based on [EasyTrainers](https://github.com/AviWind02/EasyTrainers) - Lua implementation of the original EasyTrainer mod.
 - Original EasyTrainer available on [Nexus Mods](https://www.nexusmods.com/cyberpunk2077/mods/23227).
-- Some Stuff from [Categorized All-In-One Command List](https://www.nexusmods.com/cyberpunk2077/mods/521?tab=description).
 - All credits to the original authors for the base functionality.
+
+## Sources Used
+
+- [Fake Door Buster](https://www.nexusmods.com/cyberpunk2077/mods/10160) - Fake door removal functionality
+- [Locked Doors Toggler](https://www.nexusmods.com/cyberpunk2077/mods/10139) - Toggle locked doors functionality
+- [Simple Enemy Spawner](https://www.nexusmods.com/cyberpunk2077/mods/4674) - NPC spawning functionality
+- [Categorized All-In-One Command List](https://www.nexusmods.com/cyberpunk2077/mods/521?tab=description) - Various game commands and features
+- [FxPlayer](https://www.nexusmods.com/cyberpunk2077/mods/8194) - Visual effects library and spawning system
+- [Debug View Toggle](https://www.nexusmods.com/cyberpunk2077/mods/21927) - Rendering debug view modes (wireframe, normals, etc.)
+- [FXRebootOpticsGrenade](https://www.nexusmods.com/cyberpunk2077/mods/20050) - NPC status effects and visual FX system
 
 ## Features Introduced:
 
@@ -133,6 +142,31 @@ This fork includes the bold and sharp **Rajdhani-Bold** font to give the trainer
 - **Window Dragging Restriction**:
   - Menu window can now only be dragged by clicking and holding the **Header** or **Footer** areas.
   - Prevents accidental window movement when interacting with UI elements like sliders.
+
+### 1.0.5
+
+- **FX Player Integration**:
+  - **New Menu Tab**: Added dedicated FX Player menu to browse and spawn visual effects.
+  - **Effect Library**: Access to complete game effects library with search functionality.
+  - **Category Organization**: Effects organized into dynamic categories (Camera, Characters, Devices, Environment, etc.).
+  - **All Effects View**: Browse all 1600+ effects with search filter.
+  - **Easy Spawning**: Click any effect to spawn it in front of the player.
+  - **Integrated Notifications**: All FxPlayer messages now use the mod's notification system.
+- **Debug View Toggle**:
+  - **New Debug Tool**: Added rendering debug view mode switcher.
+  - **13 View Modes**: CLAY, WIREFRAME, NORMALS, SHADOWS, BASE_COLOR, ROUGHNESS, METALNESS, EMISSIVE, and more.
+  - **Quick Reset**: One-click button to return to normal rendering.
+- **NPC FX System**:
+  - **New World Menu Feature**: Apply status effects to NPCs in crosshair.
+  - **10 Status Effects**: Burning, EMP, Poisoned, Bleeding, Stunned, Blinded, System Collapse, Overheat, Cyberware/Weapon Malfunction.
+  - **Duration Control**: Adjustable effect duration (1-60 seconds).
+  - **Auto-Apply Mode**: Automatically apply selected effect to any NPC you look at.
+  - **Smart Tracking**: Cooldown system prevents spam on same NPC.
+  - **Bulk Actions**: Remove all effects from target NPC with one click.
+- **Menu Reorganization**:
+  - **Settings Menu**: Reorganized into 4 logical categories (Navigation & Input, Visual & Interface, UI Elements, Controls Styling).
+  - **Debug Tools**: Split into 5 organized categories (Widget Testing, HUD Messages, Audio Testing, Notification Testing, Debug View Toggle).
+  - **Fact Menu**: Converted from dropdown to submenu navigation with 7 categories including newly accessible Relationship Tracking.
 
 ## Known Issues
 

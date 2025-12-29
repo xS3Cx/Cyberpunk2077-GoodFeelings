@@ -47,6 +47,8 @@ local function WorldInteractionViewFunction()
         WorldInteractions.toggleClickRemoteLaunch,
         L("worldinteractions.onqremotelaunch.tip")
     )
+    
+    Buttons.Submenu("NPC FX", require("View/World/NPCFXView"), "Apply visual effects to NPCs in crosshair")
 end
 
 local WorldInteractionView = {

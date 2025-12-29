@@ -8,6 +8,7 @@ local function DebugViewFunction()
     UI.Buttons.Submenu("HUD Messages", require("View/Debug/HUDMessagesView"), "Test native HUD messages")
     UI.Buttons.Submenu("Audio Testing", require("View/Debug/AudioTestingView"), "Test in-game sound effects and audio")
     UI.Buttons.Submenu("Notification Testing", require("View/Debug/NotificationTestingView"), "Test various in-game notification types")
+    UI.Buttons.Submenu("Debug View Toggle", require("View/Debug/DebugViewToggleView"), "Change rendering debug view modes (wireframe, normals, etc.)")
 end
 
 local DebugMenuView = { title = "Debug Tools", view = DebugViewFunction }
