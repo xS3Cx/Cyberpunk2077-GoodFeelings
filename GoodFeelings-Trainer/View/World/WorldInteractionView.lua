@@ -3,32 +3,33 @@ local Buttons = UI.Buttons
 local WorldInteractions = require("Features/World/WorldInteractions")
 
 local function WorldInteractionViewFunction()
-    Buttons.Break(L("worldinteractions.doors.label"))
-    Buttons.Option(
-        L("worldinteractions.toggledoor.label"),
-        L("worldinteractions.toggledoor.tip"),
-        WorldInteractions.ToggleDoor
-    )
-    Buttons.Option(
-        L("worldinteractions.destroydoor.label"),
-        L("worldinteractions.destroydoor.tip"),
-        WorldInteractions.DestroyDoor
+    Buttons.Break("Key")
+    Buttons.Bind(
+        L("worldinteractions.hotkey.label"),
+        "WORLD_INTERACT",
+        L("worldinteractions.hotkey.tip")
     )
     Buttons.Toggle(
-        L("worldinteractions.onclickdoor.label"),
+        L("worldinteractions.debug.label"),
+        WorldInteractions.toggleDebugObject,
+        L("worldinteractions.debug.tip")
+    )
+    Buttons.Break(L("worldinteractions.doors.label"))
+    Buttons.Toggle(
+        L("worldinteractions.unlockdoor.label"),
         WorldInteractions.toggleClickDoor,
-        L("worldinteractions.onclickdoor.tip")
+        L("worldinteractions.unlockdoor.tip")
+    )
+    Buttons.Toggle(
+        L("worldinteractions.openfakedoors.label"),
+        WorldInteractions.toggleClickRemoveFakeDoor,
+        L("worldinteractions.openfakedoors.tip")
     )
     Buttons.Break(L("worldinteractions.devices.label"))
-    Buttons.Option(
-        L("worldinteractions.toggledevices.label"),
-        L("worldinteractions.toggledevices.tip"),
-        WorldInteractions.ToggleDevices
-    )
     Buttons.Toggle(
-        L("worldinteractions.onclickdevice.label"),
+        L("worldinteractions.onqdevice.label"),
         WorldInteractions.toggleClickDevice,
-        L("worldinteractions.onclickdevice.tip")
+        L("worldinteractions.onqdevice.tip")
     )
     Buttons.Break(L("worldinteractions.npc.label"))
     Buttons.Toggle(
@@ -36,10 +37,15 @@ local function WorldInteractionViewFunction()
         WorldInteractions.toggleInstantKill,
         L("worldinteractions.npc_kill.tip")
     )
-    Buttons.Option(
-        L("worldinteractions.randomizenpc.label"),
-        L("worldinteractions.randomizenpc.tip"),
-        WorldInteractions.RandomizeAppearance
+    Buttons.Toggle(
+        L("worldinteractions.onqrandomize.label"),
+        WorldInteractions.toggleClickRandomizeAppearance,
+        L("worldinteractions.onqrandomize.tip")
+    )
+    Buttons.Toggle(
+        L("worldinteractions.onqremotelaunch.label"),
+        WorldInteractions.toggleClickRemoteLaunch,
+        L("worldinteractions.onqremotelaunch.tip")
     )
 end
 

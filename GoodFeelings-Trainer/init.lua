@@ -8,7 +8,7 @@ local OptionConfig = require("Config/OptionConfig")
 local Input = require("Core/Input")
 
 -- Global Version
-MOD_VERSION = "1.0.3"
+MOD_VERSION = "1.0.4"
 -- Config
 local BindingsConfig = require("Config/BindingsConfig")
 local UIConfig = require("Config/UIConfig")
@@ -145,7 +145,7 @@ Event.RegisterInit(function()
     
     local StatusEffectLoader = require("Utils/DataExtractors/StatusEffectLoader")
     StatusEffectLoader:LoadAll()
-    
+
     Logger.Log("DataLoaded")
 
 
@@ -166,9 +166,6 @@ Event.RegisterInit(function()
     Event.Observe("PlayerPuppet", "OnAction", function(_, action)
         if modulesLoaded then
             SelfFeature.NoClip.HandleMouseLook(action)
-            if WorldInteractions then
-                WorldInteractions.HandleClickInteractions(action)
-            end
             if Utils then
                 Utils.Weapon.HandleInputAction(action)
             end
@@ -227,17 +224,24 @@ Event.RegisterUpdate(function(dt)
     Vehicle.VehiclePreview.Update(dt)
     Vehicle.VehicleSpawning.HandlePending()
     Vehicle.VehicleNitro.Tick(dt)
+    Vehicle.VehicleSiren.Tick(dt)
+    Vehicle.VehicleJump.Tick(dt)
     WorldWeather.Update()
     WorldTime.Update(dt)
     
     if NPCGun then NPCGun.Tick() end
+    if WorldInteractions then WorldInteractions.Tick() end
 end)
 
 Event.RegisterDraw(function()
     UI.Notification.Render()
     WelcomeWindow.Render()
     UI.Overlay.Render()
-
+    
+    if WorldInteractions then 
+        local ok, err = pcall(WorldInteractions.DrawDebug)
+        if not ok then Logger.Log("WorldInteractions: DrawDebug error: " .. tostring(err)) end
+    end
     
     if not modulesLoaded then return end
     MainMenu.Initialize()
@@ -292,7 +296,7 @@ Event.RegisterDraw(function()
         ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, { 0.0, 0.0 })
         ImGui.PushStyleColor(ImGuiCol.Border, 0)
         ImGui.PushStyleColor(ImGuiCol.WindowBg, UIStyle.Colors.Background or 0)
-        if ImGui.Begin("GoodFeelings", ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse + ImGuiWindowFlags.NoTitleBar + ImGuiWindowFlags.NoResize) then
+        if ImGui.Begin("GoodFeelings", ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse + ImGuiWindowFlags.NoTitleBar + ImGuiWindowFlags.NoResize + ImGuiWindowFlags.NoMove) then
             if UIStyle.Layout.Scale and UIStyle.Layout.Scale ~= 1.0 then
                 ImGui.SetWindowFontScale(UIStyle.Layout.Scale)
             else

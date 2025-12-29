@@ -40,12 +40,15 @@ local function WorldTimeViewFunction()
         -- WorldTime.customSecond.value = time.seconds -- Causes conflicts when editing
     end
 
+    -- Current Time
+    Buttons.Break("Current Time")
     local time24 = FormatTime24(time.hours, time.minutes, time.seconds)
     Buttons.OptionExtended(L("worldtime.currenttime24.label"), "", time24, L("worldtime.currenttime24.tip"))
-
     local time12 = FormatTime12(time.hours, time.minutes, time.seconds)
     Buttons.OptionExtended(L("worldtime.currenttime12.label"), "", time12, L("worldtime.currenttime12.tip"))
 
+    -- Set Time
+    Buttons.Break("Set Time")
     Buttons.Int(
         L("worldtime.hour.label"),
         WorldTime.customHour,
@@ -55,35 +58,33 @@ local function WorldTimeViewFunction()
     Buttons.Int(L("worldtime.minute.label"), WorldTime.customMinute, L("worldtime.minute.tip"), OnCustomTimeChanged)
     Buttons.Int(L("worldtime.second.label"), WorldTime.customSecond, L("worldtime.second.tip"), OnCustomTimeChanged)
     WorldTime.customTimeEdited = false
-    
     Buttons.Toggle(L("worldtime.synctopc.label"), WorldTime.toggleSyncToSystemClock, L("worldtime.synctopc.tip"))
-    
-    Buttons.Break(L("worldtime.quickset.label"))
     Buttons.Option(L("worldtime.setmorning.label"), L("worldtime.setmorning.tip"), WorldTime.SetTimeMorning)
     Buttons.Option(L("worldtime.setnoon.label"), L("worldtime.setnoon.tip"), WorldTime.SetTimeNoon)
     Buttons.Option(L("worldtime.setafternoon.label"), L("worldtime.setafternoon.tip"), WorldTime.SetTimeAfternoon)
     Buttons.Option(L("worldtime.setevening.label"), L("worldtime.setevening.tip"), WorldTime.SetTimeEvening)
     Buttons.Option(L("worldtime.setnight.label"), L("worldtime.setnight.tip"), WorldTime.SetTimeNight)
 
-    Buttons.Break(L("worldtime.skipmultiplier.label"))
+    -- World Effects
+    Buttons.Break("World Effects")
+    Buttons.Toggle(L("worldtime.slowworld.label"), WorldTime.toggleSlowWorld, L("worldtime.slowworld.tip"))
+    Buttons.Toggle(L("worldtime.stopworld.label"), WorldTime.toggleStopWorld, L("worldtime.stopworld.tip"))
+
+    -- Time Speed
+    Buttons.Break("Time Speed")
+    Buttons.Toggle(L("worldtime.freezetime.label"), WorldTime.toggleFreezeTime, L("worldtime.freezetime.tip"))
+    Buttons.Float(L("worldtime.fasterdayspeed.label"), WorldTime.daySpeedMultiplier, L("worldtime.fasterdayspeed.tip"))
+    Buttons.Float(L("worldtime.fasternightspeed.label"), WorldTime.nightSpeedMultiplier, L("worldtime.fasternightspeed.tip"))
+    Buttons.Toggle(L("worldtime.enabletimelapse.label"), WorldTime.toggleTimeLapse, L("worldtime.enabletimelapse.tip"))
+    Buttons.Int(L("worldtime.timelapsemultiplier.label"), WorldTime.timeLapseMultiplier, L("worldtime.timelapsemultiplier.tip"))
+
+    -- Skip Time
+    Buttons.Break("Skip Time")
     Buttons.Int(L("worldtime.skipdays.label"), WorldTime.skipDaysAmount, L("worldtime.skipdays.tip"))
     Buttons.Int(L("worldtime.skipstepspeed.label"), WorldTime.skipStepSize, L("worldtime.skipstepspeed.tip"))
     Buttons.Option(L("worldtime.startskipping.label"), L("worldtime.startskipping.tip"), function()
         WorldTime.SkipDays(WorldTime.skipDaysAmount.value, WorldTime.skipStepSize.value)
     end)
-
-    Buttons.Break(L("worldtime.freezefast.label"))
-    Buttons.Toggle(L("worldtime.freezetime.label"), WorldTime.toggleFreezeTime, L("worldtime.freezetime.tip"))
-    Buttons.Float(L("worldtime.fasterdayspeed.label"), WorldTime.daySpeedMultiplier, L("worldtime.fasterdayspeed.tip"))
-    Buttons.Float(L("worldtime.fasternightspeed.label"), WorldTime.nightSpeedMultiplier, L("worldtime.fasternightspeed.tip"))
-
-    Buttons.Break(L("worldtime.timelapse.label"))
-    Buttons.Toggle(L("worldtime.enabletimelapse.label"), WorldTime.toggleTimeLapse, L("worldtime.enabletimelapse.tip"))
-    Buttons.Int(L("worldtime.timelapsemultiplier.label"), WorldTime.timeLapseMultiplier, L("worldtime.timelapsemultiplier.tip"))
-
-    Buttons.Break(L("worldtime.dilation.label"))
-    Buttons.Toggle(L("worldtime.slowworld.label"), WorldTime.toggleSlowWorld, L("worldtime.slowworld.tip"))
-    Buttons.Toggle(L("worldtime.stopworld.label"), WorldTime.toggleStopWorld, L("worldtime.stopworld.tip"))
 end
 
 local WorldTimeView = {

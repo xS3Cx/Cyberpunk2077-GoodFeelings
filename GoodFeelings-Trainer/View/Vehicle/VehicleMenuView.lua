@@ -11,6 +11,10 @@ local VehicleMount = VehicleFeaures.VehicleMountOnRoof
 local VehicleMapTimer = VehicleFeaures.FreezeQuestTimer
 local VehicleNitro = VehicleFeaures.VehicleNitro
 local VehicleUnlocking = VehicleFeaures.VehicleUnlocking
+local VehicleAppearance = require("Features/Vehicles/VehicleAppearance")
+local VehicleSiren = VehicleFeaures.VehicleSiren
+local VehicleJump = VehicleFeaures.VehicleJump
+local VehicleFlip = VehicleFeaures.VehicleFlip
 
 local VehicleLoader = require("Utils/DataExtractors/VehicleLoader")
 
@@ -43,8 +47,12 @@ local function VehicleViewFunction()
     if Buttons.Submenu(L("vehiclemenu.vehiclespawner.label"), VehicleListView, L("vehiclemenu.vehiclespawner.tip")) then VehicleFeaures.VehicleListStates.enableVehicleSpawnerMode = true end
     Buttons.Submenu(L("vehiclemenu.vehicleheadlights.label"), VehicleLightView, L("vehiclemenu.vehicleheadlights.tip"))
     Buttons.Option(L("vehiclemenu.repairvehicle.label"), L("vehiclemenu.repairvehicle.tip"), VehicleRepair.RepairMounted)
+    Buttons.Option(L("vehiclemenu.randomize.label"), L("vehiclemenu.randomize.tip"), VehicleAppearance.RandomizeMounted)
     Buttons.Option(L("vehiclemenu.mountonroof.label"), L("vehiclemenu.mountonroof.tip"), VehicleMount.MountOnRoof)
     Buttons.Toggle(L("vehiclelights.rgbfade.label"), VehicleLights.toggleRGBFade, L("vehiclelights.rgbfade.tip"))
+    Buttons.Toggle(L("vehiclemenu.policesiren.label"), VehicleSiren.enabled, L("vehiclemenu.policesiren.tip"))
+    Buttons.Option(L("vehiclemenu.vehiclelaunch.label"), L("vehiclemenu.vehiclelaunch.tip"), VehicleJump.LaunchMounted)
+    Buttons.Option(L("vehiclemenu.instaflip.label"), L("vehiclemenu.instaflip.tip"), VehicleFlip.FlipCurrent)
     Buttons.Toggle(L("vehiclemenu.freezequesttimer.label"), VehicleMapTimer.toggleFreezeQuestTimer, L("vehiclemenu.freezequesttimer.tip"))
     Buttons.Float(L("vehiclemenu.nitrous.label"), VehicleNitro.multiplier, L("vehiclemenu.nitrous.tip"))
 

@@ -31,6 +31,8 @@ local GameFactsView       = require("View/World/FactView")
 local ItemBrowserView     = require("View/Items/ItemBrowserView")
 local DebugMenuView       = require("View/Debug/DebugMenuView")
 local WorldInteractionView = require("View/World/WorldInteractionView")
+local StatusEffectsMenuView = require("View/StatusEffects/StatusEffectsMenuView")
+local NPCMenuView = require("View/NPCMenuView")
 
 local testToggle          = { value = false }
 local testInt             = { value = 5, min = 0, max = 10 }
@@ -83,29 +85,24 @@ end
 
 local function MainMenuView()
     UI.Buttons.Submenu(getIcon("AccountCircle", "[P]") .. " " .. L("mainmenu.self.label"), SelfView, tip("mainmenu.self.tip"))
+    UI.Buttons.Submenu(getIcon("Pistol", "[W]") .. " " .. L("mainmenu.weapon.label"), WeaponView, tip("mainmenu.weapon.tip"))
+    UI.Buttons.Submenu(getIcon("Car", "[V]") .. " " .. L("mainmenu.vehicle.label"), VehicleMenuView, tip("mainmenu.vehicle.tip"))
+    UI.Buttons.Submenu(getIcon("MapMarker", "[T]") .. " " .. L("mainmenu.teleport.label"), TeleportView, tip("mainmenu.teleport.tip"))
+    UI.Buttons.Submenu(getIcon("WeatherCloudy", "[W]") .. " " .. L("mainmenu.weather.label"), WeatherView, tip("mainmenu.weather.tip"))
+    UI.Buttons.Submenu(getIcon("Clock", "[T]") .. " " .. L("mainmenu.time.label"), TimeView, tip("mainmenu.time.tip"))
+    UI.Buttons.Submenu(getIcon("Earth", "[W]") .. " " .. L("worldinteractions.title"), WorldInteractionView, tip("worldinteractions.tip"))
+    UI.Buttons.Submenu(getIcon("Skull", "[N]") .. " NPC Menu", NPCMenuView, "Spawn Enemies and Bosses")
+    UI.Buttons.Submenu(getIcon("Flask", "[SE]") .. " Status Effects", StatusEffectsMenuView, "Browse and apply 817+ status effects")
+    UI.Buttons.Submenu(getIcon("Flash", "[M]") .. " " .. L("mainmenu.modifiers.label"), SelfModifiersView, tip("mainmenu.modifiers.tip"))
     if UI.Buttons.Submenu(getIcon("Hammer", "[D]") .. " " .. L("mainmenu.development.label"), SelfDevelopmentView, tip("mainmenu.development.tip")) then
         UI.Notification.Warning(L("mainmenu.development.warning"))
     end
-    UI.Buttons.Submenu(getIcon("Flash", "[M]") .. " " .. L("mainmenu.modifiers.label"), SelfModifiersView, tip("mainmenu.modifiers.tip"))
-    UI.Buttons.Submenu(getIcon("MapMarker", "[T]") .. " " .. L("mainmenu.teleport.label"), TeleportView, tip("mainmenu.teleport.tip"))
-    UI.Buttons.Submenu(getIcon("Pistol", "[W]") .. " " .. L("mainmenu.weapon.label"), WeaponView, tip("mainmenu.weapon.tip"))
-    UI.Buttons.Submenu(getIcon("Car", "[V]") .. " " .. L("mainmenu.vehicle.label"), VehicleMenuView, tip("mainmenu.vehicle.tip"))
+    UI.Buttons.Submenu(getIcon("Database", "[I]") .. " " .. L("mainmenu.items.label"), ItemBrowserView, tip("mainmenu.items.tip"))
     if UI.Buttons.Submenu(getIcon("HelpCircle", "[F]") .. " " .. L("mainmenu.facts.label"), GameFactsView, tip("mainmenu.facts.tip")) then
         UI.Notification.Warning(L("mainmenu.facts.warning"))
     end
-    UI.Buttons.Submenu(getIcon("Clock", "[T]") .. " " .. L("mainmenu.time.label"), TimeView, tip("mainmenu.time.tip"))
-    UI.Buttons.Submenu(getIcon("WeatherCloudy", "[W]") .. " " .. L("mainmenu.weather.label"), WeatherView, tip("mainmenu.weather.tip"))
-    UI.Buttons.Submenu(getIcon("Database", "[I]") .. " " .. L("mainmenu.items.label"), ItemBrowserView, tip("mainmenu.items.tip"))
     UI.Buttons.Submenu(getIcon("Wrench", "[D]") .. " Debug Tools", DebugMenuView, "Tools to test InkWidgets and HUD elements")
-    UI.Buttons.Submenu(getIcon("Earth", "[W]") .. " " .. L("worldinteractions.title"), WorldInteractionView, tip("worldinteractions.tip"))
     UI.Buttons.Submenu(getIcon("Cog", "[S]") .. " " .. L("mainmenu.settingsmenu.label"), SettingsView, tip("mainmenu.settingsmenu.tip"))
-    
-    -- Status Effects Menu
-    local StatusEffectsMenuView = require("View/StatusEffects/StatusEffectsMenuView")
-    UI.Buttons.Submenu(getIcon("Flask", "[SE]") .. " Status Effects", StatusEffectsMenuView, "Browse and apply 817+ status effects")
-    
-    local NPCMenuView = require("View/NPCMenuView")
-    UI.Buttons.Submenu(getIcon("Skull", "[N]") .. " NPC Menu", NPCMenuView, "Spawn Enemies and Bosses")
 end
 
 local MainMenu = { title = "GoodFeelings", view = MainMenuView }

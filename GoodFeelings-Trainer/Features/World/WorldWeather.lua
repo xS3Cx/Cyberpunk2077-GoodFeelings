@@ -18,7 +18,7 @@ WorldWeather.weatherStates = {
     "24h_weather_toxic_rain",
     "24h_weather_pollution",
     "24h_weather_sandstorm",
-    "q302_deeb_blue",
+    "q302_deep_blue",
     "q302_light_rain",
     "q302_squat_morning",
     "q306_epilogue_cloudy_morning",

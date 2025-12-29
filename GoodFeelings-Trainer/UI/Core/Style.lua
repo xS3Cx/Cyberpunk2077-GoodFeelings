@@ -128,8 +128,9 @@ UI.Base = {
         Height = 35.0,
         FontSize = 23.0,
         Rounding = 6.40,
-        BackgroundColor = UI.ColPalette.UIBackground,
+        BackgroundColor = UI.ColPalette.UIBackground, -- Same as Header and SecondHeader
         TextColor = UI.ColPalette.MainAccent,
+        BorderColor = 0xFF505A6E, -- Add border color like Header/SecondHeader
         Text = "https://goodfeelings.cc"
     },
     Notification = {

@@ -100,6 +100,39 @@ This fork includes the bold and sharp **Rajdhani-Bold** font to give the trainer
   - **Direct Application**: Click any effect to apply to player instantly.
   - **Active Indicator**: [X] marker shows currently applied effect.
 
+### 1.0.4 
+
+- **World Interaction Hotkey**:
+  - **Fully Customizable**: All World Interaction toggles (Instant Kill, Door, Device, Random Appearance, **Remote Launch**) now trigger using a user-configurable hotkey (Default: **Q**).
+  - **Remote Launch Vehicle**: Added to World Interactions – launch any targeted vehicle into the air remotely using your interact hotkey.
+- **Universal Randomization**:
+  - **Random Appearance** now works on **any targeted object** (NPCs, Vehicles, Doors, Vending Machines, etc.).
+- **New Vehicle Features**:
+  - **Random Vehicle Appearance**: Dedicated option in the Vehicle Menu to randomize the appearance (color/livery) of your currently mounted vehicle.
+  - **Police Siren Lights**: Alternates vehicle lights between Red and Blue.
+  - **Launch Vehicle**: Allows your vehicle to leap into the air (Space/A) with fixed, optimal force.
+  - **Insta Flip**: Quickly flip your vehicle back onto its wheels if overturned.
+- **New Tool: Debug Object**:
+  - Added a specialized toggle to draw a **Cyan Crosshair** and real-time data overlay.
+  - Displays technical information like **Entity Hash**, **Technical Type**, and **Localized Name** of what you are currently aiming at.
+- **Enhanced Color Picker UI**:
+  - **Multi-Mode RGB Slider**: Replaced dropdown color picker with an intuitive gradient slider system.
+  - **4 Modes**: 
+    - **RGB (Hue)**: Rainbow gradient for color selection
+    - **Saturation**: Gray to full color intensity
+    - **Brightness**: Black to white grayscale
+    - **Alpha**: Transparency control (0-255)
+  - **Controls**:
+    - **Left/Right Arrow Keys**: Adjust current value
+    - **Space Key**: Cycle between modes
+    - **R3 Button (Controller)**: Cycle between modes
+    - **Right Mouse Button**: Cycle between modes
+    - **Mouse Drag**: Click and drag to select value
+  - **Visual Indicators**: Dual branded triangle indicators show current position on slider
+- **Window Dragging Restriction**:
+  - Menu window can now only be dragged by clicking and holding the **Header** or **Footer** areas.
+  - Prevents accidental window movement when interacting with UI elements like sliders.
+
 ## Known Issues
 
 - **Explosive Bullets**: Some explosion types may cause game crashes, have no visual/audio effects, or not work at all. Use with caution.

@@ -1,1 +1,0 @@
-{"SELECT":{"btns":[4096],"keys":[13]},"BACK":{"btns":[8192],"keys":[8]},"MISC":{"btns":[256,4096],"keys":[67]},"TOGGLE":{"btns":[512,4096],"keys":[115]},"TOGGLE_MOUSE":{"btns":[],"keys":[88]},"UP":{"btns":[1],"keys":[38]},"DOWN":{"btns":[2],"keys":[40]},"LEFT":{"btns":[4],"keys":[37]},"RIGHT":{"btns":[8],"keys":[39]}}

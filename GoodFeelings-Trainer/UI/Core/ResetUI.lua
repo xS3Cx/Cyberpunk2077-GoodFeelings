@@ -8,15 +8,15 @@ function ResetUI.ResetLayout()
     UI.Base.Layout.FrameRounding = 6.40
     UI.Base.Layout.FrameHeight = 22.0
     UI.Base.Layout.OptionHeight = 35.0
-    UI.Base.Layout.OptionPaddingX = 0.0
-    UI.Base.Layout.OptionPaddingY = 0.0
+    UI.Base.Layout.OptionPaddingX = 5.0
+    UI.Base.Layout.OptionPaddingY = 5.0
     UI.Base.Layout.LabelOffsetX = 8.0
     UI.Base.Layout.ItemSpacing = { x = 8.0, y = 2.0 }
     UI.Base.Layout.FramePadding = { x = 4.0, y = 0.5 }
     UI.Colors.Background = 0xF2000000
 
-    UI.Base.OptionRow.HoverBg = UI.ColPalette.CustomBlueHighlight
-    UI.Base.OptionRow.HighlightBg = UI.ColPalette.CustomBlueHighlight
+    UI.Base.OptionRow.HoverBg = UI.ColPalette.MainAccentAlpha
+    UI.Base.OptionRow.HighlightBg = UI.ColPalette.MainAccentAlpha
     UI.Base.OptionRow.Text = UI.Colors.Text
     UI.Base.OptionRow.MutedText = UI.Colors.MutedText
     UI.Base.OptionRow.Rounding = 6.40
@@ -37,15 +37,15 @@ function ResetUI.ResetSize()
 end
 
 function ResetUI.ResetFrame()
-    UI.Base.Header.Rounding = 15.0
+    UI.Base.Header.Rounding = 6.40
 
     UI.Base.SecondHeader.Height = 30.0
-    UI.Base.SecondHeader.FontSize = 18.0
-    UI.Base.SecondHeader.Rounding = 15.0
+    UI.Base.SecondHeader.FontSize = 13.0
+    UI.Base.SecondHeader.Rounding = 6.40
 
     UI.Base.Footer.Height = 35.0
-    UI.Base.Footer.FontSize = 18.0
-    UI.Base.Footer.Rounding = 15.0
+    UI.Base.Footer.FontSize = 23.0
+    UI.Base.Footer.Rounding = 6.40
     UI.Base.Footer.Text = "https://goodfeelings.cc"
     
     UI.ApplyScale()
@@ -68,11 +68,11 @@ end
 
 function ResetUI.ResetInfoBox()
     UI.Base.InfoBox.Padding = 14.0
-    UI.Base.InfoBox.Rounding = 15.0
+    UI.Base.InfoBox.Rounding = 0.0
     UI.Base.InfoBox.Spacing = 15.0
     UI.Base.InfoBox.TextColor = UI.Colors.Text
-    UI.Base.InfoBox.BackgroundColor = UI.ColPalette.UIBackground
-    UI.Base.InfoBox.BorderColor = UI.Colors.Transparent
+    UI.Base.InfoBox.BackgroundColor = UI.ColPalette.TransparentBlack
+    UI.Base.InfoBox.BorderColor = UI.ColPalette.MainAccent
     UI.Base.InfoBox.CharsPerSecond = 175.0
     UI.Base.InfoBox.FallbackRotateSeconds = 10.0
     

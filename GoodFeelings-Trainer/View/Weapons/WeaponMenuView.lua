@@ -53,7 +53,6 @@ local function WeaponsViewFunction()
     Buttons.Submenu(L("weaponsmenu.weaponitems.label"), WeaponItemsMenu, tip("weaponsmenu.weaponitems.tip"))
     Buttons.Submenu(L("weaponsmenu.ammomanager.label"), ammoItemsSubmenu, tip("weaponsmenu.ammomanager.tip"))
 
-    
     Buttons.Toggle(L("weaponsmenu.explosivebullets.label"), Weapons.ExplosiveBullets.enabled, tip("weaponsmenu.explosivebullets.tip"))
     
     -- Explosion selection (categorized submenus)

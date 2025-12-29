@@ -29,7 +29,9 @@ Bindings.DefaultActions = {
 
     TOGGLE = { keys = { Input.VK.F4 }, btns = { Input.GP.RIGHT_BUMPER, Input.GP.A } },
     --I don't think we need a Mouse toggle on controller OR! do we. Could maybe implement the cursor through the right stick maybe in the future.
-    TOGGLE_MOUSE = { keys = { Input.VK.X }, btns = { } }
+    TOGGLE_MOUSE = { keys = { Input.VK.X }, btns = { } },
+
+    WORLD_INTERACT = { keys = { Input.VK.Q }, btns = { Input.GP.Y } }
 }
 
 Bindings.Actions = {}

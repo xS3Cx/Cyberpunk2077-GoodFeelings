@@ -123,6 +123,14 @@ function Buttons.Bind(label, action, tip)
     return BindButton.Option(label, action, tip)
 end
 
+function Buttons.BindKeyboard(label, action, tip)
+    return BindButton.OptionKeyboard(label, action, tip)
+end
+
+function Buttons.BindController(label, action, tip)
+    return BindButton.OptionController(label, action, tip)
+end
+
 function Buttons.ColorHex(label, tbl, key, tip)
     tbl._meta = tbl._meta or {}
     tbl._meta[key] = tbl._meta[key] or {}

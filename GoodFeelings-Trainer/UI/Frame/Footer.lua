@@ -17,9 +17,10 @@ function Footer.Draw(menuX, menuY, menuW, menuH)
     local w = menuW
     local h = footer.Height
 
-    DrawHelpers.RectFilled(x, y, w, h, footer.BackgroundColor, footer.Rounding, ImDrawFlags.RoundCornersBottom)
+    -- Use EXACT hardcoded value from UIBackground
+    DrawHelpers.RectFilled(x, y, w, h, 0xFF040404, footer.Rounding, ImDrawFlags.RoundCornersBottom)
 
-    -- Render network particles if enabled
+    -- Render network particles if enabled (same as Header)
     if State.particlesNetworkEnabled and State.particlesNetworkEnabled.value then
         Particles.Render(x, y, w, h, footer.TextColor, nil, "footer")
     end
@@ -43,6 +44,26 @@ function Footer.Draw(menuX, menuY, menuW, menuH)
         State.menuCounts[title] = State.visualIndex
     end
     State.optionCount = State.visualIndex
+    
+    -- Custom drag handling - allow dragging window from footer
+    local mouseX, mouseY = ImGui.GetMousePos()
+    local isHovered = mouseX >= x and mouseX <= x + w and mouseY >= y and mouseY <= y + h
+    
+    if isHovered and ImGui.IsMouseClicked(0) then
+        State.isDraggingWindow = true
+        State.dragOffsetX = mouseX - menuX
+        State.dragOffsetY = mouseY - menuY
+    end
+    
+    if State.isDraggingWindow then
+        if ImGui.IsMouseDown(0) then
+            local newX = mouseX - State.dragOffsetX
+            local newY = mouseY - State.dragOffsetY
+            ImGui.SetWindowPos("GoodFeelings", newX, newY)
+        else
+            State.isDraggingWindow = false
+        end
+    end
 end
 
 return Footer

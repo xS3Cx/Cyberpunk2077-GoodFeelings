@@ -705,6 +705,22 @@
       "label": "Repair Vehicle",
       "tip": "Repair current vehicle."
     },
+    "randomize": {
+      "label": "Randomize Appearance",
+      "tip": "Instantly randomizes the appearance (color/livery) of your currently mounted vehicle."
+    },
+    "policesiren": {
+      "label": "Police Siren Lights",
+      "tip": "Alternates vehicle lights between Red and Blue, mimicking a police siren effect."
+    },
+    "vehiclelaunch": {
+      "label": "Launch Vehicle",
+      "tip": "Enables the ability to launch your vehicle into the air. Press Space (keyboard) or A (controller) to leap upward."
+    },
+    "instaflip": {
+      "label": "Insta Flip",
+      "tip": "Instantly flips your current vehicle back onto its wheels if it is overturned."
+    },
     "vehiclenoclip": {
       "label": "Vehicle No-Clip",
       "tip": "Toggle noclip mode for your current vehicle"
@@ -1381,46 +1397,39 @@
     }
   },
   "worldinteractions": {
-    "title": "World Interactions",
+    "title": "World Menu",
     "tip": "Interact with world objects like doors, terminals, and more.",
     "doors": {
       "label": "Door Controls"
     },
-    "toggledoor": {
-      "label": "Toggle Door Status",
-      "tip": "Open or close the door you are looking at. Also fixes stuck automatic doors."
-    },
-    "destroydoor": {
-      "label": "Destroy Door / Fake Door",
-      "tip": "Make the targeted door or fake door disappear instantly."
-    },
     "devices": {
       "label": "Devices"
     },
-    "toggledevices": {
-      "label": "Toggle Targeted Device",
-      "tip": "Turn ON/OFF targeted electronics like TVs, Jukeboxes, PCs, etc."
+    "hotkey": {
+      "label": "Interaction Hotkey",
+      "tip": "Bind a key to use for World Interactions. Default is Q."
     },
-    "onclickdoor": {
-      "label": "Door Interaction (On Click)",
-      "tip": "Enable to toggle door status by simply Left Clicking when looking at them."
+    "onqdoor": {
+      "label": "Door Interaction",
+      "tip": "Enable to toggle door status by simply pressing the Hotkey when looking at them."
     },
-    "onclickdevice": {
-      "label": "Device Interaction (On Click)",
-      "tip": "Enable to toggle electronic devices by simply Left Clicking when looking at them."
+    "onqdevice": {
+      "label": "Device Interaction",
+      "tip": "Enable to toggle electronic devices by simply pressing the Hotkey when looking at them."
     },
-    "npc_header": {
-      "label": "NPC Interactions"
+    "npc": {
+      "label": "NPC Interactions",
+      "randomized": {
+        "msg": "{name} Appearance Randomized."
+      }
     },
     "npc_kill": {
-      "label": "Instant Kill NPC (On Click)",
-      "tip": "When enabled, look at any NPC and Left Click to eliminate them instantly.",
-      "notarget": "LOOK AT THE NPC FIRST",
-      "success": "Bye Bye..."
+      "label": "Instant Kill Target",
+      "tip": "When enabled, press the Hotkey on an NPC to kill them instantly."
     },
-    "randomizenpc": {
-      "label": "Randomize NPC Appearance",
-      "tip": "Randomly change the appearance/outfit of the NPC you are looking at."
+    "onqrandomize": {
+      "label": "Random Appearance Target",
+      "tip": "Randomizes appearance of NPCs, Vehicles, Devices and other world objects instantly."
     },
     "notarget": {
       "msg": "No target found! Look at an object first."
@@ -1433,7 +1442,7 @@
     },
     "entity": {
       "randomizing": {
-        "msg": "Entity found (not NPC). Trying to randomize appearance..."
+        "msg": "{name} ({type}) Appearance Randomized."
       }
     },
     "fakedoor": {
@@ -1444,7 +1453,7 @@
         "msg": "Door detected. Use 'Toggle Door Status' instead."
       },
       "toggled": {
-        "msg": "{name} Detected.\nToggled..."
+        "msg": "{name} Detected. Toggled..."
       },
       "canttoggle": {
         "msg": "Device detected but cannot be toggled."
@@ -1453,11 +1462,13 @@
         "msg": "Target is not a device!"
       }
     },
-    "npc": {
-      "label": "NPC Interactions",
-      "randomized": {
-        "msg": "{name}\nAppearance Randomized."
-      }
+    "debug": {
+      "label": "Debug Object",
+      "tip": "Draws a crosshair and real-time info about the object you are looking at."
+    },
+    "onqremotelaunch": {
+      "label": "Remote Launch Vehicle",
+      "tip": "When enabled, pressing the World Interaction hotkey (Default: Q) while aiming at a vehicle will launch it into the air."
     },
     "door": {
       "opening": {
@@ -2670,5 +2681,77 @@
     "8192": "B/Circle",
     "16384": "X/Square",
     "32768": "Y/Triangle"
+  },
+  "worldinteractions": {
+    "title": "World Interactions",
+    "hotkey": {
+      "label": "Hotkey",
+      "tip": "Bind a key to trigger world interactions"
+    },
+    "debug": {
+      "label": "Debug Object",
+      "tip": "Show debug information for targeted objects"
+    },
+    "doors": {
+      "label": "Doors"
+    },
+    "unlockdoor": {
+      "label": "Unlock Door",
+      "tip": "Toggle/unlock doors when looking at them and pressing the hotkey"
+    },
+    "openfakedoors": {
+      "label": "Open Fake Doors",
+      "tip": "Remove fake doors when looking at them and pressing the hotkey"
+    },
+    "devices": {
+      "label": "Devices"
+    },
+    "onqdevice": {
+      "label": "Device Interaction",
+      "tip": "Interact with devices when looking at them and pressing the hotkey"
+    },
+    "npc": {
+      "label": "NPC"
+    },
+    "npc_kill": {
+      "label": "Instant Kill",
+      "tip": "Instantly kill NPCs when looking at them and pressing the hotkey"
+    },
+    "onqrandomize": {
+      "label": "Randomize Appearance",
+      "tip": "Randomize NPC appearance when looking at them and pressing the hotkey"
+    },
+    "onqremotelaunch": {
+      "label": "Remote Launch Vehicle",
+      "tip": "Launch vehicles when looking at them and pressing the hotkey"
+    },
+    "notarget": {
+      "msg": "No target found"
+    },
+    "door": {
+      "opening": {
+        "msg": "Opening door..."
+      },
+      "closing": {
+        "msg": "Closing door..."
+      },
+      "destroyed": {
+        "msg": "Door destroyed"
+      }
+    },
+    "fakedoor": {
+      "msg": "This is a fake door",
+      "removed": {
+        "msg": "Fake door removed"
+      }
+    },
+    "notdoor": {
+      "msg": "Target is not a door"
+    },
+    "npcmsg": {
+      "randomized": {
+        "msg": "Randomized appearance for {name}"
+      }
+    }
   }
 }

@@ -203,7 +203,7 @@ function SnowBackground.Render(menuX, menuY, menuW, menuH)
     local drawlist = ImGui.GetWindowDrawList()
     local left = menuX + 5
     local right = menuX + menuW - 5
-    local bottom = menuY + menuH - 30
+    local bottom = menuY + menuH - UI.Footer.Height - 3  -- Use Footer.Height instead of hardcoded 30
     local cw = (right - left) / cfg.PileColumns
     local clock = os.clock()
 

@@ -78,6 +78,26 @@ function Header.Draw(menuX, menuY, menuW)
         end
         DrawHelpers.Line(x1, y1, x2, y2, col, thickness)
     end
+    
+    -- Custom drag handling - allow dragging window from header
+    local mouseX, mouseY = ImGui.GetMousePos()
+    local isHovered = mouseX >= x and mouseX <= x + w and mouseY >= y and mouseY <= y + h
+    
+    if isHovered and ImGui.IsMouseClicked(0) then
+        State.isDraggingWindow = true
+        State.dragOffsetX = mouseX - menuX
+        State.dragOffsetY = mouseY - menuY
+    end
+    
+    if State.isDraggingWindow then
+        if ImGui.IsMouseDown(0) then
+            local newX = mouseX - State.dragOffsetX
+            local newY = mouseY - State.dragOffsetY
+            ImGui.SetWindowPos("GoodFeelings", newX, newY)
+        else
+            State.isDraggingWindow = false
+        end
+    end
 end
 
 function Header.GetDebugInfo()
