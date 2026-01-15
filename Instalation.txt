@@ -1,0 +1,39 @@
+GoodFeelings Trainer - Installation Guide
+================================================
+
+REQUIREMENTS:
+- Cyberpunk 2077 (latest version recommended)
+- Cyber Engine Tweaks (CET) v1.29.1+ - https://www.nexusmods.com/cyberpunk2077/mods/107
+- REDmod (optional, but recommended)
+
+INSTALLATION:
+=============
+
+METHOD 1: Vortex (Recommended)
+1. Install Cyber Engine Tweaks first (Main File from Nexus)
+2. Download GoodFeelings Trainer and click "Install with Vortex"
+3. Enable the mod in Vortex
+4. Launch game
+
+METHOD 2: Manual Install
+1. Download and extract the ZIP file
+2. Copy the entire "GoodFeelings" folder to:
+   Cyberpunk 2077\bin\x64\plugins\cyber_engine_tweaks\mods
+3. Copy Rajdhani-Bold.ttf to:
+   Cyberpunk 2077\bin\x64\plugins\cyber_engine_tweaks\fonts\
+4. Launch game through REDlauncher.exe
+
+ENABLE CUSTOM FONT (Night City Style):
+======================================
+1. Open: Cyberpunk 2077\bin\x64\plugins\cyber_engine_tweaks\config.json
+2. Find "font" section and replace with:
+
+{
+    "base_size": 24.0,
+    "language": "Default",
+    "oversample_horizontal": 3,
+    "oversample_vertical": 1,
+    "path": "Rajdhani-Bold.ttf"
+}
+
+3. Save file and restart game
